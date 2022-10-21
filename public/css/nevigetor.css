@@ -1,0 +1,98 @@
+.main-header {
+  margin-top: 4.5rem;
+  height: calc(100% - 4.5rem);
+  background-color: #14213d;
+  position: absolute;
+  align-items: center;
+}
+
+.main-header__nav {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: space-between;
+}
+
+.main-header__item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: inherit;
+}
+
+.main-header__item {
+  margin: 0.7rem;
+  padding: 0.3rem 0.55rem;
+}
+
+.main-header__item a table tr .manu-title {
+  padding-left: 1rem;
+  text-transform: uppercase;
+  display: none;
+}
+
+.main-header__item a,
+.main-header__item button {
+  font: inherit;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  color: #e5e5e5;
+  cursor: pointer;
+}
+
+.main-header nav:hover {
+  min-width: 10rem;
+}
+
+.main-header__item:hover,
+.main-header__item.active {
+  background-image: radial-gradient(circle, #10192e, #00171f);
+  border-radius: 5px;
+}
+.mobile-header{
+  display: none;
+  cursor: not-allowed;
+}
+.mobile-header .nevbar-background{
+  height: 100%;
+  width: 100%;
+  background-color: #10192e6b;
+  position: fixed;
+  display: none;
+}
+.mobile-header .floating-action-button {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  padding: 15px;
+  margin: 0;
+  background-image: radial-gradient(circle, #10192e, #00171f);
+  box-shadow: 2px 2px #14213d84;
+  border-radius: 100%;
+  text-decoration: none;
+}
+
+.mobile-header .floating-action-button .icon {
+  font-size: xx-large;
+  color: #e5e5e5;
+
+}
+
+@media (max-width: 600px) {
+  .main-header__nav {
+    display: none;
+  }
+
+  .main-header__item a table tr .manu-title {
+    display: table-cell;
+  }
+
+  .mobile-header{
+    display: block;
+  }
+}

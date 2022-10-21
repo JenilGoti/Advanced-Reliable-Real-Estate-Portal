@@ -1,0 +1,77 @@
+.main-appbar-header {
+    background-image: linear-gradient(to bottom, #14213d, #10192e);
+    height: 4.5rem;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    position: fixed;
+}
+.main-appbar-header a{
+    text-decoration: none;
+}
+.main-appbar-header  .logo {
+    height: inherit;
+    color: #e5e5e5;
+}
+
+.main-title {
+    margin: auto 1rem;
+    color: #e5e5e5;
+    font-family: 'Exo 2', sans-serif;
+    border-bottom: #e5e5e5 solid 3px;
+    border-radius: 10px;
+}
+
+.main-appbar-header .user {
+    margin: auto 1rem auto 1rem;
+    font-size: xx-large;
+    color: #e5e5e5;
+}
+
+
+
+/* search bar */
+
+
+.search {
+    margin-left: auto;
+    height: 50px;
+    display: flex;
+}
+
+.search .input {
+    background-image: linear-gradient(to top, #14213d, #14213ddc);
+    border: 2px solid #e5e5e5;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #e5e5e5;
+    margin-left: auto;
+    padding: 15px;
+    height: 50px;
+    width: 200px;
+    display: none;
+}
+
+.btn {
+    background-color: #14213d00;
+    color: #e5e5e5;
+    border: 0;
+    cursor: pointer;
+    font-size: xx-large;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 50px;
+}
+
+.btn:focus,
+.input:focus {
+    outline: none;
+}
+
+@media (max-width: 600px) {
+    .search .input {
+        width: 100%;
+    }
+  }

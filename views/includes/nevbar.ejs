@@ -1,8 +1,5 @@
-
-
 <div class="mobile-header">
     <div class="nevbar-background">
-
     </div>
     <div class="floating-action-button">
         <span class="material-symbols-outlined icon">
@@ -15,128 +12,16 @@
 <div class="main-header">
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
-            <li class="main-header__item active">
-                <a href="/">
-                    <table>
-                        <tr>
-                            <td class="manu-icon">
-                                <span class="material-symbols-outlined">
-                                    Home
-                                </span>
-                            </td>
-                            <td class="manu-title">
-                                Home
-                            </td>
-                        </tr>
-                    </table>
-                </a>
-            </li>
-            <li class="main-header__item">
-                <a href="/">
-                    <table>
-                        <tr>
-                            <td class="manu-icon">
-                                <span class="material-symbols-outlined">
-                                    apartment
-                                </span>
-                            </td>
-                            <td class="manu-title">
-                                Buy
-                    </table>
-                    </td>
-                    </tr>
-                </a>
-            </li>
-            <li class="main-header__item">
-                <a href="/">
-                    <table>
-                        <tr>
-                            <td class="manu-icon">
-                                <span class="material-symbols-outlined">
-                                    real_estate_agent
-                                </span>
-                            </td>
-                            <td class="manu-title">
-                                find REALTORS
-                            </td>
-                        </tr>
-                    </table>
-
-
-                </a>
-            </li>
-            <li class="main-header__item">
-                <a href="/">
-                    <table>
-                        <tr>
-                            <td class="manu-icon">
-                                <span class="material-symbols-outlined">
-                                    add_home_work
-                                </span>
-                            </td>
-                            <td class="manu-title">
-                                Add to Sell/Rent
-                            </td>
-                        </tr>
-                    </table>
-
-                </a>
-            </li>
-            <li class="main-header__item">
-                <a href="/">
-                    <table>
-                        <tr>
-                            <td class="manu-icon">
-                                <span class="material-symbols-outlined">
-                                    info
-                                </span>
-                            </td>
-                            <td class="manu-title">
-                                About
-                            </td>
-                        </tr>
-                    </table>
-
-                </a>
-            </li>
-
-
-
+            <%- include('./nevbar-itom.ejs',{url:'/',icon:'Home',title:'Home'}) %>
+            <%- include('./nevbar-itom.ejs',{url:'/a',icon:'real_estate_agent',title:'Buy'}) %>
+            <%- include('./nevbar-itom.ejs',{url:'/e',icon:'location_away',title:'rent'}) %>
+            <%- include('./nevbar-itom.ejs',{url:'/b',icon:'support_agent',title:'find REALTORS'}) %>
+            <%- include('./nevbar-itom.ejs',{url:'/c',icon:'add_home_work',title:'Add to Sell/Rent'}) %>
+            <%- include('./nevbar-itom.ejs',{url:'/about',icon:'info',title:'About'}) %>
         </ul>
         <ul class="main-header__item-list">
-            <li class="main-header__item">
-                <a href="/">
-                    <table>
-                        <tr>
-                            <td class="manu-icon">
-                                <span class="material-symbols-outlined">
-                                    Login
-                                </span>
-                            </td>
-                            <td class="manu-title">
-                                login
-                            </td>
-                        </tr>
-                    </table>
-
-                </a>
-            </li>
-            <li class="main-header__item">
-                <a href="/">
-                    <table>
-                        <tr>
-                            <td class="manu-icon">
-                                <span class="material-symbols-outlined">
-                                    person_add
-                                </span>
-                            </td>
-                            <td class="manu-title">
-                                Singup
-                            </td>
-                        </tr>
-                    </table>
-                </a>
-            </li>
+            <%- include('./nevbar-itom.ejs',{url:'/login',icon:'Login',title:'login'}) %>
+            <%- include('./nevbar-itom.ejs',{url:'/singup',icon:'person_add',title:'Singup'}) %>
         </ul>
 
     </nav>

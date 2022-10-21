@@ -1,0 +1,69 @@
+main {
+    text-align: center;
+}
+
+.sing-up {
+
+    margin: 5rem 3rem;
+    background-image: linear-gradient(to top, #14213d, #14213ddc);
+    display: inline-flex;
+    align-items: stretch;
+    flex-direction: column;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px #14213d6e;
+}
+
+.sing-up .title {
+    min-width: 350px;
+    font-size: xx-large;
+    color: whitesmoke;
+}
+
+.sing-up label {
+    display: block;
+    width: 100%;
+    text-align: left;
+    color: #e5e5e5;
+    margin-top: 15px;
+    margin-bottom: 4px;
+    font-size: large;
+}
+.sing-up .sing-up-submit{
+    margin-top: 1rem;
+    background-color: #E8AA42;
+    font-weight: bolder;
+    color: #14213d;
+    cursor: pointer;
+}
+
+.sing-up input,
+.sing-up textarea,
+.sing-up .sing-up-submit {
+    font-size: medium;
+    height: 2.5rem;
+    display: block;
+    width: 100%;
+    margin-bottom: 0.25rem;
+    padding: 2px;
+    border-radius: 4px;
+}
+.sing-up input:focus,
+.sing-up textarea:focus {
+  outline-color: #FFE5B4;
+  box-shadow: 1px 1px 1px 1px #ffe5b48d;
+}
+
+.sing-up .sing-up-submit:hover {
+    background-color: #e8ab42d9;
+    box-shadow: 2px 2px 2px 2px #ffe5b489;
+}
+
+@media (max-width: 600px) {
+    .sing-up{
+        display: block;
+    }
+    .sing-up .title {
+        min-width: 90%;
+    }
+  }

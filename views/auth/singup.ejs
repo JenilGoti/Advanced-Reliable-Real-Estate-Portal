@@ -1,0 +1,35 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<link rel="stylesheet" href="/css/auth.css">
+<body>
+    <%- include('../includes/nevbar.ejs') %>
+    <%- include('../includes/appbar.ejs') %>
+    <main>
+        <div class="sing-up">
+            <h1 class="title">Registration</h1>
+            <br>
+            <form action="/singup" method="post">
+                <div class="user_name">
+                    <label for="user_name">Name</label>
+                    <input type="text" id="user_name" name="firstName" placeholder="First Name" required>
+                    <input type="text" id="user_name" name="lastName" placeholder="Last Name" required>
+                </div>
+                <div class="email">
+                    <label for="e-mail">E-mail</label>
+                    <input type="email" id="e-mail" name="eMail" placeholder="jenilgoti@gmail.com" required>
+                </div>
+                <div class="password">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="password">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="cinformPassword" required>
+                </div>
+                    <button type="submit" class="sing-up-submit">sing-up</button>
+                
+                
+            </form>
+        </div>
+    </main>
+    <%- include('../includes/end.ejs') %>

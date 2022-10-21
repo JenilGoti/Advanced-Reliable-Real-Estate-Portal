@@ -5,6 +5,7 @@ const nevbarBackground = document.querySelector(".nevbar-background");
 
 function mouseOver() {
     for (var i = 0; i < nevbarTitle.length; i++) {
+        nevbarTitle[i].style.animation= "scale-display .3s";
         nevbarTitle[i].style.display = "table-cell";
     }
 
@@ -24,6 +25,7 @@ function showNewBar() {
 function hideNewBar() {
     nevbar.style.display = "none";
     floattingActionButton.style.display = "flex";
+    floattingActionButton.style.animation= "scale-display .3s";
     nevbarBackground.style.display = "none";
 }
 

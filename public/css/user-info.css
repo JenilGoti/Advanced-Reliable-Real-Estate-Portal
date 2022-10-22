@@ -1,0 +1,49 @@
+.user-avtar {
+    color: white;
+    padding: 16px;
+    font-size: 24px;
+    border: none;
+}
+
+.user-dropdown {
+    position: relative;
+    display: flex;
+}
+
+.user-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    color: white;
+    background-color: #10192e;
+    min-width: max-content;
+    border-radius: 5px 0px 5px 5px;
+    box-shadow: 0px 8px 16px 0px #10192e99;
+    padding: 2rem;
+    z-index: 1;
+}
+
+.user-dropdown-content a,
+.user-dropdown-content h1
+ {
+    color: wheat;
+    text-decoration: none;
+    display: flex;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+    display: inline;
+}
+
+.user-dropdown:hover .user-avtar {
+    background-image: radial-gradient(circle, #10192e, #00171f);
+    border-radius: 5px;
+}
+
+@media (max-width: 600px) {
+    .user-dropdown-content {
+        max-width: 300px;
+        max-height: 300px;
+    }
+}

@@ -13,9 +13,7 @@
         </button>
     </div>
     <% if(isAuthenticated){%>
-    <span class="material-symbols-outlined user">
-        account_circle
-    </span>
+    <%- include('./user-info.ejs') %>
     <%}%>
 
 

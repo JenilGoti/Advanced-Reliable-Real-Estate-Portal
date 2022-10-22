@@ -1,6 +1,7 @@
 <%- include('../includes/head.ejs') %>
 </head>
 <link rel="stylesheet" href="/css/auth.css">
+
 <body>
     <%- include('../includes/nevbar.ejs') %>
     <%- include('../includes/appbar.ejs') %>
@@ -10,25 +11,44 @@
             <br>
             <form action="/singup" method="post">
                 <div class="user_name">
-                    <label for="user_name">Name</label>
-                    <input type="text" id="user_name" name="firstName" placeholder="First Name" required>
-                    <input type="text" id="user_name" name="lastName" placeholder="Last Name" required>
+                    <label for="user_name">Name
+                        <% if(error.firstName||error.lastName){%>
+                        <span class="error-message">*<%=error.firstName%> <%=error.lastName%></span>
+                        <%}%>
+                    </label>
+                    
+                    <input class="<%=error.firstName?'error-input':''%>" type="text" id="user_name" name="firstName"
+                        value="<%=oldInput.firstName%>" placeholder="First Name" required>
+                        <input class="<%=error.lastName?'error-input':''%>" type="text" id="user_name" name="lastName"
+                            value="<%=oldInput.lastName%>" placeholder="Last Name" required>
                 </div>
                 <div class="email">
-                    <label for="e-mail">E-mail</label>
-                    <input type="email" id="e-mail" name="eMail" placeholder="jenilgoti@gmail.com" required>
+                    <label for="e-mail">E-mail
+                        <% if(error.email){%>
+                        <span class="error-message">*<%=error.email%></span>
+                        <%}%>
+                    </label>
+                    
+                    <input  class="<%=error.email?'error-input':''%>" type="email" id="e-mail" name="eMail"
+                        value="<%=oldInput.email%>" placeholder="jenilgoti@gmail.com" required>
                 </div>
                 <div class="password">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <label for="password">Password
+                        <% if(error.password){%>
+                        <span class="error-message">*<%=error.password%></span>
+                        <%}%>
+                    </label>
+                    
+                    <input class="<%=error.password?'error-input':''%>" type="password" id="password" name="password"
+                        required>
                 </div>
-                <div class="password">
+                <div class="confirm-password">
                     <label for="confirm-password">Confirm Password</label>
                     <input type="password" id="confirm-password" name="cinformPassword" required>
                 </div>
-                    <button type="submit" class="sing-up-submit">sing-up</button>
-                
-                
+                <button type="submit" class="sing-up-submit">sing-up</button>
+
+
             </form>
         </div>
     </main>

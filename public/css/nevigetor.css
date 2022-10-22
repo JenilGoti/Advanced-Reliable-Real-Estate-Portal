@@ -29,7 +29,7 @@
   padding: 0.3rem 0.55rem;
 }
 
-.main-header__item a table tr .manu-title {
+.main-header__item table tr .manu-title {
   padding-left: 1rem;
   text-transform: uppercase;
   display: none;

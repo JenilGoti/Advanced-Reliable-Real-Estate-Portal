@@ -1,6 +1,6 @@
 <div class="main-appbar-header">
 
-    <img class="logo" src="/logo.png" alt="AREP" >
+    <img class="logo" src="/logo.png" alt="AREP">
     <a href="/">
         <h1 class="main-title">NESTSCOUT</h1>
     </a>
@@ -12,10 +12,12 @@
             </span>
         </button>
     </div>
-
-
+    <% if(isAuthenticated){%>
     <span class="material-symbols-outlined user">
         account_circle
     </span>
+    <%}%>
+
+
 </div>
 <script src="/js/appbar.js"></script>

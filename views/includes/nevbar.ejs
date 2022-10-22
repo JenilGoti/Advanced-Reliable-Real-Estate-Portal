@@ -20,8 +20,30 @@
             <%- include('./nevbar-itom.ejs',{url:'/about',icon:'info',title:'About'}) %>
         </ul>
         <ul class="main-header__item-list">
+            <% if(!isAuthenticated){%>}
             <%- include('./nevbar-itom.ejs',{url:'/login',icon:'Login',title:'login'}) %>
             <%- include('./nevbar-itom.ejs',{url:'/singup',icon:'person_add',title:'Singup'}) %>
+            <% } else {%>
+            <li class="main-header__item <%- path==='/logout'?'active':''%>">
+                <form action="/logout" method="post">
+                    <button type="submit">
+                        <table>
+                            <tr>
+                                <td class="manu-icon">
+                                    <span class="material-symbols-outlined">
+                                        logout
+                                    </span>
+                                </td>
+                                <td class="manu-title">
+                                    logout
+                                </td>
+                            </tr>
+                        </table>
+                    </button>
+                </form>
+
+            </li>
+            <% }%>
         </ul>
 
     </nav>

@@ -1,0 +1,49 @@
+main {
+    text-align: center;
+}
+
+
+.page_error {
+    align-items: stretch;
+    padding: 40px 0;
+    display: inline-flex;
+}
+
+.page_error img {
+    width: auto;
+}
+
+.error_bg {
+
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 50vh;
+    width: 50vh;
+    background-position: center;
+    border-radius: 4px;
+    box-shadow: 1px 1px 1px 1px rgba(255, 255, 255, 0.467);
+
+}
+
+
+.error_bg h1 {
+    font-size: 80px;
+}
+
+.error_bg h3 {
+    font-size: 80px;
+}
+
+.link_error {
+    color: #14213d;
+    padding: 10px 20px;
+    background-color: #E8AA42;
+    font-weight: bolder;
+    margin: 20px 0;
+    display: inline-block;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.contant_box_error {
+    margin-top: -50px;
+}

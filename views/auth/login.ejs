@@ -1,6 +1,7 @@
 <%- include('../includes/head.ejs') %>
 </head>
 <link rel="stylesheet" href="/css/auth.css">
+
 <body>
     <%- include('../includes/nevbar.ejs') %>
     <%- include('../includes/appbar.ejs') %>
@@ -8,14 +9,25 @@
         <div class="sing-up">
             <h1 class="title">Login</h1>
             <br>
-            <form action="/singup" method="post">
+            <form action="/login" method="post">
                 <div class="email">
-                    <label for="e-mail">E-mail</label>
-                    <input type="email" id="e-mail" name="eMail" placeholder="jenilgoti@gmail.com" required>
+                    <label for="e-mail">E-mail
+                        <% if(error.email){%>
+                        <span class="error-message">*<%=error.email%></span>
+                        <%}%>
+                </label>
+                    
+                    <input class="<%=error.email?'error-input':''%>" type="email" id="e-mail" name="eMail" value="<%=oldInput.email%>"
+                        placeholder="jenilgoti@gmail.com" required>
                 </div>
                 <div class="password">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <label for="password">Password
+                        <% if(error.password){%>
+                        <span class="error-message">*<%=error.password%></span>
+                        <%}%>
+                    </label>
+                    
+                    <input class="<%=error.password?'error-input':''%>" type="password" id="password" name="password" value="<%=oldInput.password%>" required>
                 </div>
                 <button type="submit" class="sing-up-submit">Login</button>
             </form>

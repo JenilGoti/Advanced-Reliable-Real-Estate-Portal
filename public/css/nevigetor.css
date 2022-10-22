@@ -125,7 +125,8 @@
     display: none;
   }
 
-  .main-header__item a table tr .manu-title {
+  .main-header__item a table tr .manu-title,
+  .main-header__item form button table tr .manu-title {
     display: table-cell;
   }
 

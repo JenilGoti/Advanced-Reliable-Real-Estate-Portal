@@ -30,7 +30,7 @@ main {
     font-size: large;
 }
 .sing-up .sing-up-submit{
-    margin-top: 1rem;
+    margin-top: 0.1rem;
     background-color: #E8AA42;
     font-weight: bolder;
     color: #14213d;
@@ -48,13 +48,21 @@ main {
     padding: 2px;
     border-radius: 4px;
 }
+
+.sing-up .link,
+.sing-up .link a{
+    margin-top: 1rem;
+    text-decoration: none;
+    color: #e5e5e5;
+}
 .sing-up input:focus,
 .sing-up textarea:focus {
   outline-color: #FFE5B4;
   box-shadow: 1px 1px 1px 1px #ffe5b48d;
 }
 
-.sing-up .sing-up-submit:hover {
+.sing-up .sing-up-submit:hover,
+.sing-up .clicked {
     background-color: #e8ab42d9;
     box-shadow: 2px 2px 2px 2px #ffe5b489;
 }

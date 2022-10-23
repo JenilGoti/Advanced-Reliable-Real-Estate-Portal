@@ -1,18 +1,37 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-body{
-    padding: 0;
-    margin: 0;
-    background-color:  #14213d ;
-    background-image: url('../diagmonds-light.png');
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #14213d;
+  background-image: url('../diagmonds-light.png');
 }
 
 main {
   margin-left: 4.2rem;
   padding-top: 4.2rem;
+}
+
+.circal-avatar {
+  border-radius: 100%;
+}
+
+.btn {
+  margin-top: 0.1rem;
+  background-color: #E8AA42;
+  font-weight: bolder;
+  color: #14213d;
+  cursor: pointer;
+}
+
+.btn :hover {
+  background-color: #e8ab42d9;
+  box-shadow: 2px 2px 2px 2px #ffe5b489;
 }
 
 @media (max-width: 600px) {

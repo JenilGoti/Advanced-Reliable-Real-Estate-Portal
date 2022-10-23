@@ -22,7 +22,7 @@
             <%- include('./nevbar-itom.ejs',{url:'/about',icon:'info',title:'About'}) %>
         </ul>
         <ul class="main-header__item-list">
-            <% if(!isAuthenticated){%>}
+            <% if(!isAuthenticated){%>
             <%- include('./nevbar-itom.ejs',{url:'/login',icon:'Login',title:'login'}) %>
             <%- include('./nevbar-itom.ejs',{url:'/singup',icon:'person_add',title:'Singup'}) %>
             <% } else {%>

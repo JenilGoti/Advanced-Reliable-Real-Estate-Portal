@@ -18,6 +18,10 @@ router.get("/singup", authController.getSingup);
 
 router.get("/login", authController.getLogin);
 
+router.get("/verification/:credential", isAuth, authController.getVerification);
+
+router.get("/verify/:credential/:tokan",authController.getVerify)
+
 router.post("/singup", [
     check('firstName')
     .trim()
@@ -42,7 +46,7 @@ router.post("/singup", [
         req
     }) => {
         return User.findOne({
-                email: value
+                "user_email.email": value
             })
             .then(userDoc => {
                 if (userDoc) {
@@ -73,7 +77,7 @@ router.post("/login", [body('eMail')
         req
     }) => {
         return User.findOne({
-                email: value
+                "user_email.email": value
             })
             .then(userDoc => {
                 if (!userDoc) {
@@ -86,6 +90,8 @@ router.post("/login", [body('eMail')
     .isAlphanumeric()
     .trim()
 ], authController.postLogin);
+
+router.post("/verification/:credential", isAuth, authController.postVerification);
 
 router.post("/logout", isAuth, authController.postLogout)
 

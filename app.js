@@ -18,7 +18,7 @@ const app = express();
 const store = MongoDBStore({
     uri: MONGODB_URI,
     collection: 'sessions',
-  });
+});
 
 
 app.set('view engine', 'ejs');
@@ -32,6 +32,7 @@ const buyRoute = require("./routes/buy");
 const indexRoute = require("./routes/index");
 const rentRoute = require("./routes/rent");
 const sellRoute = require("./routes/sell");
+
 
 const errorController = require("./controllers/error");
 
@@ -49,15 +50,14 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: store,
-    cookie: { maxAge: (28*24*60*60*1000) }
-  }));
+    cookie: {
+        maxAge: (28 * 24 * 60 * 60 * 1000)
+    }
+}));
 
 app.use(flash());
 
-app.use((req, res, next) => {
-    res.locals.isAuthenticated = req.session.isLoggedIn;
-    next();
-  });
+app.use(require("./middleware/set-locals").setLocals);
 
 app.use(authRoute);
 
@@ -78,7 +78,7 @@ app.use(errorController.error404)
 app.use((error, req, res, next) => {
     console.log(error);
     res.render("error/error", {
-        pageTitle: error.statusCode+":ERROR",
+        pageTitle: error.statusCode + ":ERROR",
         path: "",
         errorCode: error.statusCode,
         errorLable: error.message,

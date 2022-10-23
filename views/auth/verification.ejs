@@ -1,0 +1,24 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<link rel="stylesheet" href="/css/auth.css">
+
+<body>
+    <%- include('../includes/nevbar.ejs') %>
+    <%- include('../includes/appbar.ejs') %>
+    <main>
+        <div class="sing-up">
+            <h1 class="title">Verification</h1>
+            <br>
+
+            <form action="/verification/<%=verify%>" method="post">
+                <div class="<%=verify%>">
+                    <label for="<%=verify%>"><%=requested?'Confirmetion in progress':"Confirm "+verify%></label>
+                    <input type="<%=requested?'hidden':type%>" id="<%=verify%>" name="<%=verify%>" value="<%=value%>" required>
+                </div>
+
+                <button style="margin-top: 1rem" type="submit" class="btn sing-up-submit"><%=requested?'request again':"verify"%></button>
+
+            </form>
+        </div>
+    </main>
+    <%- include('../includes/end.ejs') %>

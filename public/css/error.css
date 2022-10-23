@@ -14,7 +14,6 @@ main {
 }
 
 .error_bg {
-
     background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
     height: 50vh;
     width: 50vh;
@@ -26,6 +25,7 @@ main {
 
 
 .error_bg h1 {
+    margin-top: 2rem;
     font-size: 80px;
 }
 
@@ -47,3 +47,9 @@ main {
 .contant_box_error {
     margin-top: -50px;
 }
+
+@media (max-width: 600px) {
+    .page_error{
+        max-width: 90%;
+    }
+  }

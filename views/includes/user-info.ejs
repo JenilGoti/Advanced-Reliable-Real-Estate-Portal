@@ -3,8 +3,14 @@
         account_circle
     </span>
     <div class="user-dropdown-content">
-        <h3>Complate your profile</h3>
-        <a href="/complate-peofile">complate profile</a>
+        <% if(isAuthenticated) {%>
+        <img class="circal-avatar user-thumb dropdown-itom" src="<%=user.user_thumbnail.middium%>" alt="user-image">
+        <h2 class="dropdown-itom"><%=user.firstName%> <%=user.lastName%></h2>
+        <%}%>
+        <h5 class="dropdown-itom"><%=user.user_email.email%>
+        <% if(!user.user_email.verification_status) {%>
+            <a href="/verification/email">verify email</a>
+        <%}%></h5>
     </div>
 
 </div>

@@ -12,6 +12,7 @@
 
 .user-dropdown-content {
     display: none;
+    text-align: center;
     position: absolute;
     top: 2rem;
     right: 2rem;
@@ -24,12 +25,11 @@
     z-index: 1;
 }
 
-.user-dropdown-content a,
-.user-dropdown-content h1
+.user-dropdown-content a
  {
     color: wheat;
     text-decoration: none;
-    display: flex;
+    display: inline;
 }
 
 .user-dropdown:hover .user-dropdown-content {
@@ -39,6 +39,15 @@
 .user-dropdown:hover .user-avtar {
     background-image: radial-gradient(circle, #10192e, #00171f);
     border-radius: 5px;
+}
+
+.user-thumb{
+    height: 100px;
+    width: 100px;
+}
+
+.dropdown-itom{
+    margin: 0.5rem 0;
 }
 
 @media (max-width: 600px) {

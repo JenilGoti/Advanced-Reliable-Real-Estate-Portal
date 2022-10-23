@@ -1,0 +1,12 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+    <%- include('../includes/nevbar.ejs') %>
+    <%- include('../includes/appbar.ejs') %>
+    <main>
+        <h1><%=user.firstName %> <%=user.lastName %></h1>
+        <h2><%=user.user_email.email %></h2>
+        <h3>email-verification-status:<%=user.user_email.verification_status %></h3>
+    </main>
+    <%- include('../includes/end.ejs') %>

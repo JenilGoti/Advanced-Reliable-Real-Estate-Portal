@@ -1,3 +1,10 @@
+hr{
+    height: 2px;
+    border: #00171f 0 solid;
+
+    background-image: linear-gradient(to bottom, black, #ffffff);
+}
+
 .user-avtar {
     color: white;
     padding: 16px;
@@ -16,7 +23,6 @@
     position: absolute;
     top: 2rem;
     right: 2rem;
-    color: white;
     background-color: #10192e;
     min-width: max-content;
     border-radius: 5px 0px 5px 5px;
@@ -27,7 +33,6 @@
 
 .user-dropdown-content a
  {
-    color: wheat;
     text-decoration: none;
     display: inline;
 }
@@ -47,7 +52,12 @@
 }
 
 .dropdown-itom{
+    color: whitesmoke;
     margin: 0.5rem 0;
+}
+
+.user-dropdown-content .manage-btn{
+    margin-top: 1rem;
 }
 
 @media (max-width: 600px) {

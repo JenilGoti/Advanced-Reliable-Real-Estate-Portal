@@ -11,6 +11,9 @@
         <% if(!user.user_email.verification_status) {%>
             <a href="/verification/email">verify email</a>
         <%}%></h5>
+        <hr>
+        <br>
+        <a href="/<%=user._id%>" class="outline-btn manage-btn">Manage Profile</a>
     </div>
 
 </div>

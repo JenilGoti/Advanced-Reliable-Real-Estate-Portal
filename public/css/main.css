@@ -34,6 +34,20 @@ main {
   box-shadow: 2px 2px 2px 2px #ffe5b489;
 }
 
+.outline-btn{
+  padding: 0.5rem;
+  color: whitesmoke;
+  background-color: #14213d00;
+  border: 3px solid whitesmoke;
+  border-radius: 4px;
+  font-weight: bolder;
+}
+.outline-btn:hover{
+  color: #14213d;
+  background-color: whitesmoke;
+  border: 3px solid #14213d;
+}
+
 @media (max-width: 600px) {
   main {
     margin-left: 0;

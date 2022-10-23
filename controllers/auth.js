@@ -342,7 +342,7 @@ verificationMail = (url) => {
         text-align: center;
         width: 100%;
         margin-bottom: 0.25rem;
-        padding: 1rem 6rem;
+        padding: 1rem 3rem;
         border-radius: 4px;">verify</a>
     </div>
 `

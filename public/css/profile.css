@@ -48,6 +48,7 @@ main{
 }
 
 .user-info .main-heading{
+    padding-left: 1rem;
     font-size: x-large;
     text-transform: capitalize;
     margin: 4px 0;

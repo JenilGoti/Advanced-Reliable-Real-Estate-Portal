@@ -41,7 +41,6 @@ main{
 }
 
 .profile .user-info{
-    margin-left: 2rem;
     color: whitesmoke;
     display: inline-flex;
     flex-direction: column;
@@ -89,5 +88,9 @@ main{
         background-color: black;
         margin: 5px 0px;
         box-shadow: 1px 1px 1px 1px #020d2538;
+    }
+    .user-info .user-detail{
+        font-size: x-small;
+        color: forestgreen;
     }
   }

@@ -3,7 +3,6 @@ main {
 }
 
 .sing-up {
-
     margin: 5rem 3rem;
     background-image: linear-gradient(to top, #14213d, #14213ddc);
     display: inline-flex;
@@ -73,7 +72,6 @@ main {
 }
 
 .sing-up .error-input{
-    
     outline-color: #ff0000;
     outline-style: inset;
 }

@@ -22,6 +22,10 @@ router.get("/verification/:credential", isAuth, authController.getVerification);
 
 router.get("/verify/:credential/:tokan",authController.getVerify)
 
+router.get("/edit-phone-no",isAuth,authController.getEditPhoneNo)
+
+router.get("/verify-succesfullscreen",authController.getVerifySucessfullScreen)
+
 router.post("/singup", [
     check('firstName')
     .trim()
@@ -90,6 +94,10 @@ router.post("/login", [body('eMail')
     .isAlphanumeric()
     .trim()
 ], authController.postLogin);
+
+router.post("/send-otp",isAuth,authController.postSendOtp);
+
+router.post("/verify-otp",isAuth,authController.postVerifyOtp);
 
 router.post("/verification/:credential", isAuth, authController.postVerification);
 

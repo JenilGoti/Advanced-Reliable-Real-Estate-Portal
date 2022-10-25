@@ -7,15 +7,17 @@ exports.getIndex = (req, res, next) => {
 }
 
 exports.getProfile = (req, res, next) => {
-    userid = req.param('userid');
+    const userid = req.param('userid');
+    const master = (userid == res.locals.user._id);
+    console.log(master);
     user.findById(userid)
         .select('user_thumbnail user_email user_phone_no firstName lastName')
         .then(user => {
-            console.log(user);
             res.render("index/profile", {
                 pageTitle: "About",
                 path: '/about',
-                user:user
+                profUser: user,
+                master: master
             });
         })
         .catch(err => {
@@ -23,7 +25,7 @@ exports.getProfile = (req, res, next) => {
         })
 
 
-    
+
 }
 
 exports.getAbout = (req, res, next) => {

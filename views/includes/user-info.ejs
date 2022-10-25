@@ -9,11 +9,11 @@
         <%}%>
         <h5 class="dropdown-itom"><%=user.user_email.email%>
         <% if(!user.user_email.verification_status) {%>
-            <a href="/verification/email">verify email</a>
-        <%}%></h5>
+            <a class="dropdown-itom"  href="/verification/email"> <strong>(verify email)</strong></a>
+        <%}%></h5> 
         <hr>
         <br>
-        <a href="/<%=user._id%>" class="outline-btn manage-btn">Manage Profile</a>
+        <a href="/profile/<%=user._id%>" class="outline-btn manage-btn">Manage Profile</a>
     </div>
 
 </div>

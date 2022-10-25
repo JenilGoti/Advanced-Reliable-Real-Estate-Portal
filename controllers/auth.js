@@ -9,6 +9,9 @@ const {
     sendMail
 } = require("../utils/mail-helper");
 const user = require('../models/user');
+const fast2sms = require('fast-two-sms')
+var messagebird = require('messagebird')('ngcBgBmILcjHw2oeiVcClsTaH');
+const request = require('request');
 
 
 exports.getSingup = (req, res, next) => {
@@ -262,7 +265,7 @@ exports.getVerify = (req, res, next) => {
         .then(user => {
             if (user) {
                 user.user_email.email = user.user_email.new_mail;
-                user.user_email.verification_status=true;
+                user.user_email.verification_status = true;
                 user.user_email.new_mail = null;
                 user.user_email.resetToken = null;
                 user.user_email.resetTokenExpiration = null;
@@ -275,10 +278,7 @@ exports.getVerify = (req, res, next) => {
             }
         })
         .then(result => {
-            res.render("auth/sucessfulscreen", {
-                pageTitle: "sucessfull",
-                path: "",
-            });
+            res.redirect("/verify-succesfullscreen")
         })
         .catch(err => {
             // console.log(err);
@@ -289,6 +289,188 @@ exports.getVerify = (req, res, next) => {
         })
 }
 
+
+exports.getEditPhoneNo = (req, res, next) => {
+    const phoneNo = res.locals.user.user_phone_no.number;
+    const pageTitle = phoneNo ? "Edit Phone No" : "Add Phone No"
+    res.render("auth/editPhoneNo", {
+        pageTitle: pageTitle,
+        path: '/edit-phone-no',
+        phoneNo: phoneNo
+    })
+}
+
+exports.postSendOtp = (req, res, next) => {
+    const newMobileNo = req.body.new_number;
+    const userId = res.locals.user._id;
+    otp = parseInt(99999 + Math.random() * 900000);
+    if(process.env.USE_DEFALT_OTP=='true'){
+        otp="999999";
+    }
+    else{
+        otp=otp.toString();
+    }
+    console.log(otp);
+    smsText = `Your OTP is ${otp}\n@reliable-real--estate-portal.herokuapp.com #${otp}`
+    let hashedOtp;
+    let currentUser;
+    
+
+    bcrypt.hash(otp, 12)
+        .then(hash => {
+            hashedOtp = hash;
+            return User.findById(userId);
+        })
+        .then(user => {
+            console.log(hashedOtp);
+            user.user_phone_no.new_number = newMobileNo;
+            user.user_phone_no.OTP = hashedOtp;
+            user.user_phone_no.OTPExpiration = Date.now() + 120000;
+            return user.save();
+        })
+        .then(result => {
+            if(process.env.USE_SINCH=='true'){
+               return request({
+                method: 'POST',
+                uri: 'https://us.sms.api.sinch.com/xms/v1/' + process.env.SINCH_SERVICE_PLAN_ID + '/batches',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + process.env.SINCH_API_TOKEN
+                },
+                body: JSON.stringify({
+                    from: process.env.SINCH_NUMBER,
+                    to: ['91'+newMobileNo.toString()],
+                    body: smsText
+                })
+            }, (error, response, body) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).send({
+                        statusCode: 500,
+                        message: "otp request has been faild"
+                    });
+                } else {
+                    console.log(response);
+            console.log(smsText)
+
+                    res.status(200).send({
+                        statusCode: 200,
+                        message: "otp sended sussesfully"
+                    })
+                }
+            }) 
+            }
+
+            
+
+
+            // var params = {
+            //     'originator': 'TestMessage',
+            //     'recipients': [
+            //       'RECIPIENT'
+            //   ],
+            //     'body': 'This is a test message'
+            //   };
+
+            //   return messagebird.messages.create(params, function (err, response) {
+            //     if (err) {
+            //         console.log(err);
+            //       return res.status(500).send({
+            //         statusCode: 500,
+            //         message: "otp request has been faild"
+            //     });
+            //     }
+            // console.log(smsText)
+            //     console.log(response);
+            //     res.status(200).send({
+            //         statusCode: 200,
+            //         message: "otp sended sussesfully"
+            //     })
+            //   });
+            else{
+                return fast2sms.sendMessage({
+                    senderId: "FastSM",
+                    authorization: process.env.SMS_API_KEY,
+                    message: smsText,
+                    numbers: [newMobileNo.toString()]
+                })
+                .then(response => {
+                    console.log(response);
+                    console.log(smsText)
+                    console.log("otp sended succesfully");
+                    res.status(200).send({
+                        statusCode: 200,
+                        message: "otp sended sussesfully"
+                    })
+                })
+            }
+            
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).send({
+                statusCode: 500,
+                message: "otp request has been faild"
+            });
+        })
+
+
+
+
+}
+
+exports.postVerifyOtp = (req, res, next) => {
+    const userId = res.locals.user._id;
+    const OTP = req.body.OTP;
+    let currentUser;
+    User.findById(userId)
+        .then(user => {
+            currentUser = user;
+            return bcrypt.compare(OTP.toString(), user.user_phone_no.OTP)
+        })
+        .then(result => {
+            if (result) {
+                currentUser.user_phone_no.number = currentUser.user_phone_no.new_number;
+                currentUser.user_phone_no.verification_status = true;
+                currentUser.user_phone_no.new_number = null;
+                currentUser.user_phone_no.OTP = null;
+                currentUser.user_phone_no.OTPExpiration = null;
+                return currentUser.save();
+            }
+            else{
+                return false;
+            }
+        })
+        .then(response => {
+            if (response) {
+                console.log(response);
+                return res.status(200).send({
+                    statusCode: 200,
+                    message: "verify otp"
+                });
+            } else {
+                res.status(400).send({
+                    statusCode: 400,
+                    message: "enterd wrong otp"
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(400).send({
+                statusCode: 400,
+                message: "enterd wrong otp"
+            });
+        })
+}
+
+
+exports.getVerifySucessfullScreen=(req, res, next) => {
+    res.render("auth/sucessfulscreen", {
+        pageTitle: "sucessfull",
+        path: "",
+    });
+}
 
 exports.postLogout = (req, res, next) => {
     req.session.destroy((err) => {

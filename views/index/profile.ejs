@@ -1,12 +1,63 @@
 <%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/profile.css">
 </head>
 
 <body>
     <%- include('../includes/nevbar.ejs') %>
     <%- include('../includes/appbar.ejs') %>
     <main>
-        <h1><%=user.firstName %> <%=user.lastName %></h1>
-        <h2><%=user.user_email.email %></h2>
-        <h3>email-verification-status:<%=user.user_email.verification_status %></h3>
+        <div class="profile <%=master?'':'no-master'%>">
+            <h1 class="title">Profile</h1>
+            <div class="profile-content">
+                <div>
+                    <img class="user-image circal-avatar" src="<%=profUser.user_thumbnail.large %>" alt="">
+                </div>
+                <div class="divider"></div>
+                <div class="user-info">
+                    <label class="main-heading"><%=profUser.firstName %> <%=profUser.lastName %></label>
+                    <table class="user-detail">
+                        <tr>
+                            <td class="heding">
+                                <strong>Email: </strong>
+                            </td>
+                            <td class="detail"> <%=profUser.user_email.email %> </td>
+                            <td class="status"><a
+                                    href="/verification/email"><%=profUser.user_email.verification_status?'Edit':'Verify'%></a>
+                            </td>
+                        </tr>
+                        <%if(master||profUser.user_phone_no.number!=null){%>
+
+                        <tr>
+                            <td class="heding">
+                                <strong>Phon No: </strong>
+                            </td>
+                            <td class="detail"> <%=profUser.user_phone_no.number %> </td>
+
+                            <td class="status"><a
+                                    href="/edit-phone-no"><%=profUser.user_phone_no.number==null?'Add':'Edit'%></a>
+                            </td>
+                        </tr>
+                        <%}%>
+                        <%if(master||profUser.user_address.address!=null){%>
+
+                        <tr>
+                            <td class="heding">
+                                <strong>Address: </strong>
+                            </td>
+                            <td class="detail"> <%=profUser.user_address.address %> </td>
+
+                            <td class="status"><a href="/"><%=profUser.user_address.address==null?'Add':'Edit'%></a>
+                            </td>
+                        </tr>
+                        <%}%>
+
+
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
     </main>
     <%- include('../includes/end.ejs') %>

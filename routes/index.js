@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/',indexController.getIndex);
 
-router.get('/:userid',indexController.getProfile);
+router.get('/profile/:userid',indexController.getProfile);
 
 router.get('/about',indexController.getAbout);
 

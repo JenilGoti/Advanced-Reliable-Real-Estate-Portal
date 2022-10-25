@@ -19,12 +19,15 @@
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
     "express-validator": "^6.14.2",
+    "fast-two-sms": "^3.0.0",
+    "messagebird": "^3.8.1",
     "mongodb": "^3.1.6",
     "mongoose": "^6.6.1",
     "nodemailer": "^6.7.8",
     "nodemon": "^2.0.20",
     "pdfkit": "^0.13.0",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "request": "^2.88.2"
   },
   "author": "jenil goti",
   "license": "ISC"

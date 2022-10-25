@@ -40,14 +40,25 @@ const userSchema = new Schema({
     },
     user_phone_no: {
         number: {
-            type: String,
+            type: Number,
+        },
+        new_number:{
+            type:Number
         },
         verification_status: {
             type: Boolean,
             default:false
         },
-        resetToken: Number,
-        resetTokenExpiration: Date,
+        OTP: String,
+        OTPExpiration: Date,
+    },
+    user_address: {
+        address: {
+            type: Number,
+        },
+        new_address:{
+            type:Number
+        },
     },
     password: {
         type: String,

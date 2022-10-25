@@ -31,10 +31,19 @@ hr{
     z-index: 1;
 }
 
+.dropdown-itom{
+    color: whitesmoke;
+    margin: 0.5rem 0;
+}
+
 .user-dropdown-content a
  {
     text-decoration: none;
     display: inline;
+}
+
+.user-dropdown-content .dropdown-itom a{
+    color: red;
 }
 
 .user-dropdown:hover .user-dropdown-content {
@@ -51,10 +60,7 @@ hr{
     width: 100px;
 }
 
-.dropdown-itom{
-    color: whitesmoke;
-    margin: 0.5rem 0;
-}
+
 
 .user-dropdown-content .manage-btn{
     margin-top: 1rem;

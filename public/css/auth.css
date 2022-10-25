@@ -3,7 +3,7 @@ main {
 }
 
 .sing-up {
-    margin: 5rem 3rem;
+    margin: 3rem 3rem;
     background-image: linear-gradient(to top, #14213d, #14213ddc);
     display: inline-flex;
     align-items: stretch;
@@ -37,7 +37,6 @@ main {
 }
 
 .sing-up input,
-.sing-up textarea,
 .sing-up .sing-up-submit {
     font-size: medium;
     height: 2.5rem;

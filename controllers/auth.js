@@ -304,17 +304,16 @@ exports.postSendOtp = (req, res, next) => {
     const newMobileNo = req.body.new_number;
     const userId = res.locals.user._id;
     otp = parseInt(99999 + Math.random() * 900000);
-    if(process.env.USE_DEFALT_OTP=='true'){
-        otp="999999";
-    }
-    else{
-        otp=otp.toString();
+    if (process.env.USE_DEFALT_OTP == 'true') {
+        otp = "999999";
+    } else {
+        otp = otp.toString();
     }
     console.log(otp);
     smsText = `Your OTP is ${otp}\n@reliable-real--estate-portal.herokuapp.com #${otp}`
     let hashedOtp;
     let currentUser;
-    
+
 
     bcrypt.hash(otp, 12)
         .then(hash => {
@@ -329,39 +328,39 @@ exports.postSendOtp = (req, res, next) => {
             return user.save();
         })
         .then(result => {
-            if(process.env.USE_SINCH=='true'){
-               return request({
-                method: 'POST',
-                uri: 'https://us.sms.api.sinch.com/xms/v1/' + process.env.SINCH_SERVICE_PLAN_ID + '/batches',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + process.env.SINCH_API_TOKEN
-                },
-                body: JSON.stringify({
-                    from: process.env.SINCH_NUMBER,
-                    to: ['91'+newMobileNo.toString()],
-                    body: smsText
-                })
-            }, (error, response, body) => {
-                if (error) {
-                    console.log(error);
-                    return res.status(500).send({
-                        statusCode: 500,
-                        message: "otp request has been faild"
-                    });
-                } else {
-                    console.log(response);
-            console.log(smsText)
-
-                    res.status(200).send({
-                        statusCode: 200,
-                        message: "otp sended sussesfully"
+            if (process.env.USE_SINCH == 'true') {
+                return request({
+                    method: 'POST',
+                    uri: 'https://us.sms.api.sinch.com/xms/v1/' + process.env.SINCH_SERVICE_PLAN_ID + '/batches',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + process.env.SINCH_API_TOKEN
+                    },
+                    body: JSON.stringify({
+                        from: process.env.SINCH_NUMBER,
+                        to: ['91' + newMobileNo.toString()],
+                        body: smsText
                     })
-                }
-            }) 
+                }, (error, response, body) => {
+                    if (error) {
+                        console.log(error);
+                        return res.status(500).send({
+                            statusCode: 500,
+                            message: "otp request has been faild"
+                        });
+                    } else {
+                        console.log(response);
+                        console.log(smsText)
+
+                        res.status(200).send({
+                            statusCode: 200,
+                            message: "otp sended sussesfully"
+                        })
+                    }
+                })
             }
 
-            
+
 
 
             // var params = {
@@ -387,24 +386,24 @@ exports.postSendOtp = (req, res, next) => {
             //         message: "otp sended sussesfully"
             //     })
             //   });
-            else{
+            else {
                 return fast2sms.sendMessage({
-                    senderId: "FastSM",
-                    authorization: process.env.SMS_API_KEY,
-                    message: smsText,
-                    numbers: [newMobileNo.toString()]
-                })
-                .then(response => {
-                    console.log(response);
-                    console.log(smsText)
-                    console.log("otp sended succesfully");
-                    res.status(200).send({
-                        statusCode: 200,
-                        message: "otp sended sussesfully"
+                        senderId: "FastSM",
+                        authorization: process.env.SMS_API_KEY,
+                        message: smsText,
+                        numbers: [newMobileNo.toString()]
                     })
-                })
+                    .then(response => {
+                        console.log(response);
+                        console.log(smsText)
+                        console.log("otp sended succesfully");
+                        res.status(200).send({
+                            statusCode: 200,
+                            message: "otp sended sussesfully"
+                        })
+                    })
             }
-            
+
         })
         .catch(err => {
             console.log(err);
@@ -436,8 +435,7 @@ exports.postVerifyOtp = (req, res, next) => {
                 currentUser.user_phone_no.OTP = null;
                 currentUser.user_phone_no.OTPExpiration = null;
                 return currentUser.save();
-            }
-            else{
+            } else {
                 return false;
             }
         })
@@ -465,11 +463,48 @@ exports.postVerifyOtp = (req, res, next) => {
 }
 
 
-exports.getVerifySucessfullScreen=(req, res, next) => {
+exports.getVerifySucessfullScreen = (req, res, next) => {
     res.render("auth/sucessfulscreen", {
         pageTitle: "sucessfull",
         path: "",
     });
+}
+
+exports.getAddress = (req, res, next) => {
+    res.render('address', {
+        pageTitle: "Edit or Add address",
+        path: "/profile/address",
+    })
+}
+
+exports.postAddress = (req, res, next) => {
+    const userId = res.locals.user._id;
+    const apprtmentSuite = req.body.apprtmentSuite;
+    const stritAddress = req.body.stritAddress;
+    const contry = req.body.contry;
+    const state = req.body.state;
+    const city = req.body.city;
+    User.findById(userId)
+        .then(user => {
+            user.user_address.apprtmentSuite=apprtmentSuite;
+            user.user_address.stritAddress=stritAddress;
+            user.user_address.contry=contry;
+            user.user_address.state=state;
+            user.user_address.city=city;
+            return user.save();
+        })
+        .then(result=>{
+            if(result){
+                res.redirect("/profile/"+userId);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            const error = new Error("user not found");
+            error.statusCode = 404;
+            error.discription = "you are not authenticated user"
+            next(error);
+        })
 }
 
 exports.postLogout = (req, res, next) => {

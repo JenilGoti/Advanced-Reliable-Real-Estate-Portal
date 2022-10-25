@@ -1,0 +1,15 @@
+.sing-up textarea,
+.sing-up .drop-down select {
+    resize: none;
+    min-height: 2.5rem;
+    font-size: x-large;
+    display: block;
+    width: 100%;
+    margin-bottom: 0.25rem;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.sing-up .drop-down select {
+    font-size: inherit;
+}

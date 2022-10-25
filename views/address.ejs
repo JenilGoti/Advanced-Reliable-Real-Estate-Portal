@@ -1,0 +1,50 @@
+<%- include('./includes/head.ejs') %>
+<link rel="stylesheet" href="/css/auth.css">
+<link rel="stylesheet" href="/css/address.css">
+<script src="/js/address.js"></script>
+</head>
+
+<body>
+    <%- include('./includes/nevbar.ejs') %>
+    <%- include('./includes/appbar.ejs') %>
+    <main>
+        <div class="sing-up">
+            <h1 class="title">Address</h1>
+            <br>
+            <form action="/editAddress" method="post">
+                <div class="apartment-suite">
+                    <label for="apartment/suite#">apartment/suite #</label>
+                    <textarea name="apprtmentSuite" id="apartment/suite#" cols="30" rows="1" required></textarea>
+                </div>
+                <div class="strit-address">
+                    <label for="strit-address">Strit Address</label>
+                    <textarea name="stritAddress" id="strit-address" cols="30" rows="3" required></textarea>
+                </div>
+
+                <div class="drop-down">
+                    <label for="contry">Contry</label>
+                    <select name="contry" id="contry">
+                        <option value="India">India</option>
+                    </select>
+                    <label for="state">State</label>
+                    <select onchange="print_city('city', this.selectedIndex);" id="state" name="state"
+                        class="form-control" required></select>
+                    <label for="city">City</label>
+                    <select id="city" class="form-control" name="city" required>
+                        <option value="">Select City</option>
+                    </select>
+                </div>
+                <br>
+                <div class="submit-btntn">
+                    <button type="submit" class="btn sing-up-submit">Submit</button>
+                </div>
+            </form>
+            <script language="javascript">
+                print_state("state");
+            </script>
+        </div>
+    </main>
+</body>
+<%- include('./includes/end.ejs') %>
+
+</html>

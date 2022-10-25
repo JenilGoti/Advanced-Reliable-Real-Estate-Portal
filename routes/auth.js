@@ -26,6 +26,8 @@ router.get("/edit-phone-no",isAuth,authController.getEditPhoneNo)
 
 router.get("/verify-succesfullscreen",authController.getVerifySucessfullScreen)
 
+router.get("/address",isAuth,authController.getAddress);
+
 router.post("/singup", [
     check('firstName')
     .trim()
@@ -100,6 +102,8 @@ router.post("/send-otp",isAuth,authController.postSendOtp);
 router.post("/verify-otp",isAuth,authController.postVerifyOtp);
 
 router.post("/verification/:credential", isAuth, authController.postVerification);
+
+router.post("/editAddress",isAuth,authController.postAddress)
 
 router.post("/logout", isAuth, authController.postLogout)
 

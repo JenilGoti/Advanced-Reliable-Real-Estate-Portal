@@ -11,18 +11,18 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    user_thumbnail:{
-        small:{
-            type:String,
-            default:"/user-s-thumbnail.png"
+    user_thumbnail: {
+        small: {
+            type: String,
+            default: "/user-s-thumbnail.png"
         },
-        middium:{
-            type:String,
-            default:"/user-s-thumbnail.png"
+        middium: {
+            type: String,
+            default: "/user-s-thumbnail.png"
         },
-        large:{
-            type:String,
-            default:"/user-s-thumbnail.png"
+        large: {
+            type: String,
+            default: "/user-s-thumbnail.png"
         }
     },
     user_email: {
@@ -30,10 +30,10 @@ const userSchema = new Schema({
             type: String,
             required: true
         },
-        new_mail:String,
+        new_mail: String,
         verification_status: {
             type: Boolean,
-            default:false
+            default: false
         },
         resetToken: String,
         resetTokenExpiration: Date,
@@ -42,23 +42,33 @@ const userSchema = new Schema({
         number: {
             type: Number,
         },
-        new_number:{
-            type:Number
+        new_number: {
+            type: Number
         },
         verification_status: {
             type: Boolean,
-            default:false
+            default: false
         },
         OTP: String,
         OTPExpiration: Date,
     },
     user_address: {
-        address: {
-            type: Number,
+        apprtmentSuite: {
+            type: String,
         },
-        new_address:{
-            type:Number
+        stritAddress: {
+            type: String,
         },
+        contry: {
+            type: String,
+        },
+        state: {
+            type: String,
+        },
+        city: {
+            type: String,
+        }
+
     },
     password: {
         type: String,

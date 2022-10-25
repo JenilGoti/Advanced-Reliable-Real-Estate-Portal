@@ -3,6 +3,7 @@ main{
 }
 
 .profile {
+    max-width: 850px;
     margin: 2rem 2rem;
     /* width: -webkit-fill-available; */
     background-image: linear-gradient(to top, #14213d, #14213ddc);
@@ -48,7 +49,6 @@ main{
 }
 
 .user-info .main-heading{
-    padding-left: 1rem;
     font-size: x-large;
     text-transform: capitalize;
     margin: 4px 0;
@@ -91,6 +91,6 @@ main{
         box-shadow: 1px 1px 1px 1px #020d2538;
     }
     .user-info .user-detail{
-        font-size: x-small;
+        font-size: small;
     }
   }

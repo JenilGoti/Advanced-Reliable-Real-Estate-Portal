@@ -38,15 +38,21 @@
                             </td>
                         </tr>
                         <%}%>
-                        <%if(master||profUser.user_address.address!=null){%>
+                        <%if(master||profUser.user_address!='{}'){%>
 
                         <tr>
                             <td class="heding">
                                 <strong>Address: </strong>
                             </td>
-                            <td class="detail"> <%=profUser.user_address.address %> </td>
+                            <td class="detail">
+                                <%if(profUser.user_address!='{}'){%>
+                                <%=profUser.user_address.apprtmentSuite%>,<%=profUser.user_address.stritAddress%>,
+                                <%=profUser.user_address.city%>, <%=profUser.user_address.state%>,
+                                <%=profUser.user_address.contry%> </td>
+                                <%}%>
 
-                            <td class="status"><a href="/"><%=profUser.user_address.address==null?'Add':'Edit'%></a>
+                            <td class="status"><a
+                                    href="/address"><%=profUser.user_address.address==null?'Add':'Edit'%></a>
                             </td>
                         </tr>
                         <%}%>

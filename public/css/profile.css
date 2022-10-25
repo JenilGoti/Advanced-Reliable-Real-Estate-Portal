@@ -93,7 +93,7 @@ main{
         box-shadow: 1px 1px 1px 1px #020d2538;
     }
     .user-info .user-detail{
-        font-size: small;
+        font-size: x-small;
         width: -webkit-fill-available;
     }
   }

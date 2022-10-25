@@ -74,6 +74,8 @@ main{
 } 
 
 @media (max-width: 750px) {
+    
+
     .profile .profile-content{
         flex-direction: column;
     }
@@ -92,5 +94,6 @@ main{
     }
     .user-info .user-detail{
         font-size: small;
+        width: -webkit-fill-available;
     }
   }

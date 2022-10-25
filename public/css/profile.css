@@ -4,7 +4,7 @@ main{
 
 .profile {
     max-width: 850px;
-    margin: 2rem 2rem;
+    margin: 2rem 1.5rem;
     /* width: -webkit-fill-available; */
     background-image: linear-gradient(to top, #14213d, #14213ddc);
     display: inline-flex;

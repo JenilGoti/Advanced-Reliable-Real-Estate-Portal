@@ -88,15 +88,6 @@ app.use((error, req, res, next) => {
     })
 })
 
-
-
-
-
-
-
-
-
-
 const port = process.env.PORT || 3000;
 
 mongoose.connect(MONGODB_URI)

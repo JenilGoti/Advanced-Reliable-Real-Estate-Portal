@@ -50,6 +50,6 @@ main {
 
 @media (max-width: 600px) {
     .page_error{
-        max-width: 90%;
+        max-width: -webkit-fill-available;
     }
   }

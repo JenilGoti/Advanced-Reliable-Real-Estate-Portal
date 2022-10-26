@@ -1,7 +1,6 @@
 hr{
     height: 2px;
     border: #00171f 0 solid;
-
     background-image: linear-gradient(to bottom, black, #ffffff);
 }
 
@@ -9,11 +8,12 @@ hr{
     color: white;
     padding: 16px;
     font-size: 24px;
+    max-width: 4.7rem;
+    border-radius: 100%;
     border: none;
 }
 
 .user-dropdown {
-    position: relative;
     display: flex;
 }
 

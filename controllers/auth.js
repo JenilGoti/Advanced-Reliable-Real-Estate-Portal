@@ -8,6 +8,10 @@ const {
 const {
     sendMail
 } = require("../utils/mail-helper");
+const {
+    uploadFile
+} = require("../utils/firebase-helper");
+
 const user = require('../models/user');
 const fast2sms = require('fast-two-sms')
 var messagebird = require('messagebird')('ngcBgBmILcjHw2oeiVcClsTaH');
@@ -486,16 +490,16 @@ exports.postAddress = (req, res, next) => {
     const city = req.body.city;
     User.findById(userId)
         .then(user => {
-            user.user_address.apprtmentSuite=apprtmentSuite;
-            user.user_address.stritAddress=stritAddress;
-            user.user_address.contry=contry;
-            user.user_address.state=state;
-            user.user_address.city=city;
+            user.user_address.apprtmentSuite = apprtmentSuite;
+            user.user_address.stritAddress = stritAddress;
+            user.user_address.contry = contry;
+            user.user_address.state = state;
+            user.user_address.city = city;
             return user.save();
         })
-        .then(result=>{
-            if(result){
-                res.redirect("/profile/"+userId);
+        .then(result => {
+            if (result) {
+                res.redirect("/profile/" + userId);
             }
         })
         .catch(err => {
@@ -505,6 +509,52 @@ exports.postAddress = (req, res, next) => {
             error.discription = "you are not authenticated user"
             next(error);
         })
+}
+
+exports.getEditUserPhoto = (req, res, next) => {
+    const userImage = res.locals.user.user_thumbnail;
+    res.render('auth/edit-user-photo', {
+        pageTitle: "edit user photo",
+        path: "/auth/edit-user-photo",
+        userImage: userImage
+    })
+}
+
+exports.postUserImage = async (req, res, next) => {
+    const userId = res.locals.user._id;
+    const userPicSmall = await uploadFile(req.file, "/users/" + userId + "/", userId + "_180x180.jpeg", 180, 180);
+    const userPicmidium = await uploadFile(req.file, "/users/" + userId + "/", userId + "_320x320.jpeg", 320, 320);
+    const userPiclarge = await uploadFile(req.file, "/users/" + userId + "/", userId + "_1080x1080.jpeg", 1080, 1080);
+    if (userPicSmall.length === 0 || userPicmidium.length === 0 || userPiclarge.length === 0) {
+        return res.redirect("/edit-user-photo")
+    }
+    User.findById(userId)
+        .then(user => {
+            user.user_thumbnail = {
+                small: userPicSmall[0],
+                middium: userPicmidium[0],
+                large: userPiclarge[0]
+            }
+            return user.save();
+        })
+        .then(result => {
+            if (result) {
+                setTimeout(function () {
+                    res.redirect("/profile/" + userId);
+                }, 2000);
+
+            } else {
+                return res.redirect("/edit-user-photo")
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            const error = new Error("user not found");
+            error.statusCode = 404;
+            error.discription = "you are not authenticated user"
+            next(error);
+        })
+
 }
 
 exports.postLogout = (req, res, next) => {

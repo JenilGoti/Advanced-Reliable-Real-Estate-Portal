@@ -13,8 +13,8 @@ exports.getProfile = (req, res, next) => {
         .select('user_thumbnail user_email user_phone_no firstName lastName user_address')
         .then(user => {
             res.render("index/profile", {
-                pageTitle: "About",
-                path: '/about',
+                pageTitle: user.firstName+" " + user.lastName,
+                path: '/profile',
                 profUser: user,
                 master: master
             });
@@ -22,8 +22,6 @@ exports.getProfile = (req, res, next) => {
         .catch(err => {
             next();
         })
-
-
 
 }
 

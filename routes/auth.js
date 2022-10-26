@@ -11,6 +11,7 @@ const {
 const authController = require('../controllers/auth');
 
 const User = require('../models/user');
+const { multerSingleFile } = require("../utils/firebase-helper");
 
 const router = express.Router();
 
@@ -27,6 +28,8 @@ router.get("/edit-phone-no",isAuth,authController.getEditPhoneNo)
 router.get("/verify-succesfullscreen",authController.getVerifySucessfullScreen)
 
 router.get("/address",isAuth,authController.getAddress);
+
+router.get("/edit-user-photo",isAuth,authController.getEditUserPhoto);
 
 router.post("/singup", [
     check('firstName')
@@ -103,7 +106,9 @@ router.post("/verify-otp",isAuth,authController.postVerifyOtp);
 
 router.post("/verification/:credential", isAuth, authController.postVerification);
 
-router.post("/editAddress",isAuth,authController.postAddress)
+router.post("/editAddress",isAuth,authController.postAddress);
+
+router.post("/upload-user-image",multerSingleFile,authController.postUserImage);
 
 router.post("/logout", isAuth, authController.postLogout)
 

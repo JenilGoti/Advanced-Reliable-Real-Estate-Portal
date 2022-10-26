@@ -1,0 +1,25 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/auth.css">
+<link rel="stylesheet" href="/css/edit-user-photo.css">
+</head>
+
+<body>
+    <%- include('../includes/nevbar.ejs') %>
+    <%- include('../includes/appbar.ejs') %>
+    <main>
+        <div class="sing-up">
+            <h1 class="title">User Picture</h1>
+            <br>
+            <img class="user-image" src="<%=userImage.large%>" alt="">
+            <form class="form-btns" action="/upload-user-image" method="post" enctype="multipart/form-data">
+                <label for="image"><span> Edit</span>
+                    <input type="file" name="image" id="image" />
+                </label>
+                <label class="save" for="upload"><span> Save</span>
+                    <button id="upload" type="submit">Upload</button>
+                </label>
+            </form>
+        </div>
+    </main>
+    <script src="/js/edit-user-photo.js"></script>
+    <%- include('../includes/end.ejs') %>

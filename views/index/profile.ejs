@@ -9,8 +9,14 @@
         <div class="profile <%=master?'':'no-master'%>">
             <h1 class="title">Profile</h1>
             <div class="profile-content">
-                <div>
+                <div class="user-image-container">
                     <img class="user-image circal-avatar" src="<%=profUser.user_thumbnail.large %>" alt="">
+
+                        <a href="/edit-user-photo">
+                        <span class="material-symbols-outlined">
+                            edit
+                        </span>
+                    </a>
                 </div>
                 <div class="divider"></div>
                 <div class="user-info">
@@ -49,7 +55,7 @@
                                 <%=profUser.user_address.apprtmentSuite%>,<%=profUser.user_address.stritAddress%>,
                                 <%=profUser.user_address.city%>, <%=profUser.user_address.state%>,
                                 <%=profUser.user_address.contry%> </td>
-                                <%}%>
+                            <%}%>
 
                             <td class="status"><a
                                     href="/address"><%=profUser.user_address=='{}'?'Add':'Edit'%></a>

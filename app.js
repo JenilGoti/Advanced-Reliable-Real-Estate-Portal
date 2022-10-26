@@ -1,6 +1,12 @@
 const path = require('path');
 const fs = require('fs');
 const https = require('https');
+const {
+    uploadFile,
+    multerMultipaleFile,
+    multerSingleFile,
+    fileURL
+} = require("./utils/firebase-helper");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -20,10 +26,8 @@ const store = MongoDBStore({
     collection: 'sessions',
 });
 
-
 app.set('view engine', 'ejs');
 app.set('views', 'views');
-
 
 const adminRoute = require("./routes/admin");
 const agentRoute = require("./routes/agent");
@@ -33,9 +37,7 @@ const indexRoute = require("./routes/index");
 const rentRoute = require("./routes/rent");
 const sellRoute = require("./routes/sell");
 
-
 const errorController = require("./controllers/error");
-
 
 app.use(bodyParser.urlencoded({
     extended: false

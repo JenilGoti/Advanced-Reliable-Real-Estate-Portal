@@ -521,40 +521,47 @@ exports.getEditUserPhoto = (req, res, next) => {
 }
 
 exports.postUserImage = async (req, res, next) => {
-    const userId = res.locals.user._id;
-    const userPicSmall = await uploadFile(req.file, "/users/" + userId + "/", userId + "_180x180.jpeg", 180, 180);
-    const userPicmidium = await uploadFile(req.file, "/users/" + userId + "/", userId + "_320x320.jpeg", 320, 320);
-    const userPiclarge = await uploadFile(req.file, "/users/" + userId + "/", userId + "_1080x1080.jpeg", 1080, 1080);
-    if (userPicSmall.length === 0 || userPicmidium.length === 0 || userPiclarge.length === 0) {
-        return res.redirect("/edit-user-photo")
+    try {
+        const userId = res.locals.user._id;
+        const userPicSmall = await uploadFile(req.file, "/users/" + userId + "/", userId + "_180x180.jpeg", 180, 180);
+        const userPicmidium = await uploadFile(req.file, "/users/" + userId + "/", userId + "_320x320.jpeg", 320, 320);
+        const userPiclarge = await uploadFile(req.file, "/users/" + userId + "/", userId + "_1080x1080.jpeg", 1080, 1080);
+        if (userPicSmall.length === 0 || userPicmidium.length === 0 || userPiclarge.length === 0) {
+            return res.redirect("/edit-user-photo")
+        }
+        User.findById(userId)
+            .then(user => {
+                user.user_thumbnail = {
+                    small: userPicSmall[0],
+                    middium: userPicmidium[0],
+                    large: userPiclarge[0]
+                }
+                return user.save();
+            })
+            .then(result => {
+                if (result) {
+                    setTimeout(function () {
+                        res.redirect("/profile/" + userId);
+                    }, 2000);
+
+                } else {
+                    return res.redirect("/edit-user-photo")
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                const error = new Error("user not found");
+                error.statusCode = 404;
+                error.discription = "you are not authenticated user"
+                next(error);
+            })
+    } catch (err) {
+        console.log(err);
+        const error = new Error("something wents wrong");
+        error.statusCode = 500;
+        error.discription = "It is server side issue,we working on it"
+        next(error);
     }
-    User.findById(userId)
-        .then(user => {
-            user.user_thumbnail = {
-                small: userPicSmall[0],
-                middium: userPicmidium[0],
-                large: userPiclarge[0]
-            }
-            return user.save();
-        })
-        .then(result => {
-            if (result) {
-                setTimeout(function () {
-                    res.redirect("/profile/" + userId);
-                }, 2000);
-
-            } else {
-                return res.redirect("/edit-user-photo")
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            const error = new Error("user not found");
-            error.statusCode = 404;
-            error.discription = "you are not authenticated user"
-            next(error);
-        })
-
 }
 
 exports.postLogout = (req, res, next) => {

@@ -163,7 +163,7 @@ exports.postLogin = (req, res, next) => {
                     if (err) {
                         console.log(err);
                     }
-                    sendMail(email, 'Login Succesfull', "<h1>you are log-in succesfully in ARREP</h1>")
+                    sendMail(email, "log-in succesfully in ARREP", loginEmail(req.protocol + '://' + req.get('host')))
                         .then(result => {
                             console.log("mail sended sucesfully");
                         })
@@ -207,7 +207,8 @@ exports.getVerification = (req, res, next) => {
         verify: credential,
         type: "email",
         value: email,
-        requested: false
+        requested: false,
+        error: {}
     })
 }
 exports.postVerification = (req, res, next) => {
@@ -216,6 +217,28 @@ exports.postVerification = (req, res, next) => {
     email = res.locals.user.user_email.email;
     new_email = req.body.email;
     let tokan;
+    const error = validationResult(req);
+    emailError = null;
+    error.array().forEach(err => {
+        if (err.param === 'email') {
+            emailError = err.msg;
+        }
+    })
+    console.log(error);
+
+    if (error.array().length > 0) {
+        return res.render("auth/verification", {
+            pageTitle: "verification",
+            path: '/verification',
+            verify: credential,
+            type: "email",
+            value: email,
+            requested: false,
+            error: {
+                email: emailError,
+            }
+        })
+    }
     crypto.randomBytes(32, (err, buffer) => {
         if (err) {
             console.log(err);
@@ -245,7 +268,8 @@ exports.postVerification = (req, res, next) => {
                     verify: credential,
                     type: "email",
                     value: email,
-                    requested: true
+                    requested: true,
+                    error: {}
                 })
             })
             .catch(err => {
@@ -480,7 +504,7 @@ exports.getVerifySucessfullScreen = (req, res, next) => {
 exports.getAddress = (req, res, next) => {
     res.render('address', {
         pageTitle: "Edit or Add address",
-        path: "/profile/address",
+        path: "/profile/address"
     })
 }
 
@@ -578,8 +602,6 @@ exports.postLogout = (req, res, next) => {
 
 
 
-
-
 verificationMail = (url) => {
     console.log(url);
 
@@ -602,7 +624,7 @@ verificationMail = (url) => {
         color: #e5e5e5;        
         margin-top: 15px;        
         margin-bottom: 4px;        
-        font-size: large;" for="verification">this is email verification from Advanced Reliable Real Estate Portal
+        font-size: large;" for="verification">This is Email verification from Advanced Reliable Real Estate Portal
             (ARREP)</label>
         <h3 style="               
         color: #e5e5e5;        
@@ -621,6 +643,51 @@ verificationMail = (url) => {
         margin-bottom: 0.25rem;
         padding: 1rem 3rem;
         border-radius: 4px;">verify</a>
+    </div>
+`
+
+
+    return body;
+}
+
+loginEmail = (url) => {
+    console.log(url);
+    const body = `
+    <div style="margin: 5rem 3rem;
+    background-image: linear-gradient(to top, #14213d, #14213ddc);
+    align-items: center;
+    padding: 30px;    
+    border-radius: 5px;    
+    box-shadow: 2px 2px 2px 2px #14213d6e;    
+    text-align: center;">
+        <h1 style="font-size: xx-large;       
+        border-bottom: #e5e5e5 solid 3px;        
+        border-radius: 10px;        
+        color: #e5e5e5;    
+        font-family: 'Exo 2', sans-serif;">NESTSCOUT</h1>
+        <br>
+        <label style="             
+        color: #e5e5e5;        
+        margin-top: 15px;        
+        margin-bottom: 4px;        
+        font-size: large;" for="verification">Log-in Successfully! to Advanced Reliable Real Estate Portal (ARREP)</label>
+        <h3 style="               
+        color: #e5e5e5;        
+        margin-top: 15px;       
+        margin-bottom: 2rem;">
+            you are log-in succesfully in ARREP
+        </h3>
+        <a href="` + url + `" style="margin-top: 1rem;
+        background-color: #E8AA42;
+        font-weight: bolder;
+        text-decoration: none;
+        color: #14213d;
+        font-size: large;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 0.25rem;
+        padding: 1rem 3rem;
+        border-radius: 4px;">GO TO NESTSCOUT</a>
     </div>
 `
 

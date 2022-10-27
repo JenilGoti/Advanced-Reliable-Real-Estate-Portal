@@ -48,11 +48,16 @@ main {
     border-radius: 4px;
 }
 
-.sing-up .link,
-.sing-up .link a {
+.sing-up .link{
     margin-top: 1rem;
-    text-decoration: none;
     color: #e5e5e5;
+}
+
+.sing-up .link a,
+.password a
+ {
+    text-decoration: none;
+    color: #E8AA42;
 }
 
 .sing-up input:focus,

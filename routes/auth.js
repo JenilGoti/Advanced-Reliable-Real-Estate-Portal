@@ -11,7 +11,9 @@ const {
 const authController = require('../controllers/auth');
 
 const User = require('../models/user');
-const { multerSingleFile } = require("../utils/firebase-helper");
+const {
+    multerSingleFile
+} = require("../utils/firebase-helper");
 
 const router = express.Router();
 
@@ -21,15 +23,17 @@ router.get("/login", authController.getLogin);
 
 router.get("/verification/:credential", isAuth, authController.getVerification);
 
-router.get("/verify/:credential/:tokan",authController.getVerify)
+// router.get("/resetPassword", isAuth, authController.getResetPassword);
 
-router.get("/edit-phone-no",isAuth,authController.getEditPhoneNo)
+router.get("/verify/:credential/:tokan", authController.getVerify)
 
-router.get("/verify-succesfullscreen",authController.getVerifySucessfullScreen)
+router.get("/edit-phone-no", isAuth, authController.getEditPhoneNo)
 
-router.get("/address",isAuth,authController.getAddress);
+router.get("/verify-succesfullscreen", authController.getVerifySucessfullScreen)
 
-router.get("/edit-user-photo",isAuth,authController.getEditUserPhoto);
+router.get("/address", isAuth, authController.getAddress);
+
+router.get("/edit-user-photo", isAuth, authController.getEditUserPhoto);
 
 router.post("/singup", [
     check('firstName')
@@ -100,15 +104,34 @@ router.post("/login", [body('eMail')
     .trim()
 ], authController.postLogin);
 
-router.post("/send-otp",isAuth,authController.postSendOtp);
+router.post("/send-otp", isAuth, authController.postSendOtp);
 
-router.post("/verify-otp",isAuth,authController.postVerifyOtp);
+router.post("/verify-otp", isAuth, authController.postVerifyOtp);
 
-router.post("/verification/:credential", isAuth, authController.postVerification);
+router.post("/verification/:credential",
+    [check('email')
+        .isEmail()
+        .withMessage('Please enter the valid email')
+        .custom((value, {
+            req,res
+        }) => {
+            return User.findOne({
+                    "user_email.email": value
+                })
+                .then(userDoc => {
+                    if (userDoc) {
+                        if (userDoc._id.toString() !== req.session.user._id.toString()) {
+                            return Promise.reject('E-mail already exist,please pike a diffrent one.');
+                        }
+                    }
+                });
+        })
+        .normalizeEmail()
+    ], isAuth, authController.postVerification);
 
-router.post("/editAddress",isAuth,authController.postAddress);
+router.post("/editAddress", isAuth, authController.postAddress);
 
-router.post("/upload-user-image",multerSingleFile,authController.postUserImage);
+router.post("/upload-user-image", multerSingleFile, authController.postUserImage);
 
 router.post("/logout", isAuth, authController.postLogout)
 

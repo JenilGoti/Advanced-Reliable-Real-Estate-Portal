@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    user_type:{
-        type:String,
-        default:"Individual"
+    user_type: {
+        type: String,
+        default: "Individual"
     },
     firstName: {
         type: String,
@@ -78,6 +78,23 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    propertys: [{
+        property: {
+            type: Object,
+            required: true,
+            ref: 'property'
+        }
+    }],
+    refProperty: [{
+        property: {
+            type: Object,
+            required: true,
+            ref: 'property'
+        }
+    }],
+    resetToken: String,
+    resetTokenExpiration: Date
+
 
 });
 

@@ -320,6 +320,125 @@ exports.getVerify = (req, res, next) => {
         })
 }
 
+exports.getResetPassword = (req, res, next) => {
+    res.render('auth/resetPassword', {
+        path: '/reset',
+        pageTitle: 'Reset Password',
+        error: {},
+    });
+
+}
+
+
+exports.postResetPassword = (req, res, next) => {
+    let tokan;
+    const error = validationResult(req);
+    emailError = null;
+    error.array().forEach(err => {
+        if (err.param === 'email') {
+            emailError = err.msg;
+        }
+    })
+    console.log(error);
+
+    if (error.array().length > 0) {
+        return res.render('auth/resetPassword', {
+            path: '/reset',
+            pageTitle: 'Reset Password',
+            error: {
+                email: emailError
+            }
+        });
+    }
+    crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+            console.log(err);
+            return res.redirect('/reset')
+        }
+        tokan = buffer.toString('hex');
+        User.findOne({
+                'user_email.email': req.body.email
+            })
+            .then(user => {
+                if (!user) {
+                    res.redirect('/reset')
+                }
+                user.resetToken = tokan;
+                user.resetTokenExpiration = Date.now() + 3600000;
+                return user.save();
+            })
+            .then(result => {
+                const userName = result.firstName + ' ' + result.lastName;
+                res.redirect('/');
+                sendMail(req.body.email, "Reset password NESTSCOUT", resetPassword(userName, req.protocol + '://' + req.get('host') + '/new-password/' + tokan))
+                    .then().catch(err => {
+                        console.log(err);
+                    })
+
+            })
+            .catch(err => {
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
+            })
+    })
+}
+
+exports.getNewPassword = (req, res, next) => {
+    const token = req.params.tokan;
+    console.log(token);
+    User.findOne({
+        resetToken: token,
+        resetTokenExpiration: {
+            $gt: Date.now()
+        }
+    }).then(user => {
+        res.render('auth/new-password', {
+            path: '/new password',
+            pageTitle: 'New Password',
+            userId: user._id.toString(),
+            passwordTokan: token
+        });
+    }).catch(err => {
+        const error = new Error("your session has been expired");
+        error.httpStatusCode = 500;
+        return next(error);
+    })
+}
+
+exports.postNewPassword = (req, res, next) => {
+    const newPassword = req.body.password;
+    const userId = req.body.userId;
+    const passwordTokan = req.body.passwordTokan;
+
+    let resetUser;
+    User.findOne({
+            resetToken: passwordTokan,
+            resetTokenExpiration: {
+                $gt: Date.now()
+            },
+            _id: userId
+        }).then(user => {
+            resetUser = user;
+            return bcrypt.hash(newPassword, 12);
+        })
+        .then(hashedPassword => {
+            resetUser.password = hashedPassword;
+            resetUser.resetToken = null;
+            resetUser.resetTokenExpiration = null;
+            return resetUser.save()
+        })
+        .then(result => {
+            res.redirect('/login');
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
+
+}
+
 
 exports.getEditPhoneNo = (req, res, next) => {
     const phoneNo = res.locals.user.user_phone_no.number;
@@ -688,6 +807,53 @@ loginEmail = (url) => {
         margin-bottom: 0.25rem;
         padding: 1rem 3rem;
         border-radius: 4px;">GO TO NESTSCOUT</a>
+    </div>
+`
+
+
+    return body;
+}
+
+resetPassword = (username, url) => {
+    console.log(url);
+
+
+    const body = `
+<div style="margin: 5rem 3rem;
+            background-image: linear-gradient(to top, #14213d, #14213ddc);
+            align-items: center;
+            padding: 30px;    
+            border-radius: 5px;    
+            box-shadow: 2px 2px 2px 2px #14213d6e;    
+            text-align: center;">
+        <h1 style="font-size: xx-large;       
+        border-bottom: #e5e5e5 solid 3px;        
+        border-radius: 10px;        
+        color: #e5e5e5;    
+        font-family: 'Exo 2', sans-serif;">NESTSCOUT</h1>
+        <br>
+        <label style="             
+        color: #e5e5e5;        
+        margin-top: 15px;        
+        margin-bottom: 4px;        
+        font-size: large;" for="verification">This is Password Reset link from Advanced Reliable Real Estate Portal(ARREP) to ` + username + `</label>
+        <h3 style="               
+        color: #e5e5e5;        
+        margin-top: 15px;       
+         margin-bottom: 2rem;">
+            click below to reset password
+        </h3>
+        <a href="` + url + `" style="margin-top: 1rem;
+        background-color: #E8AA42;
+        font-weight: bolder;
+        text-decoration: none;
+        color: #14213d;
+        font-size: large;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 0.25rem;
+        padding: 1rem 3rem;
+        border-radius: 4px;">Reset Password</a>
     </div>
 `
 

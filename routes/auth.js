@@ -23,7 +23,7 @@ router.get("/login", authController.getLogin);
 
 router.get("/verification/:credential", isAuth, authController.getVerification);
 
-// router.get("/resetPassword", isAuth, authController.getResetPassword);
+router.get("/reset-password", authController.getResetPassword);
 
 router.get("/verify/:credential/:tokan", authController.getVerify)
 
@@ -34,6 +34,8 @@ router.get("/verify-succesfullscreen", authController.getVerifySucessfullScreen)
 router.get("/address", isAuth, authController.getAddress);
 
 router.get("/edit-user-photo", isAuth, authController.getEditUserPhoto);
+
+router.get("/new-password/:tokan", authController.getNewPassword);
 
 router.post("/singup", [
     check('firstName')
@@ -113,7 +115,8 @@ router.post("/verification/:credential",
         .isEmail()
         .withMessage('Please enter the valid email')
         .custom((value, {
-            req,res
+            req,
+            res
         }) => {
             return User.findOne({
                     "user_email.email": value
@@ -128,6 +131,26 @@ router.post("/verification/:credential",
         })
         .normalizeEmail()
     ], isAuth, authController.postVerification);
+
+router.post("/reset-password", [body('email')
+    .isEmail()
+    .withMessage('Please enter the valid email')
+    .custom((value, {
+        req
+    }) => {
+        return User.findOne({
+                "user_email.email": value
+            })
+            .then(userDoc => {
+                if (!userDoc) {
+                    return Promise.reject('wrong email.');
+                }
+            });
+    })
+    .normalizeEmail()
+], authController.postResetPassword);
+
+router.post("/new-password",authController.postNewPassword)
 
 router.post("/editAddress", isAuth, authController.postAddress);
 

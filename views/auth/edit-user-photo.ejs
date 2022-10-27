@@ -13,7 +13,7 @@
             <img class="user-image" src="<%=userImage.large%>" alt="">
             <form class="form-btns" action="/upload-user-image" method="post" enctype="multipart/form-data">
                 <label for="image"><span> Edit</span>
-                    <input type="file" name="image" id="image" />
+                    <input type="file" name="image" id="image" accept="image/*"/>
                 </label>
                 <label class="save" for="upload"><span> Save</span>
                     <button id="upload" type="submit">Upload</button>

@@ -18,8 +18,26 @@ iframe {
     width: 100%;
     height: 900px;
 }
+
+#footer{
+    background-image: linear-gradient(to top, #14213d, #14213ddc);
+    color: whitesmoke;
+    padding: 1rem;
+    width: 100%;
+}
+#footer a{
+    text-decoration: none;
+    color: #E8AA42;
+}
+
 @media (max-width: 600px) {
     iframe{
         display: none;
+    }
+    #footer{
+        position: absolute;
+        z-index: -1;
+        right: 0;
+        bottom: 0;
     }
   }

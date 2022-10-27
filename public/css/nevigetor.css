@@ -3,6 +3,7 @@
   height: calc(100% - 4.5rem);
   background-color: #14213d;
   position: fixed;
+  z-index: 1;
   align-items: center;
 }
 
@@ -67,6 +68,7 @@
 }
 .mobile-header .floating-action-button {
   position: fixed;
+  z-index: 1;
   bottom: 10px;
   left: 10px;
   padding: 15px;

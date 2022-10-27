@@ -22,6 +22,7 @@ main {
     font-weight: bolder;
     color: #14213d;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .report-btn:hover {
@@ -29,14 +30,18 @@ main {
     box-shadow: 2px 2px 2px 2px #ffe5b489;
 }
 
+.space{
+    height: 10rem;
+}
+
 #footer {
-    position: absolute;
-    z-index: -1;
+    position: fixed;
+    z-index: 0;
     right: 0;
     bottom: 0;
     background-image: linear-gradient(to top, #14213d, #14213ddc);
     color: whitesmoke;
-    padding: 1rem;
+    padding: 1rem 5rem;
     width: 100%;
 }
 

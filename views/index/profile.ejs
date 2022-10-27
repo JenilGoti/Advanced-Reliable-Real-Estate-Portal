@@ -21,7 +21,11 @@
                 </div>
                 <div class="divider"></div>
                 <div class="user-info">
-                    <label class="main-heading"><%=profUser.firstName %> <%=profUser.lastName %></label>
+                    <label class="main-heading">
+                    <%if(profUser.user_type=="Agent"){%>
+                    <span class="material-symbols-outlined">support_agent</span>
+                    <%}%><%=profUser.firstName %> <%=profUser.lastName %>
+                    </label>
                     <table class="user-detail">
                         <tr>
                             <td class="heding">

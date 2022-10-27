@@ -10,6 +10,11 @@
             <h1 class="title">Registration</h1>
             <br>
             <form action="/singup" method="post">
+                <label for="user-type">I am</label>
+                <div class="user-type">
+                    <label for="Individual" class="selected">Individual</label>
+                    <label for="Agent">Agent</label>
+                </div>
                 <div class="user_name">
                     <label for="user_name">Name
                         <% if(error.firstName||error.lastName){%>

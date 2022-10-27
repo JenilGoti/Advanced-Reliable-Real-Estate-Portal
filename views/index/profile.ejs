@@ -11,12 +11,13 @@
             <div class="profile-content">
                 <div class="user-image-container">
                     <img class="user-image circal-avatar" src="<%=profUser.user_thumbnail.large %>" alt="">
-
-                        <a href="/edit-user-photo">
+                    <%if(master){%>
+                    <a href="/edit-user-photo">
                         <span class="material-symbols-outlined">
                             edit
                         </span>
                     </a>
+                    <%}%>
                 </div>
                 <div class="divider"></div>
                 <div class="user-info">

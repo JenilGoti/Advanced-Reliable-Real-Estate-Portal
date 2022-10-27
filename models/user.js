@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+    user_type:{
+        type:String,
+        default:"Individual"
+    },
     firstName: {
         type: String,
         required: true

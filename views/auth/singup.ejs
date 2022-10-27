@@ -12,8 +12,9 @@
             <form action="/singup" method="post">
                 <label for="user-type">I am</label>
                 <div class="user-type">
-                    <label for="Individual" class="selected">Individual</label>
-                    <label for="Agent">Agent</label>
+                    <label for="Individual" class="selected individual">Individual</label>
+                    <label for="Agent" class="agent">Agent</label>
+                    <input type="hidden" class="user-type-value" name="userType" value="Individual">
                 </div>
                 <div class="user_name">
                     <label for="user_name">Name
@@ -24,7 +25,7 @@
                     
                     <input class="<%=error.firstName?'error-input':''%>" type="text" id="user_name" name="firstName"
                         value="<%=oldInput.firstName%>" placeholder="First Name" required>
-                        <input class="<%=error.lastName?'error-input':''%>" type="text" id="user_name" name="lastName"
+                        <input class="<%=error.lastName?'error-input':''%>" type="text" id="user_name_" name="lastName"
                             value="<%=oldInput.lastName%>" placeholder="Last Name" required>
                 </div>
                 <div class="email">
@@ -52,12 +53,12 @@
                     <input type="password" id="confirm-password" name="cinformPassword" required>
                 </div>
                 <div class="link">
-                    <p>Don't have an account?  <strong><a href="/login">Log In</a></strong></p>
+                    <p>Don't have an account? <strong><a href="/login">Log In</a></strong></p>
                 </div>
                 <button type="submit" class="btn sing-up-submit">sing-up</button>
 
-
             </form>
+            <script src="/js/singup.js"></script>
         </div>
     </main>
     <%- include('../includes/end.ejs') %>

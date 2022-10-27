@@ -38,10 +38,12 @@ exports.getLogin = (req, res, next) => {
 
 
 exports.postSingup = (req, res, next) => {
+    const user_type = req.body.userType;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const email = req.body.eMail;
     const password = req.body.password;
+
     const error = validationResult(req);
     firstNameError = null;
     lastNameError = null;
@@ -84,6 +86,7 @@ exports.postSingup = (req, res, next) => {
     bcrypt.hash(password, 12)
         .then(hasedpassword => {
             const user = new User({
+                user_type: user_type,
                 firstName: firstName,
                 lastName: lastName,
                 user_email: {

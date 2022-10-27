@@ -90,6 +90,7 @@ main {
 }
 
 .sing-up .user-type label {
+    cursor: pointer;
     text-align: center;
     padding: 0.7rem;
     margin: 0;

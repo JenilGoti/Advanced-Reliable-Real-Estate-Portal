@@ -87,7 +87,7 @@ const userSchema = new Schema({
     }],
     refProperty: [{
         property: {
-            type: Object,
+            type: Schema.Types.ObjectId,
             required: true,
             ref: 'property'
         }

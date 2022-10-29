@@ -1,0 +1,165 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/admin/admin.css">
+<link rel="stylesheet" href="/css/admin/add-property.css">
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB67BByd-RMKnthjpusk5SoStMhNp_wD2g&libraries=places">
+</script>
+</head>
+
+<body>
+    <%- include('../includes/nevbar.ejs') %>
+    <%- include('../includes/appbar.ejs') %>
+    <main>
+        <div class="container">
+            <h1>Add property</h1>
+
+            <form class="property-form" action="/admin/add-property" method="post">
+                <div class="property-form-photo">
+                    <h3>Photos</h3>
+                </div>
+
+                <div class="property-form-detail">
+                    <h3>basic details of your property</h3>
+                    <div class="form-itom">
+                        <label class="form-lable" for="action-type">I want to <span>*</span></label>
+                        <select class="form-input" name="actionType" id="action-type" required>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="property-type">property type <span>*</span></label>
+                        <select class="form-input" name="propertyType" id="property-type" required>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="contry">Contry <span>*</span></label>
+                        <select class="form-input" name="contry" id="contry" required>
+                            <option value="India">India</option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="state">State <span>*</span></label>
+                        <select class="form-input" onchange="print_city('city', this.selectedIndex);" name="state"
+                            id="state" required>
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="city">City <span>*</span></label>
+                        <select id="city" class="form-input" name="city" required>
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="locality">Locality <span>*</span></label>
+                        <input id="locality" class="form-input" name="locality" placeholder="Locality/Village"
+                            required />
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="society">Society <span>*</span></label>
+                        <input id="society-name" class="form-input" name="society"
+                            placeholder="Building/Project/Spciety Name" required />
+                        <input id="society-address-line" class="form-input" name="address" placeholder="Address Line"
+                            required />
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="bhk&rk">BHK/RK <span>*</span></label>
+                        <div class="toggle">
+                            <label id="bhk" class="bhK active" for="bhk">BHK</label>
+                            <label id="rk" class="rk" for="bhk">RK</label>
+                            <input type="hidden" name="bhkOrRk" id="bhk&rk" value="bhk">
+                        </div>
+                        <select class="form-input" name="noOfBhkOrRk" id="bhk&rk" required>
+                            <option value="">Select</option>
+                            <%for(var i=0;i<=30;i++){%>
+                            <option value="<%=i%>"><%=i%></option>
+                            <%}%>
+                    </select>
+                </div>
+                <h3>property price and area</h3>
+                <div class="form-itom">
+                    <label class="form-lable" for="covered-area">Coverd Area <span>*</span></label>
+                    <input type="number" step="0.01" id="covered-area" class="form-input" name="coveredArea" placeholder="in Sq-Ft" required />
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="plot-area">Plot Area <span>*</span></label>
+                    <input type="number" step="0.01" id="plot-area" class="form-input" name="plotArea" placeholder="in Sq-Ft" required />
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="price">Property Price <span>*</span></label>
+                    <input type="number" step="0.01" id="price" class="form-input" name="price" placeholder="in Indian rupee" required />
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="negotiable">Negotiable <span>*</span></label>
+                    <div class="toggle">
+                        <label id="yes" class="yes active" for="yes">Yes</label>
+                        <label id="no" class="no" for="no">No</label>
+                        <input type="hidden" id="negotiable" name="priceNegotiable" value="yes">
+                    </div>
+                </div>
+                <h3>additional details about property</h3>
+                <div class="form-itom">
+                    <label class="form-lable" for="furnished">Furnished <span>*</span></label>
+                    <select class="form-input" name="furnished" id="furnished" required>
+                    </select>
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="age">Age Of Property <span>*</span></label>
+                    <select class="form-input" name="ageOfProperty" id="age" required>
+                        <option value="">Select</option>
+                        <%for(var i=0;i<=30;i++){%>
+                            <option value="<%=i%>"><%=i%> year</option>
+                            <%}%>
+                    </select>
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="facing">Facing <span>*</span></label>
+                    <select class="form-input" name="facing" id="facing" required>
+                    </select>
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="floor-no">Floor No <span>*</span></label>
+                    <select class="form-input" name="floorNo" id="floor-no" required>
+                        <option value="">Select</option>
+                        <option value="-1">Under Ground</option>
+                        <option value="0">Ground</option>
+                        <%for(var i=1;i<=30;i++){%>
+                            <option value="<%=i%>"><%=i%></option>
+                            <%}%>
+                    </select>
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="total-floors">Total Floors <span>*</span></label>
+                    <select class="form-input" name="totalFloors" id="total-floors" required>
+                        <option value="">Select</option>
+                        <%for(var i=1;i<=30;i++){%>
+                            <option value="<%=i%>"><%=i%></option>
+                            <%}%>
+                    </select>
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="transactional-type">Transactional Type <span>*</span></label>
+                    <select class="form-input" name="transactionalType" id="transactional-type" required>
+                    </select>
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="property-ownership">Property Ownership <span>*</span></label>
+                    <select class="form-input" name="propertyOwnership" id="property-ownership" required>
+                    </select>
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="property-availabity">Property Availabity From <span>*</span></label>
+                    <input type="date" class="form-input" name="propertyAvailabity" id="property-availabity" />
+                </div>
+                <h3>other details</h3>
+                <div class="form-itom">
+                    <label class="form-lable" for="brif-description">Brief Description <span>*</span></label>
+                    <textarea class="form-input" name="briefDescription" id="brif-description"  cols="30" rows="3" required></textarea>
+                </div>
+                <button class="btn1" type="submit">Submit</button>
+            </div>
+            </form>
+        </div>
+
+    </main>
+    <script src="/js/admin/add-property.js"></script>
+    <%- include('../includes/end.ejs') %>

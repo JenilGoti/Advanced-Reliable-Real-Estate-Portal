@@ -21,15 +21,17 @@ main {
   border-radius: 100%;
 }
 
-.btn {
+.btn1 {
+  height: 2.5rem;
   margin-top: 0.1rem;
   background-color: #E8AA42;
   font-weight: bolder;
   color: #14213d;
   cursor: pointer;
+  border-radius: 5px;
 }
 
-.btn :hover {
+.btn1:hover {
   background-color: #e8ab42d9;
   box-shadow: 2px 2px 2px 2px #ffe5b489;
 }

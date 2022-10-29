@@ -289,7 +289,7 @@ exports.getVerify = (req, res, next) => {
     const tokan = req.param('tokan');
     User.findOne({
             "user_email.resetToken": tokan,
-            resetTokenExpiration: {
+            "user_email.resetTokenExpiration": {
                 $gt: Date.now()
             }
         })
@@ -305,14 +305,14 @@ exports.getVerify = (req, res, next) => {
                 const error = new Error("401 Unauthorized HTTP");
                 error.statusCode = 401;
                 error.discription = "this session can be expired"
-                next(error);
+                return next(error);
             }
         })
         .then(result => {
-            res.redirect("/verify-succesfullscreen")
+            return res.redirect("/verify-succesfullscreen")
         })
         .catch(err => {
-            // console.log(err);
+            console.log(err);
             const error = new Error("401 Unauthorized HTTP");
             error.statusCode = 401;
             error.discription = "this session can be expired"

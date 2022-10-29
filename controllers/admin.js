@@ -67,16 +67,17 @@ exports.postAddNewProperty = (req, res, next) => {
         otherDetail: {
             briefDescription: briefDescription
         },
-        userId: user
+        userId: user,
+        agentId: (user.user_type==="Agent"? user : user.hiredAgent)
     })
     property.save()
         .then(result => {
-            console.log(result);
-            user.propertys = [...user.propertys,{property:result} ];
+            user.propertys = [...user.propertys, {
+                property: result
+            }];
             return user.save()
         })
         .then(result => {
-            console.log(result);
             res.redirect('/');
         })
         .catch(err => {

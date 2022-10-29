@@ -102,7 +102,6 @@ router.post("/login", [body('eMail')
     })
     .normalizeEmail(),
     body('password')
-    .isAlphanumeric()
     .trim()
 ], authController.postLogin);
 
@@ -150,7 +149,7 @@ router.post("/reset-password", [body('email')
     .normalizeEmail()
 ], authController.postResetPassword);
 
-router.post("/new-password",authController.postNewPassword)
+router.post("/new-password", authController.postNewPassword)
 
 router.post("/editAddress", isAuth, authController.postAddress);
 

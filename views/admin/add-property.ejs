@@ -12,10 +12,22 @@
     <main>
         <div class="container">
             <h1>Add property</h1>
-
             <form class="property-form" action="/admin/add-property" method="post">
                 <div class="property-form-photo">
                     <h3>Photos</h3>
+                    <div class="photos">
+
+
+                        <div class="photo">
+                            <label for="add-photo">
+                                <span class="material-symbols-outlined">
+                                    add_photo_alternate
+                                </span>
+                                <input type="file" id="add-photo" accept="image/jpeg, image/png, image/jpg" max="10"
+                                    multiple required>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="property-form-detail">

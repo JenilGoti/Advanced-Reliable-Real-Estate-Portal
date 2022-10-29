@@ -93,3 +93,30 @@ function toggle(value, options) {
         });
     })
 }
+
+
+const addImageBtn = document.querySelector("#add-photo");
+const imageDiv = document.querySelector(".photo");
+console.log(addImageBtn.files);
+addImage = () => {
+    console.log(addImageBtn.files['length']);
+    if (addImageBtn.files['length'] > 10) {
+        return alert("You can upload maximum 10 images")
+    }
+    for (let i = 0; i < addImageBtn.files['length']; i++) {
+
+        const imageUrl = window.URL.createObjectURL(addImageBtn.files[i]);
+        const div = document.createElement("div");
+        div.classList.add("photo")
+        const image = document.createElement("img");
+        image.classList.add("selected-image");
+        div.appendChild(image)
+        console.log(imageUrl);
+        image.src = imageUrl;
+        image.alt = "no image found"
+        imageDiv.insertAdjacentElement("beforebegin", div)
+    };
+
+}
+
+addImageBtn.addEventListener("change", addImage);

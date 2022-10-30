@@ -1,9 +1,13 @@
 <%- include('../includes/head.ejs') %>
 <link rel="stylesheet" href="/css/admin/admin.css">
 <link rel="stylesheet" href="/css/admin/add-property.css">
-<script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB67BByd-RMKnthjpusk5SoStMhNp_wD2g&libraries=places">
-</script>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.css' rel='stylesheet' />
+
+<script src='https://tiles.locationiq.com/v3/js/liq-styles-ctrl-gl.js?v=0.1.8'></script>
+<link href='https://tiles.locationiq.com/v3/css/liq-styles-ctrl-gl.css?v=0.1.8' rel='stylesheet' />
+
 </head>
 
 <body>
@@ -12,9 +16,10 @@
     <main>
         <div class="container">
             <h1>Add property</h1>
-            <form class="property-form" action="/admin/add-property" method="post">
+            <form class="property-form" action="/admin/add-property" method="post" enctype="multipart/form-data">
                 <div class="property-form-photo">
                     <h3>Photos</h3>
+
                     <div class="photos">
 
 
@@ -23,11 +28,12 @@
                                 <span class="material-symbols-outlined">
                                     add_photo_alternate
                                 </span>
-                                <input type="file" id="add-photo" accept="image/jpeg, image/png, image/jpg" max="10"
-                                    multiple required>
+                                <input name="image" type="file" id="add-photo" accept="image/jpeg, image/png, image/jpg"
+                                    max="10" multiple required>
                             </label>
                         </div>
                     </div>
+                    <p style="color: #E8AA42;">* you can add maximum 10 images</p>
                 </div>
 
                 <div class="property-form-detail">
@@ -66,6 +72,15 @@
                         <input id="locality" class="form-input" name="locality" placeholder="Locality/Village"
                             required />
                     </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="location">add location</label>
+                        <div id="map"></div>
+                        <pre id="coordinates" class="coordinates"></pre>
+                        <input id="location-lat" type="hidden" class="form-input" name="locationLat" required />
+                        <input id="location-lon" type="hidden" class="form-input" name="locationLon" required />
+
+                    </div>
+
                     <div class="form-itom">
                         <label class="form-lable" for="society">Society <span>*</span></label>
                         <input id="society-name" class="form-input" name="society"

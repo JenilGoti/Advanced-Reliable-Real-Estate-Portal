@@ -55,7 +55,7 @@ exports.multerMultipaleFile = multer({
     dest: 'images',
     storage: memoryStorage,
     fileFilter: fileFilter,
-}).array('image', 5);
+}).array('image', 10);
 
 const storageRef = admin.storage().bucket(process.env.FIREBASE_STORAGE_BUCKET);
 const bucket = admin.storage().bucket();
@@ -69,6 +69,7 @@ function fileURL(fileName) {
 }
 
 function uploadFile(file, path, fileName, height, width) {
+    
     return resizeImg(file.buffer, {
             width: width,
             height: height,

@@ -10,7 +10,7 @@ const propertySchema = new Schema({
         required: true
     },
     photos: [{
-        url: String,
+        imageUrl: String,
         name: String
     }],
     basicDetail: {

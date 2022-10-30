@@ -79,6 +79,82 @@ function setOption(option_str, option_arr) {
     }
 }
 
+var lat = 20.5937;
+var lon = 78.9629;
+var bountry;
+const city = document.getElementById("city");
+const state = document.getElementById("state").value;
+const contry = document.getElementById("contry").value;
+
+locationiq.key = 'pk.123ea4a1fd06066f2aa65928bb3d3ea5';
+resetMap()
+function setMap() {
+    fetch(`https://us1.locationiq.com/v1/search?key=pk.123ea4a1fd06066f2aa65928bb3d3ea5&q=` + contry + `%20` + state + `%20` + city.value + `&format=json`, {
+            method: "post"
+        })
+        .then(result => {
+            return result.json();
+        })
+        .then(result => {
+            var mapCordinat = result[0];
+            bountry = mapCordinat.boundingbox;
+            lat = mapCordinat.lat;
+            lon = mapCordinat.lon;
+            console.log(lat, lon);
+            resetMap()
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+
+city.addEventListener("change", setMap);
+
+function resetMap()
+
+{
+    var map = new mapboxgl.Map({
+        container: 'map',
+        attributionControl: false,
+        zoom: 10,
+        center: [lon, lat]
+    });
+    var nav = new mapboxgl.NavigationControl();
+    map.addControl(nav, 'top-right');
+    map.addControl(new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true
+    }));
+
+    var layerStyles = {
+        "Streets": "streets/vector"
+    };
+    map.addControl(new locationiqLayerControl({
+        key: locationiq.key,
+        layerStyles: layerStyles
+    }), 'bottom-left');
+
+    var el = document.createElement('div');
+    el.className = 'marker';
+    el.style.backgroundImage = 'url(/marker.png)';
+    el.style.width = '50px';
+    el.style.height = '50px';
+
+    map.on('click', function (e) {
+        var marker = new mapboxgl.Marker(el)
+            .setLngLat(e.lngLat.wrap())
+            .addTo(map);
+
+        var lngLat = marker.getLngLat();
+        document.getElementById("location-lat").value = lngLat.lat;
+        document.getElementById("location-lon").value = lngLat.lng;
+
+    });
+}
+
+
 toggle("bhk&rk", new Array('bhk', 'rk'))
 toggle("negotiable", new Array('yes', 'no'))
 
@@ -97,14 +173,15 @@ function toggle(value, options) {
 
 const addImageBtn = document.querySelector("#add-photo");
 const imageDiv = document.querySelector(".photo");
+const emptyFile = addImageBtn.files;
 console.log(addImageBtn.files);
 addImage = () => {
     console.log(addImageBtn.files['length']);
     if (addImageBtn.files['length'] > 10) {
+        location.reload();
         return alert("You can upload maximum 10 images")
     }
     for (let i = 0; i < addImageBtn.files['length']; i++) {
-
         const imageUrl = window.URL.createObjectURL(addImageBtn.files[i]);
         const div = document.createElement("div");
         div.classList.add("photo")
@@ -118,5 +195,7 @@ addImage = () => {
     };
 
 }
+
+
 
 addImageBtn.addEventListener("change", addImage);

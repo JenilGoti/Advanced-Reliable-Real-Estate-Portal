@@ -1,5 +1,8 @@
 const Property = require("../models/property");
-
+const {
+    multerMultipaleFile,
+    uploadFile
+} = require("../utils/firebase-helper")
 exports.getAddNewProperty = (req, res, next) => {
     res.render("admin/add-property", {
         pageTitle: "Add property",
@@ -9,13 +12,17 @@ exports.getAddNewProperty = (req, res, next) => {
     })
 }
 
-exports.postAddNewProperty = (req, res, next) => {
+exports.postAddNewProperty = async (req, res, next) => {
     const actionType = req.body.actionType;
     const propertyType = req.body.propertyType;
     const contry = req.body.contry;
     const state = req.body.state;
     const city = req.body.city;
     const locality = req.body.locality;
+    const coordinates = {
+        latitude: req.body.locationLat,
+        longitude: req.body.locationLon
+    }
     const society = req.body.society;
     const address = req.body.address;
     const bhkOrRk = req.body.bhkOrRk;
@@ -38,6 +45,7 @@ exports.postAddNewProperty = (req, res, next) => {
     const property = new Property({
         actionType: actionType,
         basicDetail: {
+            coordinates: coordinates,
             propertyType: propertyType,
             contry: contry,
             state: state,
@@ -68,8 +76,19 @@ exports.postAddNewProperty = (req, res, next) => {
             briefDescription: briefDescription
         },
         userId: user,
-        agentId: (user.user_type==="Agent"? user : user.hiredAgent)
+        agentId: (user.user_type === "Agent" ? user : user.hiredAgent)
     })
+    for (var i = 0; i < req.files.length; i++) {
+        const file = req.files[i];
+        const filePath = "/users/" + res.locals.user._id + "/" + property._id + '/';
+        const fileName = property._id + "_image(" + i + ")" + ".jpeg";
+        const fileUrl = await uploadFile(file, filePath, fileName, 1080, 1080);
+        property.photos = [...property.photos, {
+            imageUrl: fileUrl[0],
+            name: filePath + fileName
+        }]
+    }
+
     property.save()
         .then(result => {
             user.propertys = [...user.propertys, {

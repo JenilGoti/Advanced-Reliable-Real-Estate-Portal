@@ -82,7 +82,7 @@ exports.postAddNewProperty = async (req, res, next) => {
         const file = req.files[i];
         const filePath = "/users/" + res.locals.user._id + "/" + property._id + '/';
         const fileName = property._id + "_image(" + i + ")" + ".jpeg";
-        const fileUrl = await uploadFile(file, filePath, fileName, 1080, 1080);
+        const fileUrl = await uploadFile(file, filePath, fileName);
         property.photos = [...property.photos, {
             imageUrl: fileUrl[0],
             name: filePath + fileName

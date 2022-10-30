@@ -68,18 +68,24 @@ function fileURL(fileName) {
     });
 }
 
-function uploadFile(file, path, fileName, height, width) {
-    
-    return resizeImg(file.buffer, {
-            width: width,
-            height: height,
-        })
-        .then(buffer => {
-            return bucket.file('/NESTSCOUT' + path + fileName).createWriteStream().end(buffer);
-        })
-        .then(fileLoader => {
-            return fileURL(path + fileName);
-        })
+async function uploadFile(file, path, fileName, height, width) {
+    if (height && width) {
+        return resizeImg(file.buffer, {
+                width: width,
+                height: height,
+            })
+            .then(buffer => {
+                return bucket.file('/NESTSCOUT' + path + fileName).createWriteStream().end(buffer);
+            })
+            .then(fileLoader => {
+                return fileURL(path + fileName);
+            })
+    }
+
+    await bucket.file('/NESTSCOUT' + path + fileName).createWriteStream().end(file.buffer)
+
+    return fileURL(path + fileName);
+
 }
 
 

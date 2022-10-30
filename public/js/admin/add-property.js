@@ -181,10 +181,18 @@ addImage = () => {
         location.reload();
         return alert("You can upload maximum 10 images")
     }
+    const prevphoto=document.querySelectorAll(".urls");
+    console.log(prevphoto);
+    prevphoto.forEach(photo => {
+        photo.remove();
+    });
+    
+    
     for (let i = 0; i < addImageBtn.files['length']; i++) {
         const imageUrl = window.URL.createObjectURL(addImageBtn.files[i]);
         const div = document.createElement("div");
         div.classList.add("photo")
+        div.classList.add("urls")
         const image = document.createElement("img");
         image.classList.add("selected-image");
         div.appendChild(image)

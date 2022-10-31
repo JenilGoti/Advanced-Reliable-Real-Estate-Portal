@@ -51,7 +51,7 @@ main {
 }
 
 .loader {
-
+  /* display: none; */
   border: 7px solid #f3f3f300;
   border-radius: 50%;
   border-top:7px solid #14213d;

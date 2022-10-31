@@ -1,5 +1,5 @@
 const host = location.protocol + '//' + location.host;
-const main = document.querySelector("main")
+const main = document.querySelector("main");
 var pageNo = 1;
 var lodPageAtTime = 20;
 var loadPage = 20;
@@ -24,11 +24,12 @@ function addProperty() {
                 const pC = propertyCard(result.propertys[0], result.isAuth, () => {})
                 main.appendChild(pC);
                 pC.style.animation = "scale-display .3s";
-                if (result.totalPage > pageNo) {
+                if (result.totalPage > pageNo && loadPage > pageNo) {
                     pageNo++;
                     addProperty();
                     lodderOnScreen = false;
-                    if ((pageNo + 1) % lodPageAtTime == 0) {
+                    if ((pageNo) % lodPageAtTime == 0) {
+                        // element.style.display = "unset";
                         window.addEventListener('scroll', getNext);
                     }
 
@@ -54,7 +55,7 @@ function getNext() {
                 addProperty();
 
             } else if (!hasNext) {
-                element.style.display = "none";
+                // element.style.display = "none";
                 element.remove();
             }
             lodderOnScreen = true;

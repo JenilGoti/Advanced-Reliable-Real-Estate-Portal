@@ -1,11 +1,8 @@
 const host = location.protocol + '//' + location.host;
 const main = document.querySelector("main");
+var element = document.querySelector('.loader');
 var pageNo = 1;
-var lodPageAtTime = 20;
-var loadPage = 20;
-var hasNext = true;
-var totalPage = 999999;
-var lodderOnScreen = false;
+var lodPageAtTime = 5;
 
 addProperty()
 
@@ -21,20 +18,31 @@ function addProperty() {
             if (result.statusCode == 200) {
                 console.log(result);
                 hasNext = result.hasNext;
-                const pC = propertyCard(result.propertys[0], result.isAuth, () => {})
+                const pC = propertyCard(result.propertys[0], result.isAuth, () => {
+                    if (result.totalPage > pageNo) {
+                        pageNo++;
+                        if ((pageNo) % lodPageAtTime == 0) {
+                            element.style.display = "unset";
+                            evl=() =>{
+                                var position = element.getBoundingClientRect();
+                                if (position.bottom <= window.innerHeight) {
+                                    addProperty();
+                                    window.removeEventListener('scroll', evl);
+                                    console.log(pageNo);
+                                }
+                            }
+                            window.addEventListener('scroll', evl);
+                        }
+                        else{
+                            addProperty();
+                        }
+                    }
+                    else{
+                        element.remove();
+                    }
+                })
                 main.appendChild(pC);
                 pC.style.animation = "scale-display .3s";
-                if (result.totalPage > pageNo && loadPage > pageNo) {
-                    pageNo++;
-                    addProperty();
-                    lodderOnScreen = false;
-                    if ((pageNo) % lodPageAtTime == 0) {
-                        // element.style.display = "unset";
-                        window.addEventListener('scroll', getNext);
-                    }
-
-                }
-
             } else {
                 alert(result.message);
             }
@@ -42,25 +50,4 @@ function addProperty() {
         .catch(err => {
             console.log(err);
         })
-}
-
-function getNext() {
-    var element = document.querySelector('.loader');
-    var position = element.getBoundingClientRect();
-    if (position.bottom <= window.innerHeight) {
-        if (!lodderOnScreen) {
-            if (hasNext && totalPage > pageNo) {
-                loadPage = loadPage + lodPageAtTime;
-                pageNo++;
-                addProperty();
-
-            } else if (!hasNext) {
-                // element.style.display = "none";
-                element.remove();
-            }
-            lodderOnScreen = true;
-            window.removeEventListener('scroll', getNext);
-        }
-        console.log(pageNo, loadPage);
-    }
 }

@@ -21,7 +21,8 @@ exports.getProperty = async (req, res, next) => {
             message: "otp request has been faild",
             propertys: propertys,
             totalPage: totalProperty,
-            isAuth: res.locals.isAuthenticated
+            isAuth: res.locals.isAuthenticated,
+            hasNext:page<totalProperty
         });
     } catch (err) {
         console.log(err);

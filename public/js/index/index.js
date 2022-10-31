@@ -2,10 +2,9 @@ const host = location.protocol + '//' + location.host;
 const main = document.querySelector("main");
 var element = document.querySelector('.loader');
 var pageNo = 1;
-var lodPageAtTime = 5;
+var lodPageAtTime = 20;
 
 addProperty()
-
 function addProperty() {
     fetch(host + '/property/' + pageNo, {
             method: 'GET',
@@ -21,7 +20,7 @@ function addProperty() {
                 const pC = propertyCard(result.propertys[0], result.isAuth, () => {
                     if (result.totalPage > pageNo) {
                         pageNo++;
-                        if ((pageNo) % lodPageAtTime == 0) {
+                        if ((pageNo+1) % lodPageAtTime == 0) {
                             element.style.display = "unset";
                             evl=() =>{
                                 var position = element.getBoundingClientRect();

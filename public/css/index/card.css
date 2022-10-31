@@ -28,7 +28,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    
+
 }
 
 .card .header .detail {
@@ -52,6 +52,7 @@
     justify-content: space-between;
     color: #AEBDCA;
     font-size: medium;
+    white-space: nowrap;
     overflow: hidden;
 }
 

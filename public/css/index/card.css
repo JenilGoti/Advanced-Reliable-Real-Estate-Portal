@@ -4,7 +4,7 @@
     display: inline-flex;
     flex-direction: column;
     text-transform: capitalize;
-    width: 20rem;
+    width: 22rem;
     margin: 1rem;
     border-radius: 5px;
     box-shadow: 1.5px 1.5px 1.5px 1.5px #14213d8c;
@@ -31,8 +31,10 @@
 
 .card .header .detail {
     display: flex;
+    width: 100%;
     flex-direction: column;
     margin-bottom: 0.5rem;
+    margin-right: 0.3rem;
 }
 
 .card .header .detail .line1 {
@@ -54,27 +56,27 @@
     font-size: inherit;
 }
 
-.card .body{
-    height: 16rem;
+.card .body {
+    height: 15rem;
     display: flex;
     width: 100%;
     justify-content: center;
 }
 
 .card .body a,
-.card .body .body-image{
+.card .body .body-image {
     width: 100%;
-    border-radius: 4px;
     overflow: hidden;
     align-items: center;
     display: flex;
 }
 
-.card .footer{
+.card .footer {
     justify-content: space-between;
+    align-items: flex-end;
 }
 
-.card .footer a{
+.card .footer a {
     max-height: 2rem;
     display: flex;
     flex-direction: row;
@@ -82,18 +84,18 @@
     align-items: center;
 }
 
-.card .footer .user-image{
+.card .footer .user-image {
     max-height: inherit;
     border-radius: 100%;
     margin-right: 5px;
 }
 
-.card .footer .btns{
+.card .footer .btns {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
-.card .footer .btns span{
+.card .footer .btns span {
     margin: 0 2px;
 }

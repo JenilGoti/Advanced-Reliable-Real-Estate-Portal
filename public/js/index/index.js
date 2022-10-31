@@ -1,8 +1,8 @@
 const host = location.protocol + '//' + location.host;
 const main = document.querySelector("main")
 var pageNo = 1;
-var lodPageAtTime = 10;
-var loadPage = 10;
+var lodPageAtTime = 20;
+var loadPage = 20;
 var hasNext = true;
 var totalPage = 999999;
 var lodderOnScreen = false;

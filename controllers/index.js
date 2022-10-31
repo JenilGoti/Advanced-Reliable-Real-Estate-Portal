@@ -1,11 +1,27 @@
 const user = require('../models/user');
 const path = require("path");
 const fs = require("fs");
+const Property = require("../models/property");
 exports.getIndex = (req, res, next) => {
-    res.render("index/index", {
-        pageTitle: "NESTSCOUT",
-        path: '/'
-    });
+    Property.find()
+        .populate("userId")
+        .then(propertys => {
+            res.render("index/index", {
+                pageTitle: "NESTSCOUT",
+                path: '/',
+                property: propertys
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            const error = new Error("data not found");
+            error.statusCode = 404;
+            error.discription = "required data not found"
+            return next(error);
+        })
+
+
+
 }
 
 exports.getProfile = (req, res, next) => {
@@ -15,7 +31,7 @@ exports.getProfile = (req, res, next) => {
         .select('user_type user_thumbnail user_email user_phone_no firstName lastName user_address')
         .then(user => {
             res.render("index/profile", {
-                pageTitle: user.firstName+" " + user.lastName,
+                pageTitle: user.firstName + " " + user.lastName,
                 path: '/profile',
                 profUser: user,
                 master: master
@@ -27,7 +43,7 @@ exports.getProfile = (req, res, next) => {
 
 }
 
-exports.getReport=(req,res,next)=>{
+exports.getReport = (req, res, next) => {
     const invoiceName = 'de-report.pdf';
     const reportPath = path.join('data', invoiceName);
     const file = fs.createReadStream(reportPath);

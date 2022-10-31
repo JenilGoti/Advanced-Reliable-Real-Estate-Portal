@@ -5,6 +5,16 @@
     <%- include('../includes/nevbar.ejs') %>
     <%- include('../includes/appbar.ejs') %>
     <main>
-        <h1>helow</h1>
+        <div class="card">
+            <header>
+                <h3><%= property[0].basicDetail.society%></h3>
+            </header>
+            <div>
+                <img src="<%= property[0].photos[0].imageUrl%>" alt="">
+            </div>
+            <footer>
+                <h2><%= property[0].userId.firstName%> <%= property[0].userId.lastName%></h2>
+            </footer>
+        </div>
     </main>
     <%- include('../includes/end.ejs') %>

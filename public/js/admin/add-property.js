@@ -5,6 +5,9 @@ var option_str_furnished = document.getElementById("furnished");
 var option_str_facing = document.getElementById("facing");
 var option_str_transactional_type = document.getElementById("transactional-type");
 var option_str_property_ownership = document.getElementById("property-ownership");
+const addImageBtn = document.querySelector("#add-photo");
+const imageDiv = document.querySelector(".photo");
+
 document.getElementById('property-availabity').valueAsDate = new Date();
 
 
@@ -88,6 +91,7 @@ const contry = document.getElementById("contry").value;
 
 locationiq.key = 'pk.123ea4a1fd06066f2aa65928bb3d3ea5';
 resetMap()
+
 function setMap() {
     fetch(`https://us1.locationiq.com/v1/search?key=pk.123ea4a1fd06066f2aa65928bb3d3ea5&q=` + contry + `%20` + state + `%20` + city.value + `&format=json`, {
             method: "post"
@@ -109,10 +113,13 @@ function setMap() {
 }
 
 city.addEventListener("change", setMap);
+var el = document.createElement('div');
+el.className = 'marker';
+el.style.backgroundImage = 'url(/marker.png)';
+el.style.width = '50px';
+el.style.height = '50px';
 
-function resetMap()
-
-{
+function resetMap() {
     var map = new mapboxgl.Map({
         container: 'map',
         attributionControl: false,
@@ -131,21 +138,22 @@ function resetMap()
     var layerStyles = {
         "Streets": "streets/vector"
     };
+    map.addControl(new mapboxgl.FullscreenControl());
     map.addControl(new locationiqLayerControl({
         key: locationiq.key,
         layerStyles: layerStyles
     }), 'bottom-left');
-
-    var el = document.createElement('div');
-    el.className = 'marker';
-    el.style.backgroundImage = 'url(/marker.png)';
-    el.style.width = '50px';
-    el.style.height = '50px';
-
+    var marker = new mapboxgl.Marker(el)
+        .setLngLat([lon, lat])
+        .addTo(map);
+    var lngLat = marker.getLngLat();
+    document.getElementById("location-lat").value = lngLat.lat;
+    document.getElementById("location-lon").value = lngLat.lng;
     map.on('click', function (e) {
-        var marker = new mapboxgl.Marker(el)
-            .setLngLat(e.lngLat.wrap())
+        marker = new mapboxgl.Marker(el)
+            .setLngLat([e.lngLat.wrap().lng, e.lngLat.wrap().lat])
             .addTo(map);
+        console.log(e.lngLat.wrap());
 
         var lngLat = marker.getLngLat();
         document.getElementById("location-lat").value = lngLat.lat;
@@ -171,8 +179,7 @@ function toggle(value, options) {
 }
 
 
-const addImageBtn = document.querySelector("#add-photo");
-const imageDiv = document.querySelector(".photo");
+
 const emptyFile = addImageBtn.files;
 console.log(addImageBtn.files);
 addImage = () => {
@@ -181,13 +188,13 @@ addImage = () => {
         location.reload();
         return alert("You can upload maximum 10 images")
     }
-    const prevphoto=document.querySelectorAll(".urls");
+    const prevphoto = document.querySelectorAll(".urls");
     console.log(prevphoto);
     prevphoto.forEach(photo => {
         photo.remove();
     });
-    
-    
+
+
     for (let i = 0; i < addImageBtn.files['length']; i++) {
         const imageUrl = window.URL.createObjectURL(addImageBtn.files[i]);
         const div = document.createElement("div");

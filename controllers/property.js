@@ -2,7 +2,7 @@ const Property = require("../models/property");
 
 exports.getProperty = async (req, res, next) => {
     const ITEM_PER_PAGE = 1;
-    const page = req.params["page"]||1
+    const page = req.params["page"] || 1
     try {
         console.log(req.params);
         const pageNo = req.params["pageno"];
@@ -18,11 +18,11 @@ exports.getProperty = async (req, res, next) => {
 
         return res.status(200).send({
             statusCode: 200,
-            message: "otp request has been faild",
+            message: "data sended succesfully",
             propertys: propertys,
             totalPage: totalProperty,
             isAuth: res.locals.isAuthenticated,
-            hasNext:page<totalProperty
+            hasNext: page < totalProperty
         });
     } catch (err) {
         console.log(err);

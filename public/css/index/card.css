@@ -52,6 +52,7 @@
     justify-content: space-between;
     color: #AEBDCA;
     font-size: medium;
+    overflow: hidden;
 }
 
 .card .header .detail .line2 .material-symbols-outlined {

@@ -22,12 +22,13 @@
 .card .header,
 .card .footer {
     text-align: left;
-    height: 2rem;
+    height: 3rem;
     margin: 1rem;
     display: inline-flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    
 }
 
 .card .header .detail {
@@ -73,6 +74,7 @@
 }
 
 .card .footer {
+    height: 2rem;
     justify-content: space-between;
     align-items: flex-end;
 }

@@ -2,7 +2,7 @@ const host = location.protocol + '//' + location.host;
 const main = document.querySelector("main");
 var element = document.querySelector('.loader');
 var pageNo = 1;
-var lodPageAtTime = 2;
+var lodPageAtTime = 20;
 
 addProperty()
 

@@ -122,6 +122,28 @@ const propertySchema = new Schema({
             required: true
         }
     },
+    likes: [{
+        userId: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: 'User'
+        },
+        count: {
+            type: Number,
+            default: 0
+        }
+    }],
+    Comment: [{
+        userId: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: 'User'
+        },
+        comment: {
+            type: String,
+            required: true
+        }
+    }],
     userId: {
         type: Schema.Types.ObjectId,
         required: true,

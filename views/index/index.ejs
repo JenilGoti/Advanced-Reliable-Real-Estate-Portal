@@ -1,61 +1,17 @@
 <%- include('../includes/head.ejs') %>
 <link rel="stylesheet" href="/css/index/card.css">
 <link rel="stylesheet" href="/css/index/index.css">
+<script src="/js/property.js"></script>
 </head>
 
 <body>
     <%- include('../includes/nevbar.ejs') %>
     <%- include('../includes/appbar.ejs') %>
     <main>
-        <%for(var i=0;i<property.length;i++){ %>
-        <div class="card">
-            <div class="header">
-                <div class="detail">
-                    <div class="line1">
-                        <h3 class="title"><%= property[i].basicDetail.noOfBhkOrRk%>
-                            <%= property[i].basicDetail.bhkOrRk%>
-                            <%= property[i].basicDetail.propertyType%></h3>
-                        <h3 style="white-space: nowrap;" class="price">₹ <%= property[i].priceArea.price%></h3>
-                    </div>
-                    <div class="line2">
-                        <h4 class="area"><%= property[i].priceArea.coveredArea%> Sq-Ft</h4>
-                        <h5 class="location"><span class="material-symbols-outlined">
-                                pin_drop
-                            </span><%= property[i].basicDetail.city%>, <%= property[i].basicDetail.state%></h5>
-                    </div>
-                </div>
-                &emsp;
-                <button class="bookmark-btn"><span class="material-symbols-outlined">
-                        bookmark
-                    </span> </button>
-            </div>
-            <div class="body">
-                <a href="/property/<%= property[i]._id%>">
-                    <img class="body-image" src="<%= property[i].photos[0].imageUrl%>" alt="">
-                </a>
-            </div>
-            <div class="footer">
-                <a href="/profile/<%= property[i].userId._id%>"><img class="user-image"
-                        src="<%= property[i].userId.user_thumbnail.small%>" alt="">
-                    <h4 class="user-name"><%= property[i].userId.firstName%> <%= property[i].userId.lastName%></h4>
-                </a>
-                <div class="btns">
-                    <button class="favorit-btn"><span class="material-symbols-outlined">
-                            favorite
-                        </span></button>
-                    <a class="comment-btn" href="/comment/<%= property[i]._id%>"><span
-                            class="material-symbols-outlined">
-                            <span class="material-symbols-outlined">
-                                comment
-                            </span>
-                        </span></a>
-                    <button class="share-btn"><span class="material-symbols-outlined">
-                            send
-                        </span></button>
-                </div>
-
-            </div>
-        </div>
-        <%}%>
+        <script src="/js/index/index.js"></script>
     </main>
+    <div style="display: flex; justify-content: center;">
+        <div class="loader"></div>
+    </div>
+
     <%- include('../includes/end.ejs') %>

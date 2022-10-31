@@ -1,0 +1,99 @@
+.card {
+    background-image: linear-gradient(to bottom, #14213d, #10192e);
+    color: whitesmoke;
+    display: inline-flex;
+    flex-direction: column;
+    text-transform: capitalize;
+    width: 20rem;
+    margin: 1rem;
+    border-radius: 5px;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px #14213d8c;
+}
+
+.card button,
+.card a {
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    background: none;
+    color: whitesmoke;
+}
+
+.card .header,
+.card .footer {
+    height: 2rem;
+    margin: 1rem;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.card .header .detail {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
+.card .header .detail .line1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.2rem;
+}
+
+.card .header .detail .line2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #AEBDCA;
+    font-size: medium;
+}
+
+.card .header .detail .line2 .material-symbols-outlined {
+    font-size: inherit;
+}
+
+.card .body{
+    height: 16rem;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.card .body a,
+.card .body .body-image{
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    align-items: center;
+    display: flex;
+}
+
+.card .footer{
+    justify-content: space-between;
+}
+
+.card .footer a{
+    max-height: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+.card .footer .user-image{
+    max-height: inherit;
+    border-radius: 100%;
+    margin-right: 5px;
+}
+
+.card .footer .btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.card .footer .btns span{
+    margin: 0 2px;
+}

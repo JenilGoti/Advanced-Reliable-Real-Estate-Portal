@@ -1,20 +1,62 @@
 <%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/index/card.css">
 </head>
 
 <body>
     <%- include('../includes/nevbar.ejs') %>
     <%- include('../includes/appbar.ejs') %>
     <main>
+        <%for(var i=0;i<property.length;i++){ %>
         <div class="card">
-            <header>
-                <h3><%= property[0].basicDetail.society%></h3>
-            </header>
-            <div>
-                <img src="<%= property[0].photos[0].imageUrl%>" alt="">
+            <div class="header">
+                <div class="detail">
+                    <div class="line1">
+                        <h3 class="title"><%= property[i].basicDetail.noOfBhkOrRk%>
+                            <%= property[i].basicDetail.bhkOrRk%>
+                            <%= property[i].basicDetail.propertyType%></h3>
+                        &emsp;
+                        <h3 class="price">₹ <%= property[i].priceArea.price%></h3>
+                    </div>
+                    <div class="line2">
+                        <h4 class="area"><%= property[i].priceArea.coveredArea%> Sq-Ft</h4>
+                        &emsp;
+                        <h5 class="location"><span class="material-symbols-outlined">
+                                pin_drop
+                            </span><%= property[i].basicDetail.city%>, <%= property[i].basicDetail.state%></h5>
+                    </div>
+                </div>
+                &emsp;
+                <button class="bookmark-btn"><span class="material-symbols-outlined">
+                        bookmark
+                    </span> </button>
             </div>
-            <footer>
-                <h2><%= property[0].userId.firstName%> <%= property[0].userId.lastName%></h2>
-            </footer>
+            <div class="body">
+                <a href="/property/<%= property[i]._id%>">
+                    <img class="body-image" src="<%= property[i].photos[0].imageUrl%>" alt="">
+                </a>
+            </div>
+            <div class="footer">
+                <a href="/profile/<%= property[i].userId._id%>"><img class="user-image"
+                        src="<%= property[i].userId.user_thumbnail.small%>" alt="">
+                    <h4 class="user-name"><%= property[i].userId.firstName%> <%= property[i].userId.lastName%></h4>
+                </a>
+                <div class="btns">
+                    <button class="favorit-btn"><span class="material-symbols-outlined">
+                            favorite
+                        </span></button>
+                    <a class="comment-btn" href="/comment/<%= property[i]._id%>"><span
+                            class="material-symbols-outlined">
+                            <span class="material-symbols-outlined">
+                                comment
+                            </span>
+                        </span></a>
+                    <button class="share-btn"><span class="material-symbols-outlined">
+                            send
+                        </span></button>
+                </div>
+
+            </div>
         </div>
+        <%}%>
     </main>
     <%- include('../includes/end.ejs') %>

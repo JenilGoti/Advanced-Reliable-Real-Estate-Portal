@@ -8,7 +8,7 @@ function propertyCard(property, isAuth, imageEventListner) {
             property.basicDetail.propertyType + ' at ' +
             property.basicDetail.city + ", " +
             property.basicDetail.state + " avilable for you, now \n",
-        url: host + "/property/" + property._id,
+        url: host + "/propertys/" + property._id,
     }
 
 
@@ -83,7 +83,7 @@ function propertyCard(property, isAuth, imageEventListner) {
     body.classList.add("body");
 
     const a = document.createElement('a');
-    a.href = ("/property/" + property._id);
+    a.href = ("/propertys/" + property._id);
 
     const bodyImage = document.createElement('img');
     bodyImage.classList.add("body-image");

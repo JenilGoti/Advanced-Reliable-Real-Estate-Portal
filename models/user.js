@@ -99,6 +99,13 @@ const userSchema = new Schema({
             ref: 'property'
         }
     }],
+    liked: [{
+        property: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: 'property'
+        }
+    }],
     hiredAgent: {
         type: Schema.Types.ObjectId,
         ref: 'User'

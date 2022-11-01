@@ -12,10 +12,10 @@ router.get('/:page', indexController.getProperty);
 
 router.get('/bookmark/:id',isAuth, indexController.getBookmark);
 
-// router.get('like/:id', indexController.getLike);
+router.get('/like/:id',isAuth, indexController.getLike);
 
 router.post('/bookmark/:id',isAuth, indexController.postBookmark);
 
-router.post('like/:id',isAuth, indexController.postLike);
+router.post('/like/:id',isAuth, indexController.postLike);
 
 module.exports = router;

@@ -92,12 +92,21 @@ const userSchema = new Schema({
             ref: 'property'
         }
     }],
-    hiredAgent:{
+    bookMarks: [{
+        property: {
+            type: Schema.Types.ObjectId,
+            required: true,
+            ref: 'property'
+        }
+    }],
+    hiredAgent: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
     resetToken: String,
     resetTokenExpiration: Date
-},{ timestamps: true });
+}, {
+    timestamps: true
+});
 
 module.exports = mongoose.model('User', userSchema);

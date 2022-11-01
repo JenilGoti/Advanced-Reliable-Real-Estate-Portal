@@ -1,4 +1,6 @@
 const Property = require("../models/property");
+var mongoose = require('mongoose');
+
 
 exports.getProperty = async (req, res, next) => {
     const ITEM_PER_PAGE = 1;
@@ -34,12 +36,54 @@ exports.getProperty = async (req, res, next) => {
     }
 }
 
-exports.postBookmark=(req,res,next)=>{
-
-
+exports.getBookmark = (req, res, next) => {
+    const propId = new mongoose.Types.ObjectId(req.params["id"]);
+    for (var i = 0; i<res.locals.user.bookMarks.length; i++) {
+        bookmark = res.locals.user.bookMarks[i];
+        if (bookmark.property.toString() == propId.toString()) {
+            return res.status(200).send({
+                statusCode: 200,
+                message: "bookmark succesfully",
+                bookmark: true
+            })
+        }
+    }
+    return res.status(200).send({
+        statusCode: 200,
+        message: "bookmark succesfully",
+        bookmark: false
+    })
 }
 
-exports.postLike=(req,res,next)=>{
+exports.postBookmark = (req, res, next) => {
+    const propId = new mongoose.Types.ObjectId(req.params["id"]);
+    bookmark = req.body.bookmark;
+    if (bookmark == "true") {
+        res.locals.user.bookMarks = res.locals.user.bookMarks.filter((bookmark) => {
+            return (bookmark.property.toString() != propId.toString());
+        });
+    } else {
+        res.locals.user.bookMarks.push({
+            property: propId
+        });
+    }
+    res.locals.user.save()
+        .then(result => {
+            return res.status(200).send({
+                statusCode: 200,
+                message: "bookmark succesfully",
+                bookmark: bookmark != "true"
+            })
+        })
+        .catch(err => {
+            return res.status(400).send({
+                statusCode: 400,
+                message: "bookmark error"
+            })
+        })
+}
 
-    
+exports.postLike = (req, res, next) => {
+
+
 }

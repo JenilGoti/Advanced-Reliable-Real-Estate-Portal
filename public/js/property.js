@@ -1,4 +1,5 @@
 function propertyCard(property, isAuth, imageEventListner) {
+    var bookmark = false;
     const div = document.createElement('div');
     div.classList.add("card");
 
@@ -138,17 +139,41 @@ function propertyCard(property, isAuth, imageEventListner) {
     div.appendChild(header);
     div.appendChild(body);
     div.appendChild(footer);
+    fetch(host + "/property/bookmark/" + property._id, {
+            method: 'GET'
+        })
+        .then(result => result.json())
+        .then(result => {
+            if (result.bookmark) {
+                bookmarkBtn.style.color = "#E8AA42";
+            }
+            bookmark = result.bookmark;
+
+        })
+        .catch(err => console.log(err));
 
     bookmarkBtn.addEventListener("click", () => {
-
-        console.log("bookmark "+property._id);
-    }
-    );
+        console.log("bookmark " + property._id);
+        fetch(host + "/property/bookmark/" + property._id, {
+                method: 'POST',
+                body: new URLSearchParams("bookmark=" + bookmark),
+            })
+            .then(result => result.json())
+            .then(result => {
+                if (result.bookmark) {
+                    bookmarkBtn.style.color = "#E8AA42";
+                } else {
+                    bookmarkBtn.style.color = "inherit";
+                }
+                bookmark = result.bookmark;
+            })
+            .catch(err => console.log(err));
+    });
     favoritBtn.addEventListener("click", () => {
-        console.log("like "+property._id);
+        console.log("like " + property._id);
     });
     shareBtn.addEventListener("click", () => {
-        console.log("share "+property._id);
+        console.log("share " + property._id);
     });
 
     return div;

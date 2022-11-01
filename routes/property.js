@@ -10,12 +10,12 @@ const router = express.Router();
 
 router.get('/:page', indexController.getProperty);
 
-// router.get('/bookmark/:id', indexController.getBookmark);
+router.get('/bookmark/:id',isAuth, indexController.getBookmark);
 
 // router.get('like/:id', indexController.getLike);
 
-router.post('/bookmark/:id', indexController.postBookmark);
+router.post('/bookmark/:id',isAuth, indexController.postBookmark);
 
-router.post('like/:id', indexController.postLike);
+router.post('like/:id',isAuth, indexController.postLike);
 
 module.exports = router;

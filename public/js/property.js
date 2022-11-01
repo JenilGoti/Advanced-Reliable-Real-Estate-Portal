@@ -1,8 +1,21 @@
 function propertyCard(property, isAuth, imageEventListner) {
     var bookmark = false;
     var like = false;
+    const shareData = {
+        title: 'NESTSCOUT',
+        text: property.basicDetail.noOfBhkOrRk + ' ' +
+            property.basicDetail.bhkOrRk + ' ' +
+            property.basicDetail.propertyType + ' at ' +
+            property.basicDetail.city + ", " +
+            property.basicDetail.state + " avilable for you, now",
+        url: host + "/property/" + property._id,
+    }
+
+
+
     const div = document.createElement('div');
     div.classList.add("card");
+
 
 
     // header
@@ -211,6 +224,7 @@ function propertyCard(property, isAuth, imageEventListner) {
 
     shareBtn.addEventListener("click", () => {
         console.log("share " + property._id);
+        navigator.share(shareData)
     });
 
     return div;

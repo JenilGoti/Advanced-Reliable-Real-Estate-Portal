@@ -3,12 +3,13 @@ function propertyCard(property, isAuth, imageEventListner) {
     var like = false;
     const shareData = {
         title: 'NESTSCOUT',
-        text: property.basicDetail.noOfBhkOrRk + ' ' +
+        text: host + "/propertys/" + property._id + '\n' +
+            property.basicDetail.noOfBhkOrRk + ' ' +
             property.basicDetail.bhkOrRk + ' ' +
             property.basicDetail.propertyType + ' at ' +
             property.basicDetail.city + ", " +
-            property.basicDetail.state + " avilable for you, now \n",
-        url: host + "/propertys/" + property._id,
+            property.basicDetail.state + " avilable at NESTSCOUT \n",
+        url: host,
     }
 
 
@@ -221,6 +222,7 @@ function propertyCard(property, isAuth, imageEventListner) {
             .catch(err => console.log(err));
     });
 
+    // share btn
 
     shareBtn.addEventListener("click", () => {
         console.log("share " + property._id);

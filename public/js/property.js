@@ -3,13 +3,12 @@ function propertyCard(property, isAuth, imageEventListner) {
     var like = false;
     const shareData = {
         title: 'NESTSCOUT',
-        text: host + "/propertys/" + property._id + '\n' +
-            property.basicDetail.noOfBhkOrRk + ' ' +
+        text: property.basicDetail.noOfBhkOrRk + ' ' +
             property.basicDetail.bhkOrRk + ' ' +
             property.basicDetail.propertyType + ' at ' +
             property.basicDetail.city + ", " +
             property.basicDetail.state + " avilable at NESTSCOUT \n",
-        url: host,
+        url: host + "/propertys/" + property._id,
     }
 
 

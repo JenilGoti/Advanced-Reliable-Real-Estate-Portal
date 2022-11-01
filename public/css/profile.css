@@ -17,6 +17,26 @@ main {
     box-shadow: 2px 2px 2px 2px #14213d6e;
 }
 
+.profile .share-btn{
+    margin-top: 10px;
+    display: flex;
+    text-decoration: none;
+    border: none;
+    text-align: end;
+    justify-content: flex-end;
+
+}
+
+.profile .share-btn button{
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    color: whitesmoke;
+    background-color: #E8AA42;
+    border-radius: 5px;
+    padding: 8px 8px 5px 8px;
+}
+
 .profile .profile-content {
     display: flex;
     flex-direction: row;

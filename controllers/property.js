@@ -2,33 +2,49 @@ const Property = require("../models/property");
 var mongoose = require('mongoose');
 
 
-exports.getProperty = async (req, res, next) => {
+exports.getPropertys = async (req, res, next) => {
+    const page = req.query.page || 1
+    var mQurery = {}
+    if (req.query.rent == "true") {
+        mQurery = {
+            actionType: {
+                $in: ["Rent", 'PG']
+            }
+        }
+    }
+    if (req.query.sale == "true") {
+        mQurery = {
+            actionType: "Sale"
+        }
+    }
+
     const ITEM_PER_PAGE = 1;
-    const page = req.params["page"] || 1
     try {
-        console.log(req.params);
-        const pageNo = req.params["pageno"];
-        const totalProperty = await Property.find().countDocuments()
-        const propertys = await Property.find()
+        const totalProperty = await Property.find(mQurery).countDocuments()
+        const propertys = await Property.find(mQurery)
             .sort({
                 createdAt: -1
             })
             .skip((page - 1) * ITEM_PER_PAGE)
             .limit(ITEM_PER_PAGE)
-            .select(`basicDetail.noOfBhkOrRk basicDetail.bhkOrRk basicDetail.propertyType priceArea.price priceArea.coveredArea basicDetail.city basicDetail.state photos.imageUrl`)
+            .select(`actionType basicDetail.noOfBhkOrRk basicDetail.bhkOrRk basicDetail.propertyType priceArea.price priceArea.coveredArea basicDetail.city basicDetail.state photos.imageUrl`)
             .populate({
                 path: "userId",
                 select: "user_thumbnail.small firstName lastName"
             })
+        if (propertys.length > 0) {
+            return res.status(200).send({
+                statusCode: 200,
+                message: "data sended succesfully",
+                propertys: propertys,
+                totalPage: totalProperty,
+                isAuth: res.locals.isAuthenticated,
+                hasNext: page < totalProperty
+            });
+        }
+        throw new Error("data not found")
 
-        return res.status(200).send({
-            statusCode: 200,
-            message: "data sended succesfully",
-            propertys: propertys,
-            totalPage: totalProperty,
-            isAuth: res.locals.isAuthenticated,
-            hasNext: page < totalProperty
-        });
+
     } catch (err) {
         console.log(err);
         return res.status(404).send({
@@ -155,4 +171,28 @@ exports.postLike = (req, res, next) => {
                 message: "liked error"
             })
         })
+}
+
+exports.getProperty = (req, res, next) => {
+    const propId = req.params["propId"];
+
+    Property.findById(mongoose.Types.ObjectId(propId))
+        .populate()
+        .populate({
+            path: "userId",
+            select: "user_thumbnail.small firstName lastName"
+        })
+        .then(property => {
+            res.render("property", {
+                pageTitle:property.basicDetail.propertyType,
+                path: ""
+            })
+        })
+        .catch(err => {
+            const error = new Error("Data not found");
+            error.statusCode = 404;
+            error.discription = "Data not found"
+            next(error);
+        })
+
 }

@@ -35,7 +35,6 @@ const authRoute = require("./routes/auth");
 const buyRoute = require("./routes/buy");
 const indexRoute = require("./routes/index");
 const rentRoute = require("./routes/rent");
-const sellRoute = require("./routes/sell");
 const propertyRoute = require("./routes/property");
 
 const errorController = require("./controllers/error");
@@ -73,8 +72,6 @@ app.use("/agent", agentRoute);
 app.use("/buy", buyRoute);
 
 app.use("/rent", rentRoute);
-
-app.use("/sell", sellRoute);
 
 app.use("/property", propertyRoute)
 

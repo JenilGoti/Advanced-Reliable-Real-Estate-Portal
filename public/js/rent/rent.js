@@ -7,7 +7,7 @@ var lodPageAtTime = 20;
 getProperty()
 
 function getProperty() {
-    fetch(host + '/property/?page=' + pageNo, {
+    fetch(host + '/property/?page=' + pageNo + '&rent=true', {
             method: 'GET',
         })
         .then(response => {

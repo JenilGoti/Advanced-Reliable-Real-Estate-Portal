@@ -8,7 +8,7 @@ function propertyCard(property, isAuth, imageEventListner) {
             property.basicDetail.propertyType + ' at ' +
             property.basicDetail.city + ", " +
             property.basicDetail.state + " avilable at NESTSCOUT \n",
-        url: host + "/propertys/" + property._id,
+        url: host + "/property/" + property._id,
     }
 
 
@@ -83,7 +83,7 @@ function propertyCard(property, isAuth, imageEventListner) {
     body.classList.add("body");
 
     const a = document.createElement('a');
-    a.href = ("/propertys/" + property._id);
+    a.href = ("/property/" + property._id);
 
     const bodyImage = document.createElement('img');
     bodyImage.classList.add("body-image");
@@ -91,7 +91,14 @@ function propertyCard(property, isAuth, imageEventListner) {
     bodyImage.alt = "image not loadded";
     bodyImage.addEventListener("load", imageEventListner);
 
+
+    const actionType = document.createElement('h3');
+    actionType.classList.add("action-type");
+    actionType.appendChild(document.createTextNode(property.actionType));
+
+
     a.appendChild(bodyImage)
+    a.appendChild(actionType)
     body.appendChild(a);
 
     // footer

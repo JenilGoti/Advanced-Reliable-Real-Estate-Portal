@@ -73,10 +73,20 @@
 
 .card .body a,
 .card .body .body-image {
+    position: relative;
+    z-index: 0;
     width: 100%;
     overflow: hidden;
     align-items: center;
     display: flex;
+}
+.card .body .action-type{
+    position: absolute;
+    padding: 0.3rem 1rem;
+    border-radius: 5px 0 0 0;
+    background-image: linear-gradient(to top, #14213d, #10192e5f);
+    bottom: 0;
+    right: 0;
 }
 
 .card .footer {

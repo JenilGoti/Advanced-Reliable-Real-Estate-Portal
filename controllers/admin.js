@@ -107,11 +107,3 @@ exports.postAddNewProperty = async (req, res, next) => {
             next(error);
         })
 }
-
-exports.getBookmark = (req, res, next) => {
-
-}
-
-exports.postBookmark = (req, res, next) => {
-
-}

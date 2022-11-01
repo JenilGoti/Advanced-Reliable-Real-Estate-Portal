@@ -5,6 +5,7 @@
     align-items: center;
     display: flex;
     position: fixed;
+    z-index: 100;
 }
 .main-appbar-header a{
     text-decoration: none;

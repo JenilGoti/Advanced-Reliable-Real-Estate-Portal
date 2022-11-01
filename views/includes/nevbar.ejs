@@ -13,8 +13,8 @@
     <nav class="main-header__nav">
         <ul class="main-header__item-list">
             <%- include('./nevbar-itom.ejs',{url:'/',icon:'Home',title:'Home'}) %>
-            <%- include('./nevbar-itom.ejs',{url:'/a',icon:'real_estate_agent',title:'Buy'}) %>
-            <%- include('./nevbar-itom.ejs',{url:'/e',icon:'location_away',title:'rent'}) %>
+            <%- include('./nevbar-itom.ejs',{url:'/buy/buy',icon:'real_estate_agent',title:'Buy'}) %>
+            <%- include('./nevbar-itom.ejs',{url:'/rent/rent',icon:'location_away',title:'rent'}) %>
             <%- include('./nevbar-itom.ejs',{url:'/b',icon:'support_agent',title:'find REALTORS'}) %>
             <% if(isAuthenticated){%>
             <%- include('./nevbar-itom.ejs',{url:'/admin/add-property',icon:'add_home_work',title:'Add to Sell/Rent'}) %>

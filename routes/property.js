@@ -8,7 +8,9 @@ const indexController = require("../controllers/property");
 
 const router = express.Router();
 
-router.get('/:page', indexController.getProperty);
+router.get('/', indexController.getPropertys);
+
+router.get('/:propId', indexController.getProperty);
 
 router.get('/bookmark/:id',isAuth, indexController.getBookmark);
 

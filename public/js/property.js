@@ -7,7 +7,7 @@ function propertyCard(property, isAuth, imageEventListner) {
             property.basicDetail.bhkOrRk + ' ' +
             property.basicDetail.propertyType + ' at ' +
             property.basicDetail.city + ", " +
-            property.basicDetail.state + " avilable for you, now",
+            property.basicDetail.state + " avilable for you, now \n",
         url: host + "/property/" + property._id,
     }
 

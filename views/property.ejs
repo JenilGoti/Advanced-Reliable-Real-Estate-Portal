@@ -15,12 +15,18 @@
     <%- include('./includes/appbar.ejs') %>
     <main>
         <div class="container">
-            <h1><%=property.basicDetail.noOfBhkOrRk%> <%=property.basicDetail.bhkOrRk%>
-                <%=property.basicDetail.propertyType%> for <%=property.actionType%></h1>
-            <h2>at <%=property.basicDetail.city%>, <%=property.basicDetail.state%>, <%=property.basicDetail.contry%>
-            </h2>
-            
+            <!-- <%for(var i=0;i<property.photos.length;i++){%>
+            <img src="<%=property.photos[i].imageUrl%>" alt="no image found">
+            <%}%> -->
 
+            <h1><%=property.basicDetail.noOfBhkOrRk%> <%=property.basicDetail.bhkOrRk%>
+            <%=property.basicDetail.propertyType%> for <%=property.actionType%></h1>
+            <h2>at <%=property.basicDetail.locality%>, <%=property.basicDetail.city%>, <%=property.basicDetail.state%>,
+                <%=property.basicDetail.contry%>
+            </h2>
+            <h3><%=property.priceArea.coveredArea%> Sq-Ft</h3>
+            <h3>₹ <%=property.priceArea.price%></h3>
+            <h3></h3>
 
         </div>
     </main>

@@ -184,8 +184,9 @@ exports.getProperty = (req, res, next) => {
         })
         .then(property => {
             res.render("property", {
-                pageTitle:property.basicDetail.propertyType,
-                path: ""
+                pageTitle: property.basicDetail.propertyType,
+                path: "",
+                property: property,
             })
         })
         .catch(err => {

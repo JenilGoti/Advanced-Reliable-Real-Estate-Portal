@@ -4,7 +4,7 @@
     display: inline-flex;
     flex-direction: column;
     text-transform: capitalize;
-    width: 22rem;
+    width: 20rem;
     margin: 1rem;
     border-radius: 5px;
     box-shadow: 1.5px 1.5px 1.5px 1.5px #14213d8c;
@@ -23,7 +23,7 @@
 .card .footer {
     text-align: left;
     height: 3rem;
-    margin: 1rem;
+    margin: 0.9rem;
     display: inline-flex;
     flex-direction: row;
     justify-content: space-between;
@@ -65,7 +65,7 @@
 }
 
 .card .body {
-    height: 15rem;
+    height: 12rem;
     display: flex;
     width: 100%;
     justify-content: center;
@@ -109,17 +109,21 @@
     margin: 0 5px;
 }
 
+.active {
+    color: #E8AA42;
+}
+
 
 @keyframes scale-display {
-	0% {
-		opacity: 0;
-		transform: scale(0);
-    -webkit-transform: scale(0);
-	}
+    0% {
+        opacity: 0;
+        transform: scale(0);
+        -webkit-transform: scale(0);
+    }
 
-	100% {
-		opacity: 1;
-		transform: scale(1);
-    -webkit-transform: scale(1);
-	}
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        -webkit-transform: scale(1);
+    }
 }

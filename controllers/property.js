@@ -32,6 +32,14 @@ exports.getProperty = async (req, res, next) => {
 
         })
     }
+}
+
+exports.postBookmark=(req,res,next)=>{
 
 
+}
+
+exports.postLike=(req,res,next)=>{
+
+    
 }

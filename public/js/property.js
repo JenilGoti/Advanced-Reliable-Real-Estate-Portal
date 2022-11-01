@@ -58,10 +58,10 @@ function propertyCard(property, isAuth, imageEventListner) {
 
     header.appendChild(detail);
     header.appendChild(document.createTextNode("    "));
-    if(isAuth){
-       header.appendChild(bookmarkBtn) 
+    if (isAuth) {
+        header.appendChild(bookmarkBtn)
     }
-    
+
 
     // body
     const body = document.createElement('div');
@@ -107,7 +107,7 @@ function propertyCard(property, isAuth, imageEventListner) {
     favoritBtn.appendChild(materialSymbolsOutlined3);
 
     const commentBtn = document.createElement('a');
-    a.href = "/comment/" + property._id;
+    commentBtn.href = "/comment/" + property._id;
     commentBtn.classList.add("comment-btn");
 
     const materialSymbolsOutlined4 = document.createElement('span');
@@ -131,14 +131,25 @@ function propertyCard(property, isAuth, imageEventListner) {
     btns.appendChild(shareBtn);
 
     footer.appendChild(a2);
-    if(isAuth){
-     footer.appendChild(btns);   
+    if (isAuth) {
+        footer.appendChild(btns);
     }
-    
 
     div.appendChild(header);
     div.appendChild(body);
     div.appendChild(footer);
+
+    bookmarkBtn.addEventListener("click", () => {
+
+        console.log("bookmark "+property._id);
+    }
+    );
+    favoritBtn.addEventListener("click", () => {
+        console.log("like "+property._id);
+    });
+    shareBtn.addEventListener("click", () => {
+        console.log("share "+property._id);
+    });
 
     return div;
 }

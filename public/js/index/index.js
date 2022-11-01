@@ -18,20 +18,19 @@ function addProperty() {
             if (result.statusCode == 200) {
                 console.log(result);
                 hasNext = result.hasNext;
-                const pC = propertyCard(result.propertys[0], result.isAuth,
-                    () => {
-                        if (result.totalPage > pageNo) {
-                            pageNo++;
-                            if ((pageNo + 1) % lodPageAtTime == 0) {
-                                element.style.display = "unset";
-                                window.addEventListener('scroll', sevl);
-                            } else {
-                                addProperty();
-                            }
-                        } else {
-                            element.remove();
-                        }
-                    });
+                const pC = propertyCard(result.propertys[0], result.isAuth, () => {});
+                if (result.totalPage > pageNo) {
+                    pageNo++;
+                    if ((pageNo + 1) % lodPageAtTime == 0) {
+                        element.style.display = "unset";
+                        window.addEventListener('scroll', sevl);
+                    } else {
+                        addProperty();
+                    }
+                } else {
+                    element.remove();
+                }
+
                 main.appendChild(pC);
                 pC.style.animation = "scale-display .3s";
             } else {

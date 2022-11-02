@@ -191,6 +191,7 @@ exports.getProperty = (req, res, next) => {
                 pageTitle: property.basicDetail.propertyType,
                 path: "",
                 property: property,
+                isOwner: property.userId.toString() == res.locals.user._id.toString()
             })
         })
         .catch(err => {

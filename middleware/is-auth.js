@@ -1,6 +1,6 @@
 exports.isAuth = (req, res, next) => {
     if (!req.session.isLoggedIn) {
-        const error = new Error("not authenti cated");
+        const error = new Error("not authenticated");
         error.statusCode = 401;
         error.discription = "you cant reach this page you are not authentiated"
         return next(error);

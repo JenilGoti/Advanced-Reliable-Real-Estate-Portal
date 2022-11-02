@@ -160,74 +160,74 @@ function propertyCard(property, isAuth, imageEventListner) {
     div.appendChild(header);
     div.appendChild(body);
     div.appendChild(footer);
+    if(isAuth) {
+        // bookmark btn
 
-    // bookmark btn
-
-    fetch(host + "/property/bookmark/" + property._id, {
-            method: 'GET'
-        })
-        .then(result => result.json())
-        .then(result => {
-            if (result.bookmark) {
-                bookmarkBtn.style.color = "#E8AA42";
-            }
-            bookmark = result.bookmark;
-
-        })
-        .catch(err => console.log(err));
-
-    bookmarkBtn.addEventListener("click", () => {
-        console.log("bookmark " + property._id);
         fetch(host + "/property/bookmark/" + property._id, {
-                method: 'POST',
-                body: new URLSearchParams("bookmark=" + bookmark),
+                method: 'GET'
             })
             .then(result => result.json())
             .then(result => {
                 if (result.bookmark) {
                     bookmarkBtn.style.color = "#E8AA42";
-                } else {
-                    bookmarkBtn.style.color = "inherit";
                 }
                 bookmark = result.bookmark;
+
             })
             .catch(err => console.log(err));
-    });
 
-    // like btn
+        bookmarkBtn.addEventListener("click", () => {
+            console.log("bookmark " + property._id);
+            fetch(host + "/property/bookmark/" + property._id, {
+                    method: 'POST',
+                    body: new URLSearchParams("bookmark=" + bookmark),
+                })
+                .then(result => result.json())
+                .then(result => {
+                    if (result.bookmark) {
+                        bookmarkBtn.style.color = "#E8AA42";
+                    } else {
+                        bookmarkBtn.style.color = "inherit";
+                    }
+                    bookmark = result.bookmark;
+                })
+                .catch(err => console.log(err));
+        });
 
-    fetch(host + "/property/like/" + property._id, {
-            method: 'GET'
-        })
-        .then(result => result.json())
-        .then(result => {
-            if (result.like) {
-                favoritBtn.style.color = "#E8AA42";
-            }
-            like = result.like;
+        // like btn
 
-        })
-        .catch(err => console.log(err));
-
-
-    favoritBtn.addEventListener("click", () => {
-        console.log("like " + property._id);
         fetch(host + "/property/like/" + property._id, {
-                method: 'POST',
-                body: new URLSearchParams("like=" + like),
+                method: 'GET'
             })
             .then(result => result.json())
             .then(result => {
                 if (result.like) {
                     favoritBtn.style.color = "#E8AA42";
-                } else {
-                    favoritBtn.style.color = "inherit";
                 }
                 like = result.like;
+
             })
             .catch(err => console.log(err));
-    });
 
+
+        favoritBtn.addEventListener("click", () => {
+            console.log("like " + property._id);
+            fetch(host + "/property/like/" + property._id, {
+                    method: 'POST',
+                    body: new URLSearchParams("like=" + like),
+                })
+                .then(result => result.json())
+                .then(result => {
+                    if (result.like) {
+                        favoritBtn.style.color = "#E8AA42";
+                    } else {
+                        favoritBtn.style.color = "inherit";
+                    }
+                    like = result.like;
+                })
+                .catch(err => console.log(err));
+        });
+    }
     // share btn
 
     shareBtn.addEventListener("click", () => {

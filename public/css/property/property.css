@@ -1,6 +1,63 @@
+.container {
+    text-align: center;
+    margin: 3rem auto;
+    padding: 1.5rem;
+    align-self: center;
+    justify-self: center;
+    background-image: linear-gradient(to top, #14213d, #14213ddc);
+    box-shadow: 2px 2px 2px 2px #14213d6e;
+    border-radius: 5px;
+    color: whitesmoke;
+    max-width: 1200px;
+}
+
+.container h1 {
+    text-transform: capitalize;
+}
+
+.container .main-heading {
+    margin-bottom: 2rem;
+}
+
+.body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.area-price{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-top: 1rem;
+    color: #a8c4ff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ********************for image****************** */
+
 /* Slideshow container */
 .slideshow-container {
-    max-width: 30%;
+    background-color: #14213d;
+    text-align: left;
+    max-width: 90%;
+    width: 35rem;
+    /* height: 23rem; */
+    max-height: 25rem;
     position: relative;
     margin: auto;
 }
@@ -33,6 +90,7 @@
 .modal {
     display: "block";
     position: fixed;
+    text-align: left;
     z-index: 1000;
     padding-top: 100px;
     left: 0;
@@ -48,7 +106,8 @@
     position: relative;
     margin: auto;
     padding: 0;
-    max-height: 90%;
+    height: inherit;
+    max-height: inherit;
 }
 
 /* The Close Button */
@@ -71,6 +130,8 @@
 .mySlides {
     display: none;
     text-align: center;
+    height: inherit;
+    max-height: inherit;
 }
 
 .cursor {
@@ -147,10 +208,15 @@ img.hover-shadow {
 
 /* image style */
 
-.modal img{
+.modal img {
     width: 40%;
+    /* height: 60%; */
+    max-height: inherit;
 }
-.slideshow-container img{
+
+.slideshow-container img {
+    max-height: inherit;
+    height: inherit;
     width: 100%;
 }
 
@@ -180,10 +246,22 @@ img.hover-shadow {
 }
 
 @media (max-width: 700px) {
-    .modal img{
-        width: 100%;
+    .container {
+        margin: 1.5rem;
     }
     .slideshow-container {
-        max-width: 90%;
+        width: 20rem;
+    }
+
+    .modal img {
+        width: 100%;
+    }
+
+    .container h1 {
+        font-size: large;
+    }
+
+    .container h2 {
+        font-size: medium;
     }
 }

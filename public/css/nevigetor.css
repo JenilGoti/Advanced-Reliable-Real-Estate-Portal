@@ -3,7 +3,7 @@
   height: calc(100% - 4.5rem);
   background-color: #14213d;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   align-items: center;
 }
 
@@ -64,6 +64,7 @@
   width: 100%;
   background-color: #10192e6b;
   position: fixed;
+  z-index: 50;
   display: none;
 }
 .mobile-header .floating-action-button {

@@ -1,5 +1,6 @@
 .container {
     text-transform: capitalize;
+    position: relative;
     text-align: center;
     margin: 3rem auto;
     padding: 1.5rem;
@@ -17,11 +18,66 @@
 }
 
 .container h2 {
-    color: #a8c4ff;
+    color: #AEBDCA;
 }
 
 .container .main-heading {
     margin-bottom: 2rem;
+}
+
+.img-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.img-footer .user {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-decoration: none;
+}
+
+.img-footer .user a {
+    margin-bottom: 0.5rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: whitesmoke;
+    text-transform: capitalize;
+}
+
+.img-footer .user a img {
+    width: 2rem;
+    border-radius: 100%;
+    margin: 0.5rem;
+}
+.img-footer .btns{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.img-footer .btns .btn{
+    text-decoration: none;
+    border: none;
+    background-color: #14163d00;
+    padding-left: 1rem;
+}
+
+.bookmark{
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-decoration: none;
+    border: none;
+    background-color: #14163d00;
+    color: whitesmoke;
+    padding: 0.5rem;
+}
+
+.active{
+    color: #E8AA42;
 }
 
 .body {
@@ -41,7 +97,7 @@
     justify-content: space-between;
     padding: 0 1rem 1rem 1rem;
     margin: 1rem 0;
-    color: #a8c4ff;
+    color: #AEBDCA;
     border-bottom: 5px solid #14213d;
 }
 
@@ -78,6 +134,7 @@
 }
 
 .likes a {
+    margin-bottom: 0.5rem;
     height: 2rem;
     display: flex;
     align-items: center;
@@ -302,10 +359,6 @@ img.hover-shadow {
 }
 
 @media (max-width: 700px) {
-    .container {
-        margin: 1.5rem;
-    }
-
     .slideshow-container {
         width: 20rem;
     }
@@ -324,5 +377,12 @@ img.hover-shadow {
 
     .container .main-heading h2 {
         font-size: small;
+    }
+}
+
+@media (max-width: 1200px) {
+    
+    .container {
+        margin: 1.5rem;
     }
 }

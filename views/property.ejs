@@ -14,26 +14,32 @@
     <%- include('./includes/nevbar.ejs') %>
     <%- include('./includes/appbar.ejs') %>
     <main>
+        <input id="prop-id" type="hidden" value="<%=property._id%>">
         <div class="container">
+            <%if(isAuthenticated){%>
+            <button class="bookmark">
+                <h1><span class="material-symbols-outlined" style="font-size: xx-large;">bookmark</span></h1>
+            </button>
+            <%}%>
             <div class="main-heading">
                 <h1><%=property.basicDetail.noOfBhkOrRk%> <%=property.basicDetail.bhkOrRk%>
-                    <%=property.basicDetail.propertyType%> for <%=property.actionType%></h1>
-                <h2>at <%=property.basicDetail.locality%>, <%=property.basicDetail.city%>,
-                    <%=property.basicDetail.state%>,
-                    <%=property.basicDetail.contry%></h2>
-            </div>
-            <div class="body">
-                <div class="image">
-                    <div id="myModel" class="slideshow-container">
-                        <span class="close cursor" onclick="closeModal()">&times;</span>
-                        <div class="modal-content">
-                            <%for(var i=0;i<property.photos.length;i++){%>
-                            <div class="mySlides fade">
-                                <div class="numbertext"><%=i+1%> / <%=property.photos.length%></div>
-                                <img src="<%=property.photos[i].imageUrl%>" onclick="openModal();"
-                                    class="hover-shadow cursor">
-                            </div>
-                            <%}%>
+            <%=property.basicDetail.propertyType%> for <%=property.actionType%></h1>
+            <h2>at <%=property.basicDetail.locality%>, <%=property.basicDetail.city%>,
+                <%=property.basicDetail.state%>,
+                <%=property.basicDetail.contry%></h2>
+        </div>
+        <div class="body">
+            <div class="image">
+                <div id="myModel" class="slideshow-container">
+                    <span class="close cursor" onclick="closeModal()">&times;</span>
+                    <div class="modal-content">
+                        <%for(var i=0;i<property.photos.length;i++){%>
+                        <div class="mySlides fade">
+                            <div class="numbertext"><%=i+1%> / <%=property.photos.length%></div>
+                            <img src="<%=property.photos[i].imageUrl%>" onclick="openModal();"
+                                class="hover-shadow cursor">
+                        </div>
+                        <%}%>
                             <a class="prev" onclick="plusSlides(-1)">❮</a>
                             <a class="next" onclick="plusSlides(1)">❯</a>
                         </div>
@@ -41,24 +47,45 @@
                     <br>
                     <div style="text-align:center">
                         <%for(var i=0;i<property.photos.length;i++){%>
-                            <span class="dot" onclick="currentSlide('<%=i+1%>')"></span>
-                            <%}%>
+                        <span class="dot" onclick="currentSlide('<%=i+1%>')"></span>
+                        <%}%>
                     </div>
                     <div class="area-price">
                             <h2><%=property.priceArea.coveredArea%> Sq-Ft</h2>
-                            <h2>₹ <%=property.priceArea.price%></h2>
+                        <h2>₹ <%=property.priceArea.price%></h2>
+                    </div>
+                    <div class="img-footer">
+                        <div class="user">
+                            <a href="/profile/<%=property.userId._id%>">
+                                <img src="<%=property.userId.user_thumbnail.small%>" alt="">
+                                <h4><%=property.userId.firstName%> <%=property.userId.lastName%></h4>
+                            </a>
+                        </div>
+                        <%if(isAuthenticated){%>
+                        <div class="btns">
+                            <button class="btn favorite">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                            <button class="btn comment">
+                                <span class="material-symbols-outlined">comment</span>
+                            </button>
+                            <button class="btn send">
+                                <span class="material-symbols-outlined">send</span>
+                            </button>
+                        </div>
+                        <%}%>
                         </div>
                     </div>
                     <div class="details">
                         <h3 class="sub-heding">address</h3>
                         <h4 class="value"><a
                                 href="http://google.com/maps/?q=<%=property.basicDetail.coordinates.latitude%>,<%=property.basicDetail.coordinates.longitude%>">
-                                <span class="material-symbols-outlined">
-                                    pin_drop
-                                </span></a> <%=property.basicDetail.society%>, <%=property.basicDetail.locality%>,
-                            <%=property.basicDetail.city%>,
-                            <%=property.basicDetail.state%>,
-                            <%=property.basicDetail.contry%></h4>
+                        <span class="material-symbols-outlined">
+                            pin_drop
+                        </span></a> <%=property.basicDetail.society%>, <%=property.basicDetail.locality%>,
+                        <%=property.basicDetail.city%>,
+                        <%=property.basicDetail.state%>,
+                        <%=property.basicDetail.contry%></h4>
                         <h3 class="sub-heding">overview</h3>
                         <h4 class="value"><%=property.otherDetail.briefDescription%></h4>
                         <h3 class="sub-heding">transactional Type</h3>

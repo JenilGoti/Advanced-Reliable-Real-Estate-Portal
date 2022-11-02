@@ -163,12 +163,14 @@
 }
 
 @media (max-width: 800px) {
-    .container {
-        margin: 1.5rem;
-    }
-
     .property-form {
         flex-direction: column;
         margin-right: 1rem;
+    }
+}
+@media (max-width: 1200px) {
+    
+    .container {
+        margin: 1.5rem;
     }
 }

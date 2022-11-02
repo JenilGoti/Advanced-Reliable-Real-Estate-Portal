@@ -15,19 +15,90 @@
     <%- include('./includes/appbar.ejs') %>
     <main>
         <div class="container">
-            <!-- <%for(var i=0;i<property.photos.length;i++){%>
-            <img src="<%=property.photos[i].imageUrl%>" alt="no image found">
-            <%}%> -->
+            <div class="mainheading">
+                <h1><%=property.basicDetail.noOfBhkOrRk%> <%=property.basicDetail.bhkOrRk%>
+                    <%=property.basicDetail.propertyType%> for <%=property.actionType%></h1>
+                <h2>at <%=property.basicDetail.locality%>, <%=property.basicDetail.city%>,
+                    <%=property.basicDetail.state%>,
+                    <%=property.basicDetail.contry%>
+            </div>
 
-            <h1><%=property.basicDetail.noOfBhkOrRk%> <%=property.basicDetail.bhkOrRk%>
-            <%=property.basicDetail.propertyType%> for <%=property.actionType%></h1>
-            <h2>at <%=property.basicDetail.locality%>, <%=property.basicDetail.city%>, <%=property.basicDetail.state%>,
-                <%=property.basicDetail.contry%>
             </h2>
+            <div id="myModel" class="slideshow-container">
+                <span class="close cursor" onclick="closeModal()">&times;</span>
+                <div class="modal-content">
+                    <%for(var i=0;i<property.photos.length;i++){%>
+                    <div class="mySlides fade">
+                        <div class="numbertext"><%=i+1%> / <%=property.photos.length%></div>
+                        <img src="<%=property.photos[i].imageUrl%>" onclick="openModal();" class="hover-shadow cursor">
+                    </div>
+                    <%}%>
+
+                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                <a class="next" onclick="plusSlides(1)">❯</a>
+
+            </div>
+            </div>
+            <br>
+
+            <div style="text-align:center">
+                <%for(var i=0;i<property.photos.length;i++){%>
+                    <span class="dot" onclick="currentSlide('<%=i+1%>')"></span>
+                    <%}%>
+            </div>
+            
             <h3><%=property.priceArea.coveredArea%> Sq-Ft</h3>
-            <h3>₹ <%=property.priceArea.price%></h3>
-            <h3></h3>
+                    <h3>₹ <%=property.priceArea.price%></h3>
+                    <h3>address</h3>
+                    <h4><%=property.basicDetail.society%>, <%=property.basicDetail.locality%>,
+                        <%=property.basicDetail.city%>,
+                        <%=property.basicDetail.state%>,
+                        <%=property.basicDetail.contry%></h4>
+                    <h3>overview</h3>
+                    <h4><%=property.otherDetail.briefDescription%></h4>
+                    <h3>transactional Type</h3>
+                    <h4><%=property.additionalDetail.transactionalType%></h4>
+                    <h3>Ownership</h3>
+                    <h4><%=property.additionalDetail.propertyOwnership%></h4>
+                    <h3>Availabity</h3>
+                    <h4><%=property.additionalDetail.propertyAvailabity.toLocaleDateString("en-US",{ year: 'numeric', month: 'long', day: 'numeric' })%>
+                    </h4>
+                    <h3>KEY FEATURES</h3>
+                    <table>
+                        <tr>
+                            <td><strong>covered area: </strong><%=property.priceArea.coveredArea%></td>
+                            <td><strong>plot area: </strong><%=property.priceArea.plotArea%></td>
+                        </tr>
+                        <tr>
+                            <td><%=property.additionalDetail.furnished%></td>
+                            <td><%=property.additionalDetail.ageOfProperty%> year old</td>
+                        </tr>
+                        <tr>
+                            <td><%=property.additionalDetail.furnished%></td>
+                            <td><%=property.additionalDetail.facing%> facing</td>
+                        </tr>
+                        <tr>
+                            <td><%=property.additionalDetail.floorNo%> floor</td>
+                            <td><%=property.additionalDetail.totalFloors%> total Floors</td>
+                        </tr>
+                        <%if(property.priceArea.priceNegotiable){%>
+                        <tr>
+                            <td>price Negotiable</td>
+                            <td></td>
+                        </tr>
+
+                        <%}%>                
+            </table>
+            <h3>liked by</h3>
+                <%for(var i=0;i<property.likes.length;i++){%>
+                        <a href="/profile/<%=property.likes[i]._id%>">
+                            <img src="<%=property.likes[i].user_thumbnail.small%>" alt="">
+                            <h4><%=property.likes[i].firstName%> <%=property.likes[i].lastName%></h4>
+                        </a>
+                        <%}%>
+
 
         </div>
     </main>
+    <script src="/js/property/property.js"></script>
     <%- include('./includes/end.ejs') %>

@@ -177,12 +177,16 @@ exports.getProperty = (req, res, next) => {
     const propId = req.params["propId"];
 
     Property.findById(mongoose.Types.ObjectId(propId))
-        .populate()
+        .populate({
+            path: "likes",
+            select: "user_thumbnail.small firstName lastName"
+        })
         .populate({
             path: "userId",
             select: "user_thumbnail.small firstName lastName"
         })
         .then(property => {
+            // console.log(property);
             res.render("property", {
                 pageTitle: property.basicDetail.propertyType,
                 path: "",
@@ -190,6 +194,7 @@ exports.getProperty = (req, res, next) => {
             })
         })
         .catch(err => {
+            console.log(err);
             const error = new Error("Data not found");
             error.statusCode = 404;
             error.discription = "Data not found"

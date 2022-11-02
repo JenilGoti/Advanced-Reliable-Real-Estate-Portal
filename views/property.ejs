@@ -14,6 +14,7 @@
     <%- include('./includes/nevbar.ejs') %>
     <%- include('./includes/appbar.ejs') %>
     <main>
+        <input id="is-auth" type="hidden" value="<%=isAuthenticated%>">
         <input id="prop-id" type="hidden" value="<%=property._id%>">
         <div class="container">
             <%if(isAuthenticated){%>
@@ -61,19 +62,19 @@
                                 <h4><%=property.userId.firstName%> <%=property.userId.lastName%></h4>
                             </a>
                         </div>
-                        <%if(isAuthenticated){%>
                         <div class="btns">
+                            <%if(isAuthenticated){%>
                             <button class="btn favorite">
                                 <span class="material-symbols-outlined">favorite</span>
                             </button>
                             <button class="btn comment">
                                 <span class="material-symbols-outlined">comment</span>
                             </button>
+                            <%}%>
                             <button class="btn send">
                                 <span class="material-symbols-outlined">send</span>
                             </button>
                         </div>
-                        <%}%>
                         </div>
                     </div>
                     <div class="details">

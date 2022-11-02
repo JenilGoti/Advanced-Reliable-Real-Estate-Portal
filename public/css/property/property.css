@@ -15,6 +15,10 @@
     text-transform: capitalize;
 }
 
+.container h2{
+    color: #a8c4ff;
+}
+
 .container .main-heading {
     margin-bottom: 2rem;
 }
@@ -261,7 +265,7 @@ img.hover-shadow {
         font-size: large;
     }
 
-    .container h2 {
-        font-size: medium;
+    .container .main-heading h2 {
+        font-size: small;
     }
 }

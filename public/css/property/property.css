@@ -1,4 +1,5 @@
 .container {
+    text-transform: capitalize;
     text-align: center;
     margin: 3rem auto;
     padding: 1.5rem;
@@ -8,7 +9,7 @@
     box-shadow: 2px 2px 2px 2px #14213d6e;
     border-radius: 5px;
     color: whitesmoke;
-    max-width: 1200px;
+    max-width: 1000px;
 }
 
 .container h1 {
@@ -44,7 +45,7 @@
     border-bottom: 5px solid #14213d;
 }
 
-.body .details{
+.body .details {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -52,16 +53,43 @@
     margin: 1rem;
 }
 
-.body .details .sub-heding{
+.body .details .sub-heding {
     margin: 0.5rem;
     border-radius: 5px;
     padding: 0.5rem 1rem;
     background-image: linear-gradient(to right, #14163d, #14213d00);
 }
 
-.body .details .value{
+.body .details .value {
     margin: 0.2rem;
     padding: 0 2rem;
+}
+
+.body table td {
+    padding: 0.1rem;
+}
+
+.likes {
+    margin: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-decoration: none;
+}
+
+.likes a {
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: whitesmoke;
+    text-transform: capitalize;
+}
+
+.likes a img {
+    width: 2rem;
+    border-radius: 100%;
+    margin: 0.5rem;
 }
 
 

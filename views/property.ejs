@@ -95,19 +95,22 @@
 
                             <%}%>                
             </table>
+                    <%if(property.likes.length>0){%>
+                            <h3 class="sub-heding">liked by</h3>
+                            <div class="likes">
+                                <%for(var i=0;i<property.likes.length;i++){%>
+                                <a href="/profile/<%=property.likes[i]._id%>">
+                                    <img src="<%=property.likes[i].user_thumbnail.small%>" alt="">
+                                    <h4><%=property.likes[i].firstName%> <%=property.likes[i].lastName%></h4>
+                                </a>
+                                <%}}%>
+                            </div>
                     </div>
+                </div>
 
-                 </div>    
-                    <h3>liked by</h3>
-                     <%for(var i=0;i<property.likes.length;i++){%>
-                            <a href="/profile/<%=property.likes[i]._id%>">
-                                <img src="<%=property.likes[i].user_thumbnail.small%>" alt="">
-                                <h4><%=property.likes[i].firstName%> <%=property.likes[i].lastName%></h4>
-                            </a>
-                            <%}%>
 
-                       
-        </div>
+
+            </div>
     </main>
     <script src="/js/property/property.js"></script>
     <%- include('./includes/end.ejs') %>

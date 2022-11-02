@@ -1,20 +1,17 @@
-main {
-    text-align: center;
-}
-
 .sing-up {
-    margin: 3rem 3rem;
+    text-align: center;
+    margin: 1.5rem auto;
     background-image: linear-gradient(to top, #14213d, #14213ddc);
-    display: inline-flex;
+    display: flex;
     align-items: stretch;
     flex-direction: column;
+    max-width: 600px;
     padding: 30px;
     border-radius: 5px;
     box-shadow: 2px 2px 2px 2px #14213d6e;
 }
 
 .sing-up .title {
-    min-width: 350px;
     font-size: xx-large;
     color: whitesmoke;
 }
@@ -107,10 +104,6 @@ main {
 
 @media (max-width: 600px) {
     .sing-up {
-        display: block;
-    }
-
-    .sing-up .title {
-        min-width: 90%;
+        margin: 1.5rem;
     }
 }

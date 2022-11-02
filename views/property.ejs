@@ -50,24 +50,27 @@
                         </div>
                     </div>
                     <div class="details">
-                        <h3>address</h3>
-                        <h4><span class="material-symbols-outlined">
-                                pin_drop
-                            </span> <%=property.basicDetail.society%>, <%=property.basicDetail.locality%>,
+                        <h3 class="sub-heding">address</h3>
+                        <h4 class="value"><a
+                                href="http://google.com/maps/?q=<%=property.basicDetail.coordinates.latitude%>,<%=property.basicDetail.coordinates.longitude%>">
+                                <span class="material-symbols-outlined">
+                                    pin_drop
+                                </span></a> <%=property.basicDetail.society%>, <%=property.basicDetail.locality%>,
                             <%=property.basicDetail.city%>,
                             <%=property.basicDetail.state%>,
                             <%=property.basicDetail.contry%></h4>
-                        <h3>overview</h3>
-                        <h4><%=property.otherDetail.briefDescription%></h4>
-                        <h3>transactional Type</h3>
-                        <h4><%=property.additionalDetail.transactionalType%></h4>
-                        <h3>Ownership</h3>
-                        <h4><%=property.additionalDetail.propertyOwnership%></h4>
-                        <h3>Availabity</h3>
-                        <h4><%=property.additionalDetail.propertyAvailabity.toLocaleDateString("en-US",{ year: 'numeric', month: 'long', day: 'numeric' })%>
+                        <h3 class="sub-heding">overview</h3>
+                        <h4 class="value"><%=property.otherDetail.briefDescription%></h4>
+                        <h3 class="sub-heding">transactional Type</h3>
+                        <h4 class="value"><%=property.additionalDetail.transactionalType%></h4>
+                        <h3 class="sub-heding">Ownership</h3>
+                        <h4 class="value"><%=property.additionalDetail.propertyOwnership%></h4>
+                        <h3 class="sub-heding">Availabity</h3>
+                        <h4 class="value">from
+                            <%=property.additionalDetail.propertyAvailabity.toLocaleDateString("en-US",{ year: 'numeric', month: 'long', day: 'numeric' })%>
                         </h4>
-                        <h3>KEY FEATURES</h3>
-                        <table>
+                        <h3 class="sub-heding">KEY FEATURES</h3>
+                        <table class="value">
                             <tr>
                                 <td><strong>covered area: </strong><%=property.priceArea.coveredArea%></td>
                                 <td><strong>plot area: </strong><%=property.priceArea.plotArea%></td>
@@ -94,7 +97,7 @@
             </table>
                     </div>
 
-                    
+                 </div>    
                     <h3>liked by</h3>
                      <%for(var i=0;i<property.likes.length;i++){%>
                             <a href="/profile/<%=property.likes[i]._id%>">
@@ -103,7 +106,7 @@
                             </a>
                             <%}%>
 
-                        </div>
+                       
         </div>
     </main>
     <script src="/js/property/property.js"></script>

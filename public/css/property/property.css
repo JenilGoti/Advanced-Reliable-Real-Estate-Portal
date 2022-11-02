@@ -15,7 +15,7 @@
     text-transform: capitalize;
 }
 
-.container h2{
+.container h2 {
     color: #a8c4ff;
 }
 
@@ -24,21 +24,47 @@
 }
 
 .body {
+    width: inherit;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
+    align-items: flex-start;
 }
 
-.area-price{
+.area-price {
     display: flex;
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
-    padding: 0 1rem;
-    margin-top: 1rem;
+    padding: 0 1rem 1rem 1rem;
+    margin: 1rem 0;
     color: #a8c4ff;
+    border-bottom: 5px solid #14213d;
 }
+
+.body .details{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 1rem;
+}
+
+.body .details .sub-heding{
+    margin: 0.5rem;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    background-image: linear-gradient(to right, #14163d, #14213d00);
+}
+
+.body .details .value{
+    margin: 0.2rem;
+    padding: 0 2rem;
+}
+
+
 
 
 
@@ -60,8 +86,6 @@
     text-align: left;
     max-width: 90%;
     width: 35rem;
-    /* height: 23rem; */
-    max-height: 25rem;
     position: relative;
     margin: auto;
 }
@@ -253,6 +277,7 @@ img.hover-shadow {
     .container {
         margin: 1.5rem;
     }
+
     .slideshow-container {
         width: 20rem;
     }
@@ -263,6 +288,10 @@ img.hover-shadow {
 
     .container h1 {
         font-size: large;
+    }
+
+    .container h2 {
+        font-size: medium;
     }
 
     .container .main-heading h2 {

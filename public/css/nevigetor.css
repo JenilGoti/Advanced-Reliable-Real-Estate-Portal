@@ -152,11 +152,10 @@
 }
 @keyframes drover-display1 {
 	0% {
-		position: absolute;
-    left: -3rem;
+    left: -3rem; 
 	}
 	99% {
-		position: absolute;
+		/* position: absolute; */
     left: 0;
 	}
 	100% {
@@ -167,10 +166,8 @@
 
 @keyframes drover-display--reverse1 {
 	0% {
-		position: absolute;
 	}
 	50% {
-		position: absolute;
     left: -3rem;
 	}
 	100% {

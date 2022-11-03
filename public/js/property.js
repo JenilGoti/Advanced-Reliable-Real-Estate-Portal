@@ -14,6 +14,7 @@ function propertyCard(property, isAuth, imageEventListner) {
 
 
     const div = document.createElement('div');
+    div.id=property._id;
     div.classList.add("card");
 
 
@@ -168,6 +169,7 @@ function propertyCard(property, isAuth, imageEventListner) {
             })
             .then(result => result.json())
             .then(result => {
+                console.log(result);
                 if (result.bookmark) {
                     bookmarkBtn.style.color = "#E8AA42";
                 }
@@ -184,6 +186,7 @@ function propertyCard(property, isAuth, imageEventListner) {
                 })
                 .then(result => result.json())
                 .then(result => {
+                    console.log(result);
                     if (result.bookmark) {
                         bookmarkBtn.style.color = "#E8AA42";
                     } else {

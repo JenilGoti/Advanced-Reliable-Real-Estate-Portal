@@ -115,6 +115,17 @@ main {
     display: none;
 }
 
+.title1{
+    width: 100%;
+    background-image: linear-gradient(to right, #10192e, #00171f00);
+    color: whitesmoke;
+    text-align: left;
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 5px;
+}
+
+
 @media (max-width: 750px) {
 
 

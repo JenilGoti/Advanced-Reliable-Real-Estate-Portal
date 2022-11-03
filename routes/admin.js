@@ -11,6 +11,8 @@ const router = express.Router();
 
 router.get("/add-property", isAuth, adminController.getAddNewProperty);
 
+router.get('/bookmark',isAuth,adminController.getBookMarks);
+
 router.post("/add-property", isAuth,multerMultipaleFile, adminController.postAddNewProperty);
 
 module.exports = router;

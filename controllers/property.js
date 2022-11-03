@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 
 
 exports.getPropertys = async (req, res, next) => {
-    const page = req.query.page || 1
+    var page = req.query.page || 1;
+    var totalProperty;
     var mQurery = {}
     if (req.query.rent == "true") {
         mQurery = {
@@ -17,10 +18,25 @@ exports.getPropertys = async (req, res, next) => {
             actionType: "Sale"
         }
     }
+    if (req.query.userId) {
+        mQurery = {
+            userId:mongoose.Types.ObjectId(req.query.userId)
+        }
+    }
+    if (req.query.bookmark == "true") {
+        mQurery = {
+            _id: res.locals.user.bookMarks[page - 1].property
+        }
+    }
 
     const ITEM_PER_PAGE = 1;
     try {
-        const totalProperty = await Property.find(mQurery).countDocuments()
+        totalProperty = await Property.find(mQurery).countDocuments();
+        if (req.query.bookmark == "true") {
+            page=1;
+            totalProperty = res.locals.user.bookMarks.length;
+
+        }
         const propertys = await Property.find(mQurery)
             .sort({
                 createdAt: -1
@@ -43,8 +59,6 @@ exports.getPropertys = async (req, res, next) => {
             });
         }
         throw new Error("data not found")
-
-
     } catch (err) {
         console.log(err);
         return res.status(404).send({

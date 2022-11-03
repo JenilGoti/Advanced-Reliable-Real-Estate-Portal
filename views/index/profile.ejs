@@ -1,11 +1,14 @@
 <%- include('../includes/head.ejs') %>
 <link rel="stylesheet" href="/css/profile.css">
+<link rel="stylesheet" href="/css/index/card.css">
+<script src="/js/property.js"></script>
 </head>
 
 <body>
     <%- include('../includes/nevbar.ejs') %>
     <%- include('../includes/appbar.ejs') %>
     <main>
+        <input type="hidden" id="profId" value="<%=profUser._id%>">
         <div class="profile <%=master?'':'no-master'%>">
             <h1 class="title">Profile</h1>
             <div class="profile-content">
@@ -76,10 +79,20 @@
                 <button onclick="share()"><span style="font-size: x-large;"
                     class="material-symbols-outlined"> share </span></button>
             </div>
-            
-        <script src="/js/profile.js"></script> 
+            </div>
+            <%if(profUser.propertys.length>0){%>
+                        <div class="title1">
+                            <h2>Propertys</h2>
+                        </div>
+                        <%}%>
+            <div class="userProp">
 
-        </div>
+            </div>
+            <div style="display: flex; justify-content: center; margin-bottom: 5rem;">
+                <div class="loader"></div>
+            </div>
+
 
     </main>
+    <script src="/js/profile.js"></script>
     <%- include('../includes/end.ejs') %>

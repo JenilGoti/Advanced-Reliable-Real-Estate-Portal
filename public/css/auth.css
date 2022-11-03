@@ -10,7 +10,7 @@
     box-shadow: 2px 2px 2px 2px #14213d6e;
     border-radius: 5px;
     color: whitesmoke;
-    max-width: 500px;
+    max-width: 450px;
     box-shadow: 2px 2px 2px 2px #14213d6e;
 }
 
@@ -100,7 +100,7 @@
 .sing-up .user-type label {
     cursor: pointer;
     text-align: center;
-    padding: 0.7rem;
+    padding: 0.5rem;
     margin: 0;
 }
 
@@ -108,7 +108,7 @@
     background-color: #14213d;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 450px) {
     .sing-up {
         margin: 1.5rem;
     }

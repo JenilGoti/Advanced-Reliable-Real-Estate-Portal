@@ -15,8 +15,10 @@
             <%- include('./nevbar-itom.ejs',{url:'/',icon:'Home',title:'Home'}) %>
             <%- include('./nevbar-itom.ejs',{url:'/buy/buy',icon:'real_estate_agent',title:'Buy'}) %>
             <%- include('./nevbar-itom.ejs',{url:'/rent/rent',icon:'location_away',title:'rent'}) %>
-            <%- include('./nevbar-itom.ejs',{url:'/b',icon:'support_agent',title:'find REALTORS'}) %>
+            <%- include('./nevbar-itom.ejs',{url:'/map',icon:'map',title:'Map'}) %>
             <% if(isAuthenticated){%>
+            <%- include('./nevbar-itom.ejs',{url:'/admin/bookmark',icon:'bookmark',title:'bookmarks'}) %>
+            <%- include('./nevbar-itom.ejs',{url:'/b',icon:'support_agent',title:'find REALTORS'}) %>
             <%- include('./nevbar-itom.ejs',{url:'/admin/add-property',icon:'add_home_work',title:'Add to Sell/Rent'}) %>
             <% }%>
             <%- include('./nevbar-itom.ejs',{url:'/about',icon:'info',title:'About'}) %>

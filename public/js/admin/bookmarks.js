@@ -1,18 +1,5 @@
-const profId = document.getElementById("profId").value;
-const userProp = document.querySelector(".userProp");
 const host = location.protocol + '//' + location.host;
-
-const link = window.location.href;
-const shareData = {
-    title: 'NESTSCOUT',
-    text: "User Profile from NESTSCOUT\n",
-    url: link,
-}
-
-share = () => {
-    navigator.share(shareData);
-}
-
+const main = document.querySelector("main");
 var element = document.querySelector('.loader');
 var pageNo = 1;
 var lodPageAtTime = 20;
@@ -20,13 +7,14 @@ var lodPageAtTime = 20;
 getProperty()
 
 function getProperty() {
-    fetch(host + '/property/?page=' + pageNo + '&userId=' + profId, {
+    fetch(host + '/property/?page=' + pageNo+"&bookmark=true", {
             method: 'GET',
         })
         .then(response => {
             return response.json();
         })
         .then(result => {
+
             if (result.statusCode == 200) {
                 console.log(result);
                 hasNext = result.hasNext;
@@ -42,7 +30,8 @@ function getProperty() {
                 } else {
                     element.remove();
                 }
-                userProp.appendChild(pC);
+
+                main.appendChild(pC);
                 pC.style.animation = "scale-display .3s";
             } else {
                 alert(result.message);

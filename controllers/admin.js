@@ -107,3 +107,14 @@ exports.postAddNewProperty = async (req, res, next) => {
             next(error);
         })
 }
+
+
+
+exports.getBookMarks = (req, res, next) => {
+    const bookmarks = res.locals.user.bookMarks;
+    res.render('admin/bookmarks', {
+        pageTitle: 'Bookmarks',
+        path: '/admin/bookmark',
+        bookmarks: bookmarks
+    })
+}

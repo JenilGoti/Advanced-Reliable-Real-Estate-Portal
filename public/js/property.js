@@ -169,7 +169,6 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
             })
             .then(result => result.json())
             .then(result => {
-                console.log(result);
                 if (result.bookmark) {
                     bookmarkBtn.style.color = "#E8AA42";
                 }
@@ -179,14 +178,12 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
             .catch(err => console.log(err));
 
         bookmarkBtn.addEventListener("click", () => {
-            console.log("bookmark " + property._id);
             fetch(host + "/property/bookmark/" + property._id, {
                     method: 'POST',
                     body: new URLSearchParams("bookmark=" + bookmark),
                 })
                 .then(result => result.json())
                 .then(result => {
-                    console.log(result);
                     if (result.bookmark) {
                         bookmarkBtn.style.color = "#E8AA42";
                     } else {
@@ -214,7 +211,6 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
 
 
         favoritBtn.addEventListener("click", () => {
-            console.log("like " + property._id);
             fetch(host + "/property/like/" + property._id, {
                     method: 'POST',
                     body: new URLSearchParams("like=" + like),
@@ -234,7 +230,6 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
     // share btn
 
     shareBtn.addEventListener("click", () => {
-        console.log("share " + property._id);
         navigator.share(shareData)
     });
 
@@ -256,7 +251,22 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
 
         // delete btn
         deleteBtn.addEventListener("click",()=>{
-            
+            fetch(host + "/admin/delete-property", {
+                method: 'DELETE',
+                body: new URLSearchParams("propId=" +  property._id),
+            })
+            .then(result => result.json())
+            .then(result => {
+                if(result.statusCode==200){
+                    div.remove();
+                }
+                else{
+                    alert(result.message)
+                }
+            })
+            .catch(err => {
+                alert("property is not deleted")
+                console.log(err)});
         })
     }
 

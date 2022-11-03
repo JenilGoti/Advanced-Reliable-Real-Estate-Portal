@@ -120,6 +120,40 @@ exports.postAddNewProperty = async (req, res, next) => {
 
 
 exports.deletProperty = (req, res, next) => {
+    const propId = req.body.propId;
+    Property.findById(propId)
+        .select("userId agentId")
+        .then(property => {
+            if (property.userId.toString() != res.locals.user._id.toString()) {
+                console.log(err);
+                res.status(403).send({
+                    statusCode: 403,
+                    message: "Users does not have permission",
+                })
+            }
+            return Property.findOneAndRemove({
+                _id: propId
+            })
+        })
+        .then(result => {
+            if (result) {
+                res.locals.user.propertys=res.locals.user.propertys.filter(property => {
+                    return (property.property.toString() != propId.toString());
+                })
+                return res.locals.user.save();
+            }
+
+        })
+        .then(result => {
+            res.status(200).send({
+                statusCode: 200,
+                message: "property deleted successfully",
+            })
+        })
+        .catch(err => {
+            console.log(err);
+
+        })
 
 }
 

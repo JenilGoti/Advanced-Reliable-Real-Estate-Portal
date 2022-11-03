@@ -1,13 +1,15 @@
 let slideIndex = 1;
 const host = location.protocol + '//' + location.host;
 const propertyId = document.getElementById("prop-id").value;
-const close = document.querySelector(".close")
 const isAuth = document.getElementById("is-auth").value;
+const isOwn = document.getElementById("is-own").value;
+const close = document.querySelector(".close")
 const myModel = document.getElementById("myModel");
 const favoritBtn = document.querySelector(".favorite");
 const commentBtn = document.querySelector(".comment");
 const shareBtn = document.querySelector(".send");
 const bookmarkBtn = document.querySelector(".bookmark");
+console.log(isOwn);
 var bookmark = false;
 var like = false;
 const shareData = {

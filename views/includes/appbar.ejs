@@ -4,17 +4,21 @@
     <a href="/">
         <h1 class="main-title">NESTSCOUT</h1>
     </a>
+
     <div class="search">
         <input type="text" class="input" placeholder="Search...">
+        <%if(path=='/'||path=='/buy/buy'||path=='rent/rent'){%>
         <button class="btn">
             <span class="material-symbols-outlined">
                 search
             </span>
         </button>
+        <%}%>
     </div>
+    
     <% if(isAuthenticated){%>
-    <%- include('./user-info.ejs') %>
-    <%}%>
+        <%- include('./user-info.ejs') %>
+        <%}%>
 
 
 </div>

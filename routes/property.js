@@ -10,6 +10,8 @@ const router = express.Router();
 
 router.get('/', indexController.getPropertys);
 
+router.get('/locations', indexController.getLocations);
+
 router.get('/:propId', indexController.getProperty);
 
 router.get('/bookmark/:id',isAuth, indexController.getBookmark);

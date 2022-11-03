@@ -1,0 +1,14 @@
+#map {
+    height: 90vh;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.marker {
+    display: block;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+}

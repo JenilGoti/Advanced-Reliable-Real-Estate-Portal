@@ -20,7 +20,7 @@ exports.getPropertys = async (req, res, next) => {
     }
     if (req.query.userId) {
         mQurery = {
-            userId:mongoose.Types.ObjectId(req.query.userId)
+            userId: mongoose.Types.ObjectId(req.query.userId)
         }
     }
     if (req.query.bookmark == "true") {
@@ -33,7 +33,7 @@ exports.getPropertys = async (req, res, next) => {
     try {
         totalProperty = await Property.find(mQurery).countDocuments();
         if (req.query.bookmark == "true") {
-            page=1;
+            page = 1;
             totalProperty = res.locals.user.bookMarks.length;
 
         }
@@ -186,6 +186,35 @@ exports.postLike = (req, res, next) => {
             })
         })
 }
+
+
+exports.getLocations = async (req, res, next) => {
+    try {
+        totalProperty = await Property.find({}).countDocuments();
+        const propertys = await Property.find({})
+            .sort({
+                createdAt: -1
+            })
+            .select(`actionType basicDetail.noOfBhkOrRk basicDetail.bhkOrRk basicDetail.propertyType basicDetail.coordinates priceArea.price photos.imageUrl`)
+        if (propertys.length > 0) {
+            return res.status(200).send({
+                statusCode: 200,
+                message: "data sended succesfully",
+                propertys: propertys,
+                totalProperty: totalProperty
+            });
+        }
+        throw new Error("data not found")
+    } catch (err) {
+        console.log(err);
+        return res.status(404).send({
+            statusCode: 404,
+            message: "property not found",
+
+        })
+    }
+}
+
 
 exports.getProperty = (req, res, next) => {
     const propId = req.params["propId"];

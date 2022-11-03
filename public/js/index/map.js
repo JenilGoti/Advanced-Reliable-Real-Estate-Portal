@@ -76,12 +76,42 @@ function resetMap() {
                     // create a DOM element for the marker
                     var el = document.createElement('div');
                     el.className = 'marker';
-                    el.style.backgroundImage = 'url("/marker.png")';
+                    el.style.backgroundImage = 'url("' + property.photos[0].imageUrl + '")';
                     el.style.width = '50px';
                     el.style.height = '50px';
+                    var prop = document.createElement('div')
+                    prop.className = "container";
+                    
+                    var img = document.createElement('img');
+                    img.className = "circal-avtar";
+                    img.src = property.photos[0].imageUrl;
+                    var link=document.createElement('a');
+                    link.href = "/property/" + property._id;
+
+                    var text = document.createElement('h3');
+                    text.appendChild(document.createTextNode(property.basicDetail.noOfBhkOrRk + ' ' +
+                        property.basicDetail.bhkOrRk +
+                        ' ' +
+                        property.basicDetail.propertyType +
+                        ',at ' +
+                        "₹ " +
+                        property.priceArea.price.$numberDecimal + ' for ' +
+                        property.actionType));
+                    prop.appendChild(img);
+                    link.appendChild(text);
+                    prop.appendChild(link)
+                    el.appendChild(prop);
+
+
                     //Instead of this click listener, we can attach a popup / infowindow to this marker (see next section)
-                    el.addEventListener('click', function () {
-                        window.alert(marker.properties.message);
+                    el.addEventListener("mouseover", function () {
+                        el.style.backgroundImage = 'none';
+                        prop.style.display = "flex"
+
+                    });
+                    el.addEventListener("mouseout", function () {
+                        el.style.backgroundImage = 'url("' + property.photos[0].imageUrl + '")';
+                        prop.style.display = "none"
                     });
 
                     // add marker to map

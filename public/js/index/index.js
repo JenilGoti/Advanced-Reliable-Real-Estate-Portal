@@ -35,7 +35,7 @@ function getProperty() {
                 pC.style.animation = "scale-display .3s";
             } else {
                 h1=document.createElement("h1");
-                h1.appendChild(document.createTextNode("no more property found"))
+                h1.appendChild(document.createTextNode("no property found"))
                 main.appendChild(h1);
                 alert(result.message);
             }

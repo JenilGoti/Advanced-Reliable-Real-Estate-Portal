@@ -44,12 +44,13 @@ function getProperty() {
                 }
                 userProp.appendChild(pC);
                 pC.style.animation = "scale-display .3s";
-            } else {
-                h1=document.createElement("h1");
-                h1.appendChild(document.createTextNode("no more property found"))
-                userProp.appendChild(h1);
-                alert(result.message);
-            }
+            } 
+            // else {
+            //     h1=document.createElement("h1");
+            //     h1.appendChild(document.createTextNode("no more property found"))
+            //     userProp.appendChild(h1);
+            //     alert(result.message);
+            // }
         })
         .catch(err => {
             console.log(err);

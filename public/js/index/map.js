@@ -45,7 +45,7 @@ function resetMap() {
     var layerStyles = {
         "Streets": "streets/vector"
     };
-    map.addControl(new mapboxgl.FullscreenControl());
+    map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
     map.addControl(new locationiqLayerControl({
         key: locationiq.key,
         layerStyles: layerStyles

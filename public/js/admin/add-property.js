@@ -113,11 +113,6 @@ function setMap() {
 }
 
 city.addEventListener("change", setMap);
-var el = document.createElement('div');
-el.className = 'marker';
-el.style.backgroundImage = 'url(/marker.png)';
-el.style.width = '50px';
-el.style.height = '50px';
 
 function resetMap() {
     var map = new mapboxgl.Map({
@@ -156,6 +151,11 @@ function resetMap() {
             speed: 4
         }
     }), 'top-left');
+    var el = document.createElement('div');
+    el.className = 'marker';
+    el.style.backgroundImage = 'url(/marker.png)';
+    el.style.width = '50px';
+    el.style.height = '50px';
     var marker = new mapboxgl.Marker(el)
         .setLngLat([lon, lat])
         .addTo(map);

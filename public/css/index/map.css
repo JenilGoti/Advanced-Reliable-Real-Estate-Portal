@@ -20,8 +20,8 @@
     margin: 1rem;
     padding: 0.5rem;
     width: 20rem;
-    z-index: 1000;
-    position: absolute;
+    z-index: 2147483647;
+    position: relative;
     display: none;
     flex-direction: row;
     justify-items: center;

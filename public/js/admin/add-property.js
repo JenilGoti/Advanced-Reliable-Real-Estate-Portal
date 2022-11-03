@@ -127,13 +127,13 @@ function resetMap() {
         center: [lon, lat]
     });
     var nav = new mapboxgl.NavigationControl();
-    map.addControl(nav, 'top-right');
+    map.addControl(nav, 'bottom-right');
     map.addControl(new mapboxgl.GeolocateControl({
         positionOptions: {
             enableHighAccuracy: true
         },
         trackUserLocation: true
-    }));
+    }), 'bottom-right');
 
     var layerStyles = {
         "Streets": "streets/vector"
@@ -142,7 +142,20 @@ function resetMap() {
     map.addControl(new locationiqLayerControl({
         key: locationiq.key,
         layerStyles: layerStyles
-    }), 'bottom-left');
+    }), 'bottom-right');
+    map.addControl(new MapboxGeocoder({
+        accessToken: locationiq.key,
+        mapboxgl: mapboxgl,
+        limit: 5,
+        dedupe: 1,
+        marker: {
+            color: 'red'
+        },
+        flyTo: {
+            screenSpeed: 7,
+            speed: 4
+        }
+    }), 'top-left');
     var marker = new mapboxgl.Marker(el)
         .setLngLat([lon, lat])
         .addTo(map);

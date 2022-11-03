@@ -1,0 +1,44 @@
+main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.add-new-prop-btn {
+    display: flex;
+    font-size: inherit;
+    width: 100%;
+    justify-content: flex-end;
+    margin-left: auto;
+    align-self: flex-end;
+}
+
+.add-new-prop-btn a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: black;
+    margin: 1rem;
+    padding: 0 1rem;
+    padding-top: 0.4rem;
+}
+
+.ownBtns {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.ownBtns .ownBtn {
+    height: 2.5rem;
+    margin-top: 0.1rem;
+    width: 100%;
+    margin: 0.3rem;
+    background-color: #E8AA42;
+    font-weight: bolder;
+    color: #14213d;
+    cursor: pointer;
+    border-radius: 5px;
+}

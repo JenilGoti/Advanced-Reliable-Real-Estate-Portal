@@ -3,6 +3,16 @@ const {
     multerMultipaleFile,
     uploadFile
 } = require("../utils/firebase-helper")
+
+
+exports.getAdmin = (req, res, next) => {
+    res.render("admin/admin", {
+        pageTitle: "Admin",
+        path: "/admin/",
+    });
+}
+
+
 exports.getAddNewProperty = (req, res, next) => {
     res.render("admin/add-property", {
         pageTitle: "Add property",

@@ -1,0 +1,28 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/index/card.css">
+<link rel="stylesheet" href="/css/admin/admin.css">
+<script src="/js/property.js"></script>
+</head>
+
+<body>
+    <%- include('../includes/nevbar.ejs') %>
+    <%- include('../includes/appbar.ejs') %>
+
+    <main>
+        <div class="add-new-prop-btn"><a class="btn1" href="/admin/add-property">
+                <h2><span>+ </span>List Property</h2>
+            </a>
+        </div>
+        <input type="hidden" id="uId" value="<%=user._id%>">
+        <div class="userProp">
+
+        </div>
+
+    </main>
+    <div style="display: flex; justify-content: center; margin-bottom: 5rem;">
+        <div class="loader"></div>
+    </div>
+
+    <script src="/js/admin/admin.js"></script>
+
+    <%- include('../includes/end.ejs') %>

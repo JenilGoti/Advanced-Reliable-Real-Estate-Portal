@@ -1,4 +1,4 @@
-function propertyCard(property, isAuth, imageEventListner) {
+function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
     var bookmark = false;
     var like = false;
     const shareData = {
@@ -14,7 +14,7 @@ function propertyCard(property, isAuth, imageEventListner) {
 
 
     const div = document.createElement('div');
-    div.id=property._id;
+    div.id = property._id;
     div.classList.add("card");
 
 
@@ -161,7 +161,7 @@ function propertyCard(property, isAuth, imageEventListner) {
     div.appendChild(header);
     div.appendChild(body);
     div.appendChild(footer);
-    if(isAuth) {
+    if (isAuth) {
         // bookmark btn
 
         fetch(host + "/property/bookmark/" + property._id, {
@@ -237,6 +237,20 @@ function propertyCard(property, isAuth, imageEventListner) {
         console.log("share " + property._id);
         navigator.share(shareData)
     });
+
+    if (isOwn) {
+        const ownBtns = document.createElement('div');
+        ownBtns.classList.add("ownBtns");
+        const editBtn = document.createElement('button');
+        editBtn.classList.add("ownBtn");
+        editBtn.appendChild(document.createTextNode("EDIT"))
+        const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add("ownBtn");
+        deleteBtn.appendChild(document.createTextNode("DELETE"))
+        ownBtns.appendChild(editBtn);
+        ownBtns.appendChild(deleteBtn);
+        div.appendChild(ownBtns);
+    }
 
     return div;
 }

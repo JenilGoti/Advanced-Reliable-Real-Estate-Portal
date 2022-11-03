@@ -9,6 +9,8 @@ const {
 const {multerMultipaleFile}=require("../utils/firebase-helper")
 const router = express.Router();
 
+router.get("/",isAuth,adminController.getAdmin);
+
 router.get("/add-property", isAuth, adminController.getAddNewProperty);
 
 router.get('/bookmark',isAuth,adminController.getBookMarks);

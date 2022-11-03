@@ -119,6 +119,11 @@ exports.postAddNewProperty = async (req, res, next) => {
 }
 
 
+exports.deletProperty = (req, res, next) => {
+
+}
+
+
 
 exports.getBookMarks = (req, res, next) => {
     const bookmarks = res.locals.user.bookMarks;

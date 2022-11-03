@@ -252,6 +252,12 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
         ownBtns.appendChild(editBtn);
         ownBtns.appendChild(deleteBtn);
         div.appendChild(ownBtns);
+
+
+        // delete btn
+        deleteBtn.addEventListener("click",()=>{
+            
+        })
     }
 
     return div;

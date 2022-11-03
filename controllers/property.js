@@ -3,34 +3,38 @@ var mongoose = require('mongoose');
 
 
 exports.getPropertys = async (req, res, next) => {
-    var page = req.query.page || 1;
-    var totalProperty;
-    var mQurery = {}
-    if (req.query.rent == "true") {
-        mQurery = {
-            actionType: {
-                $in: ["Rent", 'PG']
+    try {
+        var page = req.query.page || 1;
+        var totalProperty;
+        var mQurery = {}
+        if (req.query.rent == "true") {
+            mQurery = {
+                actionType: {
+                    $in: ["Rent", 'PG']
+                }
             }
         }
-    }
-    if (req.query.sale == "true") {
-        mQurery = {
-            actionType: "Sale"
+        if (req.query.sale == "true") {
+            mQurery = {
+                actionType: "Sale"
+            }
         }
-    }
-    if (req.query.userId) {
-        mQurery = {
-            userId: mongoose.Types.ObjectId(req.query.userId)
+        if (req.query.userId) {
+            mQurery = {
+                userId: mongoose.Types.ObjectId(req.query.userId)
+            }
         }
-    }
-    if (req.query.bookmark == "true") {
-        mQurery = {
-            _id: res.locals.user.bookMarks[page - 1].property
+        if (req.query.bookmark == "true") {
+            if (res.locals.user.bookMarks.length < 1) {
+                throw new Error("data not found")
+            }
+            mQurery = {
+                _id: res.locals.user.bookMarks[page - 1].property
+            }
         }
-    }
 
-    const ITEM_PER_PAGE = 1;
-    try {
+        const ITEM_PER_PAGE = 1;
+
         totalProperty = await Property.find(mQurery).countDocuments();
         if (req.query.bookmark == "true") {
             page = 1;

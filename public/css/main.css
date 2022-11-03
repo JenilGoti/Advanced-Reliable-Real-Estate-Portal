@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   user-select: none;
+  font-family: 'Lato', sans-serif;
 }
 
 body {
@@ -29,14 +30,14 @@ main {
   color: #14213d;
   cursor: pointer;
   border-radius: 5px;
-} 
+}
 
 .btn1:hover {
   background-color: #e8ab42d9;
   box-shadow: 2px 2px 2px 2px #ffe5b489;
 }
 
-.outline-btn{
+.outline-btn {
   padding: 0.5rem;
   color: whitesmoke;
   background-color: #14213d00;
@@ -44,7 +45,8 @@ main {
   border-radius: 4px;
   font-weight: bolder;
 }
-.outline-btn:hover{
+
+.outline-btn:hover {
   color: #14213d;
   background-color: whitesmoke;
   border: 3px solid #14213d;
@@ -54,22 +56,33 @@ main {
   display: none;
   border: 7px solid #f3f3f300;
   border-radius: 50%;
-  border-top:7px solid #14213d;
+  border-top: 7px solid #14213d;
   width: 3rem;
   height: 3rem;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
+  -webkit-animation: spin 2s linear infinite;
+  /* Safari */
   animation: spin 2s linear infinite;
 }
 
 /* Safari */
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 600px) {

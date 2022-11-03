@@ -243,9 +243,11 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
         ownBtns.classList.add("ownBtns");
         const editBtn = document.createElement('button');
         editBtn.classList.add("ownBtn");
+        editBtn.classList.add("btn1");
         editBtn.appendChild(document.createTextNode("EDIT"))
         const deleteBtn = document.createElement('button');
         deleteBtn.classList.add("ownBtn");
+        deleteBtn.classList.add("btn1");
         deleteBtn.appendChild(document.createTextNode("DELETE"))
         ownBtns.appendChild(editBtn);
         ownBtns.appendChild(deleteBtn);

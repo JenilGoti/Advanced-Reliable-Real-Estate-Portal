@@ -30,7 +30,7 @@ function resetMap() {
     var map = new mapboxgl.Map({
         container: 'map',
         attributionControl: false,
-        zoom: 9.5,
+        zoom: 3.5,
         center: [lon, lat]
     });
     var nav = new mapboxgl.NavigationControl();

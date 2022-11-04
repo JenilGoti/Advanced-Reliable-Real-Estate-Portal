@@ -77,7 +77,7 @@
     text-decoration: none;
     text-overflow: ellipsis;
     color: black;
-    border-radius: 0 5px 0 5px;
+    border-radius:5px;
 }
 
 .btn {

@@ -41,10 +41,10 @@ const searchHendler = (value) => {
             searchContent.innerHTML = "";
             if (result.statusCode == 200) {
                 result.search.forEach(search => {
-                    const searchText = search.searchText.substring(0, 100);
+                    const searchText = search.searchText;
                     const searches = document.createElement("a");
                     searches.href = host + '/property/' + search._id;
-                    searches.appendChild(document.createTextNode(searchText + "..."));
+                    searches.appendChild(document.createTextNode(searchText));
                     searchContent.appendChild(searches);
                 });
             }

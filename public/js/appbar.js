@@ -5,6 +5,7 @@ const appTitle = document.querySelector('.main-title');
 const searchBar = document.getElementById("search-bar");
 const host = location.protocol + '//' + location.host;
 const searchContent = document.querySelector('.search-content');
+const userDropdawn = document.querySelector('.user-dropdown');
 
 btn.addEventListener('click', () => {
     isDisplay = input.style.display == "none" || input.style.display == "";
@@ -25,7 +26,8 @@ btn.addEventListener('click', () => {
         btn.innerHTML = '<span class="material-symbols-outlined">search</span>'
     }
     if (screen.availWidth < 593) {
-        isDisplay ? appTitle.style.display = "none" : appTitle.style.display = "flex"
+        isDisplay ? appTitle.style.display = "none" : appTitle.style.display = "flex";
+        isDisplay ? userDropdawn.style.display = "none" : userDropdawn.style.display = "flex"
     }
 })
 const searchHendler = (value) => {

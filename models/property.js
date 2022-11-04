@@ -123,10 +123,10 @@ const propertySchema = new Schema({
         }
     },
     likes: [{
-            type: Schema.Types.ObjectId,
-            required: true,
-            ref: 'User'
-        }],
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    }],
     Comment: [{
         userId: {
             type: Schema.Types.ObjectId,

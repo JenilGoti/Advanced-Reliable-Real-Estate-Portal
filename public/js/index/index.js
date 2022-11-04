@@ -1,7 +1,5 @@
-const host = location.protocol + '//' + location.host;
 const main = document.querySelector("main");
 var element = document.querySelector('.loader');
-const searchBar = document.getElementById("search-bar");
 
 var pageNo = 1;
 var lodPageAtTime = 20;
@@ -36,7 +34,7 @@ function getProperty() {
                 main.appendChild(pC);
                 pC.style.animation = "scale-display .3s";
             } else {
-                h1=document.createElement("h1");
+                h1 = document.createElement("h1");
                 h1.appendChild(document.createTextNode("no property found"))
                 main.appendChild(h1);
                 alert(result.message);
@@ -55,3 +53,4 @@ sevl = () => {
         console.log(pageNo);
     }
 }
+

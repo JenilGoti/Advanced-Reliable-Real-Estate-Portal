@@ -1,5 +1,3 @@
-const host = location.protocol + '//' + location.host;
-
 var lat = 20.5937;
 var lon = 78.9629;
 

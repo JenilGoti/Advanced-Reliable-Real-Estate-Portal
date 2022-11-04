@@ -6,19 +6,20 @@
     </a>
 
     <div class="search">
+
         <input id="search-bar" type="text" class="input" placeholder="Search...">
-        <%if(path=='/'||path=='/buy/buy'||path=='rent/rent'){%>
-        <button class="btn">
-            <span class="material-symbols-outlined">
-                search
-            </span>
-        </button>
-        <%}%>
-    </div>
-    
-    <% if(isAuthenticated){%>
-        <%- include('./user-info.ejs') %>
-        <%}%>
+        <div class="search-content">
+        </div>
+    <button class="btn">
+        <span class="material-symbols-outlined">
+            search
+        </span>
+    </button>
+</div>
+
+<% if(isAuthenticated){%>
+<%- include('./user-info.ejs') %>
+<%}%>
 
 
 </div>

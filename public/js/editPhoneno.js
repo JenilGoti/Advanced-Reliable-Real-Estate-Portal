@@ -3,7 +3,6 @@ const verifyBtn = document.querySelector('.verify-no');
 const number = document.querySelector('#phone_no');
 const OTP = document.querySelector('.OTP');
 const otpVal = document.querySelector('#OTP');
-const host = location.protocol + '//' + location.host;
 
 function sendOtp() {
     const moblieNo = parseInt(number.value);

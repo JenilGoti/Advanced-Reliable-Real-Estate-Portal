@@ -4,22 +4,24 @@ const {
 
 const express = require("express");
 
-const indexController = require("../controllers/property");
+const propertyController = require("../controllers/property");
 
 const router = express.Router();
 
-router.get('/', indexController.getPropertys);
+router.get('/', propertyController.getPropertys);
 
-router.get('/locations', indexController.getLocations);
+router.get('/locations', propertyController.getLocations);
 
-router.get('/:propId', indexController.getProperty);
+router.get('/:propId', propertyController.getProperty);
 
-router.get('/bookmark/:id',isAuth, indexController.getBookmark);
+router.get('/bookmark/:id',isAuth, propertyController.getBookmark);
 
-router.get('/like/:id',isAuth, indexController.getLike);
+router.get('/like/:id',isAuth, propertyController.getLike);
 
-router.post('/bookmark/:id',isAuth, indexController.postBookmark);
+router.get('/search/:search', propertyController.searchProperty);
 
-router.post('/like/:id',isAuth, indexController.postLike);
+router.post('/bookmark/:id',isAuth, propertyController.postBookmark);
+
+router.post('/like/:id',isAuth, propertyController.postLike);
 
 module.exports = router;

@@ -1,6 +1,5 @@
 const profId = document.getElementById("profId").value;
 const userProp = document.querySelector(".userProp");
-const host = location.protocol + '//' + location.host;
 
 const link = window.location.href;
 const shareData = {

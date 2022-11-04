@@ -7,10 +7,12 @@
     position: fixed;
     z-index: 100;
 }
-.main-appbar-header a{
+
+.main-appbar-header a {
     text-decoration: none;
 }
-.main-appbar-header  .logo {
+
+.main-appbar-header .logo {
     height: inherit;
 }
 
@@ -52,6 +54,32 @@
     display: none;
 }
 
+.search .search-content {
+    overflow: auto;
+    position: absolute;
+    top: 60px;
+    max-height: 70vh;
+    width: 300px;
+    display: none;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    align-items: flex-start;
+    align-content: stretch;
+    justify-content: flex-start;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.search .search-content a {
+    padding: 0.5rem;
+    background-image: linear-gradient(to bottom, #fdfdfd, #dbdbdb);
+    text-decoration: none;
+    text-overflow: ellipsis;
+    color: black;
+    border-radius: 0 5px 0 5px;
+}
+
 .btn {
     background-color: #14213d00;
     color: #e5e5e5;
@@ -71,21 +99,37 @@
 }
 
 @keyframes scale-display {
-	0% {
-		opacity: 0;
-		transform: scale(0);
-    -webkit-transform: scale(0);
-	}
+    0% {
+        opacity: 0;
+        transform: scale(0);
+        -webkit-transform: scale(0);
+    }
 
-	100% {
-		opacity: 1;
-		transform: scale(1);
-    -webkit-transform: scale(1);
-	}
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        -webkit-transform: scale(1);
+    }
+}
+
+@keyframes showSearches {
+    0% {
+        opacity: 0;
+        top: 0;
+        transform: scale(0);
+        -webkit-transform: scale(0);
+    }
+
+    100% {
+        opacity: 1;
+        top: 60px;
+        transform: scale(1);
+        -webkit-transform: scale(1);
+    }
 }
 
 @media (max-width: 600px) {
     .search .input {
         width: 100%;
     }
-  }
+}

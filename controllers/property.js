@@ -60,11 +60,10 @@ exports.getPropertys = async (req, res, next) => {
                 isAuth: res.locals.isAuthenticated,
                 hasNext: page < totalProperty
             });
+        } else {
+            throw new Error("data not found")
         }
-        else{
-          throw new Error("data not found")  
-        }
-        
+
     } catch (err) {
         console.log(err);
         return res.status(404).send({
@@ -251,4 +250,81 @@ exports.getProperty = (req, res, next) => {
             next(error);
         })
 
+}
+
+
+exports.searchProperty = (req, res, next) => {
+    const search = req.params["search"];
+    Property.aggregate([{
+                $project: {
+                    searchText: {
+                        $concat: [{
+                                '$toString': "$basicDetail.noOfBhkOrRk"
+                            },
+                            " ",
+                            "$basicDetail.bhkOrRk",
+                            " ",
+                            "$basicDetail.propertyType",
+                            " for ",
+                            "$actionType",
+                            " at ",
+                            "$basicDetail.society",
+                            ", ",
+                            "$basicDetail.locality",
+                            ", ",
+                            "$basicDetail.city",
+                            ", ",
+                            "$basicDetail.state",
+                            ", ",
+                            "$basicDetail.contry",
+                            ", and features like ",
+                            "$additionalDetail.furnished",
+                            ", ",
+                            "$additionalDetail.facing",
+                            " facing, ",
+                            {
+                                '$toString': "$additionalDetail.floorNo"
+                            },
+                            " floor, ",
+                            "$additionalDetail.transactionalType",
+                            ", ",
+                            "$additionalDetail.propertyOwnership",
+                            ", ",
+                        ]
+                    }
+                }
+            },
+            {
+                $match: {
+                    searchText: {
+                        $regex: search,
+                        $options: 'i'
+                    }
+                }
+            }
+        ])
+        .then(result => {
+            console.log(result);
+            if (result.length > 0) {
+                return res.status(200).send({
+                    statusCode: 200,
+                    message: "search found",
+                    search: result,
+                    for:search
+                })
+            } else {
+                return res.status(404).send({
+                    statusCode: 404,
+                    message: "no search found"
+                })
+            }
+
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(404).send({
+                statusCode: 404,
+                message: "no search found"
+            })
+        })
 }

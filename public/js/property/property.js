@@ -1,5 +1,4 @@
 let slideIndex = 1;
-const host = location.protocol + '//' + location.host;
 const propertyId = document.getElementById("prop-id").value;
 const isAuth = document.getElementById("is-auth").value;
 const isOwn = document.getElementById("is-own").value;

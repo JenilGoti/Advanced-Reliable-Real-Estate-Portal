@@ -288,8 +288,7 @@ exports.searchProperty = (req, res, next) => {
                             " floor, ",
                             "$additionalDetail.transactionalType",
                             ", ",
-                            "$additionalDetail.propertyOwnership",
-                            ", ",
+                            "$additionalDetail.propertyOwnership"
                         ]
                     }
                 }
@@ -310,7 +309,7 @@ exports.searchProperty = (req, res, next) => {
                     statusCode: 200,
                     message: "search found",
                     search: result,
-                    for:search
+                    for: search
                 })
             } else {
                 return res.status(404).send({

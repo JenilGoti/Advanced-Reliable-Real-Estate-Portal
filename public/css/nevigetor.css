@@ -1,7 +1,7 @@
 .main-header {
   margin-top: 4.5rem;
   height: calc(100% - 4.5rem);
-  background-color: #14213d;
+  background-color: var(--c1);
   position: fixed;
   z-index: 100;
   align-items: center;
@@ -53,7 +53,7 @@
 
 .main-header__item:hover,
 .main-header__item.active {
-  background-image: radial-gradient(circle, #10192e, #00171f);
+  background-image: radial-gradient(circle, var(--c1), var(--c1dark));
   border-radius: 5px;
 }
 .mobile-header{
@@ -63,7 +63,7 @@
 .mobile-header .nevbar-background{
   height: 100%;
   width: 100%;
-  background-color: #10192e6b;
+  background-color: var(--c2op30);
   position: fixed;
   z-index: 50;
   display: none;
@@ -75,8 +75,8 @@
   left: 10px;
   padding: 15px;
   margin: 0;
-  background-image: radial-gradient(circle, #10192e, #00171f);
-  box-shadow: 2px 2px #14213d84;
+  background-image: radial-gradient(circle, var(--c2), var(--c1dark));
+  box-shadow: 2px 2px var(--c1op50);
   border-radius: 100%;
   text-decoration: none;
 }

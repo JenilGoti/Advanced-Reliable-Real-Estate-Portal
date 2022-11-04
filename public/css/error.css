@@ -35,9 +35,9 @@ main {
 }
 
 .link_error {
-    color: #14213d;
+    color: var(--c1);
     padding: 10px 20px;
-    background-color: #E8AA42;
+    background-color: var(--bc1);
     font-weight: bolder;
     margin: 20px 0;
     display: inline-block;

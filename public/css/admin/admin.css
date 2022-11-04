@@ -18,7 +18,7 @@ main {
 .add-new-prop-btn a {
     text-transform: uppercase;
     text-decoration: none;
-    color: black;
+    color: var(--fc2);
     margin: 1rem;
     padding: 0 1rem;
     padding-top: 0.4rem;
@@ -36,9 +36,9 @@ main {
     margin-top: 0.1rem;
     width: 100%;
     margin: 0.5rem;
-    background-color: #E8AA42;
+    background-color: var(--bc1);
     font-weight: bolder;
-    color: #14213d;
+    color: var(--c1);
     cursor: pointer;
     border-radius: 5px;
 }

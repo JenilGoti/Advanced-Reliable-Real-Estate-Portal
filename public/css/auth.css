@@ -6,12 +6,12 @@
     padding: 1.5rem;
     align-self: center;
     justify-self: center;
-    background-image: linear-gradient(to top, #14213d, #14213ddc);
-    box-shadow: 2px 2px 2px 2px #14213d6e;
+    background-image: linear-gradient(to top, var(--c1), var(--c1op70));
+    box-shadow: 2px 2px 2px 2px var(--c1op50);
     border-radius: 5px;
-    color: whitesmoke;
+    color: var(--fc1);
     max-width: 450px;
-    box-shadow: 2px 2px 2px 2px #14213d6e;
+    box-shadow: 2px 2px 2px 2px var(--c1op50);
 }
 
 .sing-up form {
@@ -20,7 +20,7 @@
 
 .sing-up .title {
     font-size: xx-large;
-    color: whitesmoke;
+    color: var(--fc1);
 }
 
 .sing-up label {
@@ -28,15 +28,15 @@
     display: inline;
     width: 100%;
     text-align: left;
-    color: #e5e5e5;
+    color: var(--fc1);
     font-size: large;
 }
 
 .sing-up .sing-up-submit {
     margin-top: 0.1rem;
-    background-color: #E8AA42;
+    background-color: var(--bc1);
     font-weight: bolder;
-    color: #14213d;
+    color: var(--c1);
     cursor: pointer;
 }
 
@@ -54,25 +54,25 @@
 .sing-up .link {
     text-align: center;
     margin-top: 1rem;
-    color: #e5e5e5;
+    color: var(--fc1);
 }
 
 .sing-up .link a,
 .password a {
     text-decoration: none;
-    color: #E8AA42;
+    color: var(--bc1);
 }
 
 .sing-up input:focus,
 .sing-up textarea:focus {
-    outline-color: #FFE5B4;
-    box-shadow: 1px 1px 1px 1px #ffe5b48d;
+    outline-color: var(--bhc1);
+    box-shadow: 1px 1px 1px 1px var(--bhcs1);
 }
 
 .sing-up .sing-up-submit:hover,
 .sing-up .clicked {
-    background-color: #e8ab42d9;
-    box-shadow: 2px 2px 2px 2px #ffe5b489;
+    background-color: var(--bhc1);
+    box-shadow: 2px 2px 2px 2px var(--bhcs1);
 }
 
 .sing-up .error-message {
@@ -93,7 +93,7 @@
     align-content: stretch;
     max-width: 400px;
     border-radius: 4px;
-    border: 4px solid #14213d;
+    border: 4px solid var(--c1);
     margin-bottom: 0.8rem;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .sing-up .user-type .selected {
-    background-color: #14213d;
+    background-color: var(--c1);
 }
 
 @media (max-width: 450px) {

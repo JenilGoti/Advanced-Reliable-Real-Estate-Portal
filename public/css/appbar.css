@@ -1,5 +1,5 @@
 .main-appbar-header {
-    background-image: linear-gradient(to bottom, #14213d, #10192e);
+    background-image: linear-gradient(to bottom, var(--c1), var(--c2));
     height: 4.5rem;
     width: 100%;
     align-items: center;
@@ -18,16 +18,16 @@
 
 .main-title {
     margin: auto 1rem;
-    color: #e5e5e5;
+    color: var(--fc1);
     font-family: 'Exo 2', sans-serif;
-    border-bottom: #e5e5e5 solid 3px;
+    border-bottom: var(--fc1) solid 3px;
     border-radius: 10px;
 }
 
 .main-appbar-header .user {
     margin: auto 1rem auto 1rem;
     font-size: xx-large;
-    color: #e5e5e5;
+    color: var(--fc1);
 }
 
 
@@ -42,11 +42,11 @@
 }
 
 .search .input {
-    background-image: linear-gradient(to top, #14213d, #14213ddc);
-    border: 2px solid #e5e5e5;
+    background-image: linear-gradient(to top, var(--c1), var(--c1op70));
+    border: 2px solid var(--fc1);
     border-radius: 5px;
     font-size: 18px;
-    color: #e5e5e5;
+    color: var(--fc1);
     margin-left: auto;
     padding: 15px;
     height: 50px;
@@ -77,12 +77,12 @@
     background-image: linear-gradient(to bottom, #fdfdfd, #dbdbdb);
     text-decoration: none;
     text-overflow: ellipsis;
-    color: black;
+    color: var(--fc2);
 }
 
 .btn {
     background-color: #14213d00;
-    color: #e5e5e5;
+    color: var(--fc1);
     border: 0;
     cursor: pointer;
     font-size: xx-large;

@@ -24,16 +24,16 @@ hr{
     position: absolute;
     top: 2rem;
     right: 2rem;
-    background-color: #10192e;
+    background-color: var(--c2);
     min-width: max-content;
     border-radius: 5px 0px 5px 5px;
-    box-shadow: 0px 8px 16px 0px #10192e99;
+    box-shadow: 0px 8px 16px 0px var(--c2op30);
     padding: 2rem;
     z-index: 100;
 }
 
 .dropdown-itom{
-    color: whitesmoke;
+    color: var(--fc1);
     margin: 0.5rem 0;
 }
 
@@ -52,7 +52,7 @@ hr{
 }
 
 .user-dropdown:hover .user-avtar {
-    background-image: radial-gradient(circle, #10192e, #00171f);
+    background-image: radial-gradient(circle, var(--c2), var(--c1dark));
     border-radius: 5px;
 }
 

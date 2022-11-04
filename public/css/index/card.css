@@ -1,5 +1,5 @@
 .card {
-    background-image: linear-gradient(to bottom, #14213d, #10192e);
+    background-image: linear-gradient(to bottom, var(--c1), var(--c2));
     color: whitesmoke;
     display: inline-flex;
     flex-direction: column;
@@ -7,7 +7,7 @@
     width: 20rem;
     margin: 1rem;
     border-radius: 5px;
-    box-shadow: 1.5px 1.5px 1.5px 1.5px #14213d8c;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px var(--c1op50);
 }
 
 .card button,
@@ -16,7 +16,7 @@
     border: none;
     text-decoration: none;
     background: none;
-    color: whitesmoke;
+    color: var(--fc1);
 }
 
 .card .header,
@@ -54,7 +54,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    color: #AEBDCA;
+    color: var(--fc3);
     font-size: medium;
     white-space: nowrap;
     overflow: hidden;
@@ -84,7 +84,7 @@
     position: absolute;
     padding: 0.3rem 1rem;
     border-radius: 5px 0 0 0;
-    background-image: linear-gradient(to top, #14213d, #10192e5f);
+    background-image: linear-gradient(to top, var(--c1), var(--c2op30));
     bottom: 0;
     right: 0;
 }
@@ -120,7 +120,7 @@
 }
 
 .active {
-    color: #E8AA42;
+    color: var(--bc1);
 }
 
 

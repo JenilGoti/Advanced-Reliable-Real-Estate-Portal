@@ -1,9 +1,17 @@
 :root {
   --c1: #14213d;
+  --c2: #10192e;
+  --c1dark:#00171f;
+  --c1op70: #14213ddc;
+  --c1op50: #14213d6e;
+  --c2op70: #10192ec8;
+  --c2op30:#10192e5f;
   --bc1: #E8AA42;
   --bhc1: #e8ab42d9;
   --bhcs1: #ffe5b489;
   --fc1: #e6e6e6;
+  --fc2: black;
+  --fc3:#AEBDCA;
 }
 
 * {

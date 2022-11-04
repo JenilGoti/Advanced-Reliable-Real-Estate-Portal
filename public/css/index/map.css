@@ -15,7 +15,7 @@
     background-size: cover;
 }
 .container{
-    background-color: whitesmoke;
+    background-color: var(--fc1);
     border-radius:0 5px 5px 5px;
     margin: 1rem;
     padding: 0.5rem;
@@ -29,7 +29,7 @@
     align-self: center;
     justify-content: space-between;
     text-decoration: none;
-    color: black;
+    color: var(--fc2);
 }
 
 .container .circal-avtar{
@@ -41,5 +41,5 @@
 
 a{
     text-decoration: none;
-    color: black;
+    color: var(--fc2);
 }

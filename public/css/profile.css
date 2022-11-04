@@ -7,14 +7,14 @@ main {
     margin: 2rem 1.5rem;
     position: inherit;
     /* width: -webkit-fill-available; */
-    background-image: linear-gradient(to top, #14213d, #14213ddc);
+    background-image: linear-gradient(to top, var(--c1), var(--c1op70));
     display: inline-flex;
     align-items: stretch;
     text-align: center;
     flex-direction: column;
     padding: 30px;
     border-radius: 5px;
-    box-shadow: 2px 2px 2px 2px #14213d6e;
+    box-shadow: 2px 2px 2px 2px var(--c1op50);
 }
 
 .profile .share-btn{
@@ -31,8 +31,8 @@ main {
     cursor: pointer;
     text-decoration: none;
     border: none;
-    color: whitesmoke;
-    background-color: #E8AA42;
+    color: var(--fc1);
+    background-color: var(--bc1);
     border-radius: 5px;
     padding: 8px 8px 5px 8px;
 }
@@ -46,7 +46,7 @@ main {
     min-width: 350px;
     margin: 0rem 1rem 2rem 1rem;
     font-size: xx-large;
-    color: whitesmoke;
+    color: var(--fc1);
 }
 
 .profile .divider {
@@ -59,7 +59,7 @@ main {
 
 .profile .user-image-container a{
     color: whitesmoke;
-    background-color: #00171f;
+    background-color: var(--c1dark);
     padding: 0.5rem;
     align-items: baseline;
     border-radius: 0.5rem;
@@ -81,7 +81,7 @@ main {
 }
 
 .profile .user-info {
-    color: whitesmoke;
+    color: var(--fc1);
     display: inline-flex;
     flex-direction: column;
     text-align: left;
@@ -91,20 +91,20 @@ main {
     font-size: x-large;
     text-transform: capitalize;
     margin: 4px 0;
-    border-bottom: 3px solid #14213d;
+    border-bottom: 3px solid var(--c1);
 }
 
 .user-info .user-detail tr td {
     border: none;
     padding: 0.5rem 1rem;
-    background-image: linear-gradient(to top, #10192e, #00171f);
+    background-image: linear-gradient(to top, var(--c2), var(--c1dark));
     border-radius: 5px;
 
 }
 
 .user-info .user-detail tr td a {
     text-decoration: none;
-    color: #e8ab42d9;
+    color: var(--bhc1);
 }
 
 .user-info .user-detail tr .status {
@@ -117,8 +117,8 @@ main {
 
 .title1{
     width: 100%;
-    background-image: linear-gradient(to right, #10192e, #00171f00);
-    color: whitesmoke;
+    background-image: linear-gradient(to right, var(--c2), #00171f00);
+    color: var(--fc1);
     text-align: left;
     padding: 1rem;
     margin: 0.5rem;
@@ -144,7 +144,7 @@ main {
     .profile .divider {
         width: auto;
         height: 2px;
-        background-color: black;
+        background-color: var(--fc2);
         margin: 5px 0px;
         box-shadow: 1px 1px 1px 1px #020d2538;
     }

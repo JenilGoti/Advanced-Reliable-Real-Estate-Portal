@@ -170,7 +170,7 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
             .then(result => result.json())
             .then(result => {
                 if (result.bookmark) {
-                    bookmarkBtn.style.color = "#E8AA42";
+                    bookmarkBtn.style.color = "var(--bc1)";
                 }
                 bookmark = result.bookmark;
 
@@ -185,7 +185,7 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
                 .then(result => result.json())
                 .then(result => {
                     if (result.bookmark) {
-                        bookmarkBtn.style.color = "#E8AA42";
+                        bookmarkBtn.style.color = "var(--bc1)";
                     } else {
                         bookmarkBtn.style.color = "inherit";
                     }
@@ -202,7 +202,7 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
             .then(result => result.json())
             .then(result => {
                 if (result.like) {
-                    favoritBtn.style.color = "#E8AA42";
+                    favoritBtn.style.color = "var(--bc1)";
                 }
                 like = result.like;
 
@@ -218,7 +218,7 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
                 .then(result => result.json())
                 .then(result => {
                     if (result.like) {
-                        favoritBtn.style.color = "#E8AA42";
+                        favoritBtn.style.color = "var(--bc1)";
                     } else {
                         favoritBtn.style.color = "inherit";
                     }
@@ -250,23 +250,23 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
 
 
         // delete btn
-        deleteBtn.addEventListener("click",()=>{
+        deleteBtn.addEventListener("click", () => {
             fetch(host + "/admin/delete-property", {
-                method: 'DELETE',
-                body: new URLSearchParams("propId=" +  property._id),
-            })
-            .then(result => result.json())
-            .then(result => {
-                if(result.statusCode==200){
-                    div.remove();
-                }
-                else{
-                    alert(result.message)
-                }
-            })
-            .catch(err => {
-                alert("property is not deleted")
-                console.log(err)});
+                    method: 'DELETE',
+                    body: new URLSearchParams("propId=" + property._id),
+                })
+                .then(result => result.json())
+                .then(result => {
+                    if (result.statusCode == 200) {
+                        div.remove();
+                    } else {
+                        alert(result.message)
+                    }
+                })
+                .catch(err => {
+                    alert("property is not deleted")
+                    console.log(err)
+                });
         })
     }
 

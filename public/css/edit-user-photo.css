@@ -16,9 +16,9 @@
 }
 .form-btns label{
     margin: 0.1rem 0.5rem;
-    background-color: #E8AA42;
+    background-color: var(--bc1);
     font-weight: bolder;
-    color: #14213d;
+    color: var(--c1);
     cursor: pointer;
     text-align: center;
     align-items: center;
@@ -30,8 +30,8 @@
     display: none;
 }
 .form-btns label:hover {
-    background-color: #e8ab42d9;
-    box-shadow: 2px 2px 2px 2px #ffe5b489;
+    background-color: var(--bhc1);
+    box-shadow: 2px 2px 2px 2px var(--bhcs1);
   }
 
 .form-btns span{

@@ -7,19 +7,19 @@
 
     <div class="search">
 
-        <input id="search-bar" type="text" class="input" placeholder="Search...">
+        <input id="search-bar" type="text" class="input" placeholder="Search..." autocomplete="off">
         <div class="search-content">
         </div>
-    <button class="btn">
-        <span class="material-symbols-outlined">
-            search
-        </span>
-    </button>
-</div>
+        <button class="btn">
+            <span class="material-symbols-outlined">
+                search
+            </span>
+        </button>
+    </div>
 
-<% if(isAuthenticated){%>
-<%- include('./user-info.ejs') %>
-<%}%>
+    <% if(isAuthenticated){%>
+    <%- include('./user-info.ejs') %>
+    <%}%>
 
 
 </div>

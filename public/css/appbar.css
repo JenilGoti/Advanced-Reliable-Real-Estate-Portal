@@ -132,4 +132,7 @@
     .search .input {
         width: 100%;
     }
+    .search .search-content{
+        width: auto;
+    }
 }

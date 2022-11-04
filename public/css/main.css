@@ -1,3 +1,11 @@
+:root {
+  --c1: #14213d;
+  --bc1: #E8AA42;
+  --bhc1: #e8ab42d9;
+  --bhcs1: #ffe5b489;
+  --fc1: #e6e6e6;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,7 +17,7 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: #14213d;
+  background-color: var(--c1);
   background-image: url('../diagmonds-light.png');
 }
 
@@ -25,38 +33,38 @@ main {
 .btn1 {
   height: 2.5rem;
   margin-top: 0.1rem;
-  background-color: #E8AA42;
+  background-color: var(--bc1);
   font-weight: bolder;
-  color: #14213d;
+  color: var(--c1);
   cursor: pointer;
   border-radius: 5px;
 }
 
 .btn1:hover {
-  background-color: #e8ab42d9;
-  box-shadow: 2px 2px 2px 2px #ffe5b489;
+  background-color: var(--bhc1);
+  box-shadow: 2px 2px 2px 2px var(--bhcs1);
 }
 
 .outline-btn {
   padding: 0.5rem;
-  color: whitesmoke;
+  color: var(--fc1);
   background-color: #14213d00;
-  border: 3px solid whitesmoke;
+  border: 3px solid var(--fc1);
   border-radius: 4px;
   font-weight: bolder;
 }
 
 .outline-btn:hover {
-  color: #14213d;
-  background-color: whitesmoke;
-  border: 3px solid #14213d;
+  color: var(--c1);
+  background-color: var(--fc1);
+  border: 3px solid var(--c1);
 }
 
 .loader {
   display: none;
   border: 7px solid #f3f3f300;
   border-radius: 50%;
-  border-top: 7px solid #14213d;
+  border-top: 7px solid var(--c1);
   width: 3rem;
   height: 3rem;
   -webkit-animation: spin 2s linear infinite;

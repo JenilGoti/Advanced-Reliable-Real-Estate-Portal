@@ -12,7 +12,7 @@
     <img class="circal-avatar user-thumb dropdown-itom" src="<%=user.user_thumbnail.middium%>" alt="user-image">
     <h2 class="dropdown-itom"><%=user.firstName%> <%=user.lastName%></h2>
     <%}%>
-        <h5 class="dropdown-itom"><%=user.user_email.email%>
+        <h5 class="dropdown-itom" style="text-transform: lowercase;"><%=user.user_email.email%>
     <% if(!user.user_email.verification_status) {%>
     <a class="dropdown-itom" href="/verification/email"> <strong>(verify email)</strong></a>
     <%}%></h5> 

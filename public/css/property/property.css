@@ -119,6 +119,7 @@
 .body .details .value {
     margin: 0.2rem;
     padding: 0 1rem;
+    font-weight: inherit;
 }
 
 .body table td {

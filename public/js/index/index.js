@@ -1,6 +1,8 @@
 const host = location.protocol + '//' + location.host;
 const main = document.querySelector("main");
 var element = document.querySelector('.loader');
+const searchBar = document.getElementById("search-bar");
+
 var pageNo = 1;
 var lodPageAtTime = 20;
 

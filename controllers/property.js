@@ -39,7 +39,6 @@ exports.getPropertys = async (req, res, next) => {
         if (req.query.bookmark == "true") {
             page = 1;
             totalProperty = res.locals.user.bookMarks.length;
-
         }
         const propertys = await Property.find(mQurery)
             .sort({
@@ -62,7 +61,10 @@ exports.getPropertys = async (req, res, next) => {
                 hasNext: page < totalProperty
             });
         }
-        throw new Error("data not found")
+        else{
+          throw new Error("data not found")  
+        }
+        
     } catch (err) {
         console.log(err);
         return res.status(404).send({

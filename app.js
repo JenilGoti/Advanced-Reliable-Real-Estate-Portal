@@ -16,7 +16,7 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const flash = require('connect-flash');
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cieakpt.mongodb.net/${process.env.MONGODB_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
-console.log(process.env.MONGODB_USER);
+console.log(process.env.SITE_NAME);
 
 
 const app = express();

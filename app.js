@@ -8,14 +8,14 @@ const {
     fileURL
 } = require("./utils/firebase-helper");
 
-const express = require("express");
+// const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const flash = require('connect-flash');
 
-const MONGODB_URI = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cieakpt.mongodb.net/${process.env.MONGODB_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
+// const MONGODB_URI = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cieakpt.mongodb.net/${process.env.MONGODB_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
 console.log(process.env.SITE_NAME);
 
 

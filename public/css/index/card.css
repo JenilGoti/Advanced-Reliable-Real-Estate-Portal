@@ -23,7 +23,7 @@
 .card .footer {
     text-align: left;
     height: 3rem;
-    margin: 0.9rem;
+    margin: 0.9rem 0.5rem;
     display: inline-flex;
     flex-direction: row;
     justify-content: space-between;
@@ -48,6 +48,8 @@
 
 .card .header .detail .line1 .price {
     white-space: nowrap;
+    font-size: medium;
+    color: var(--fc1);
 }
 
 .card .header .detail .line2 {

@@ -302,6 +302,7 @@ exports.searchProperty = (req, res, next) => {
                 }
             }
         ])
+        .limit(10)
         .then(result => {
             if (result.length > 0) {
                 return res.status(200).send({

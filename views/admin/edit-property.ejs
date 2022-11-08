@@ -1,0 +1,244 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/admin/admin.css">
+<link rel="stylesheet" href="/css/admin/add-property.css">
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.8.0/mapbox-gl.css' rel='stylesheet' />
+
+<script src='https://tiles.locationiq.com/v3/js/liq-styles-ctrl-gl.js?v=0.1.8'></script>
+<link href='https://tiles.locationiq.com/v3/css/liq-styles-ctrl-gl.css?v=0.1.8' rel='stylesheet' />
+
+<script src="https://tiles.locationiq.com/v3/libs/gl-geocoder/4.5.1/locationiq-gl-geocoder.min.js?v=0.2.3"></script>
+<link rel="stylesheet" href="https://tiles.locationiq.com/v3/libs/gl-geocoder/4.5.1/locationiq-gl-geocoder.css?v=0.2.3"
+    type="text/css" />
+
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+</head>
+
+<body>
+    <%- include('../includes/nevbar.ejs') %>
+    <%- include('../includes/appbar.ejs') %>
+    <main>
+        <div class="container">
+            <h1>Edit property</h1>
+            <form class="property-form" action="/admin/edit-property" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="propId" value="<%=property._id%>">
+                <input type="hidden" id="date" value="<%=property.additionalDetail.propertyAvailabity%>" >
+                <div class="property-form-photo">
+                    <h3>Photos</h3>
+                    <div class="photos">
+                        <div class="selected-photos"></div>
+                        <%for(var i=0;i<property.photos.length;i++){%>
+                        <div class="photo urls">
+                            <img class="selected-image" src="<%=property.photos[i].imageUrl%>" alt="no image found">
+                        </div>
+                        <%}%>
+                        <div id="photo" class="photo">
+                            <label for="add-photo">
+                                <span class="material-symbols-outlined">
+                                    add_photo_alternate
+                                </span>
+                                <input name="image" type="file" id="add-photo" accept="image/jpeg, image/png, image/jpg"
+                                    max="10" multiple>
+                            </label>
+                        </div>
+                    </div>
+                    <p style="color: var(--bc1);">* you can add maximum 10 images</p>
+                </div>
+
+                <div class="property-form-detail">
+                    <h3>basic details of your property</h3>
+                    <div class="form-itom">
+                        <label class="form-lable" for="action-type">I want to <span>*</span></label>
+                        <select class="form-input" name="actionType" id="action-type" required>
+                            <option value="<%=property.actionType%>" selected><%=property.actionType%> (previously)
+                        </option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="property-type">property type <span>*</span></label>
+                        <select class="form-input" name="propertyType" id="property-type" required>
+                            <option value="<%=property.basicDetail.propertyType%>" selected>
+                                <%=property.basicDetail.propertyType%> (previously)</option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="contry">Contry <span>*</span></label>
+                        <select class="form-input" name="contry" id="contry" required>
+                            <option value="<%=property.basicDetail.contry%>" selected><%=property.basicDetail.contry%>
+                                (previously)</option>
+                            <option value="India">India</option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="state">State <span>*</span></label>
+                        <select class="form-input" onchange="print_city('city', this.selectedIndex);" name="state"
+                            id="state" required>
+                            <option value="<%=property.basicDetail.state%>" selected><%=property.basicDetail.state%>
+                                (previously)</option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="city">City <span>*</span></label>
+                        <select id="city" class="form-input" name="city" required>
+                            <option value="<%=property.basicDetail.city%>" selected><%=property.basicDetail.city%>
+                                (previously)</option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="locality">Locality <span>*</span></label>
+                        <input id="locality" class="form-input" name="locality" placeholder="Locality/Village"
+                            value="<%=property.basicDetail.locality%>" required />
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="location">add location</label>
+                        <div id="map"></div>
+                        <pre id="coordinates" class="coordinates"></pre>
+                        <input id="location-lat" type="hidden" class="form-input" name="locationLat"
+                            value="<%=property.basicDetail.coordinates.latitude%>" required />
+                        <input id="location-lon" type="hidden" class="form-input" name="locationLon"
+                            value="<%=property.basicDetail.coordinates.longitude%>" required />
+
+                    </div>
+
+                    <div class="form-itom">
+                        <label class="form-lable" for="society">Society <span>*</span></label>
+                        <input id="society-name" class="form-input" name="society"
+                            placeholder="Building/Project/Spciety Name" value="<%=property.basicDetail.society%>"
+                            required />
+                        <input id="society-address-line" class="form-input" name="address" placeholder="Address Line"
+                            value="<%=property.basicDetail.address%>" required />
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="bhk&rk">BHK/RK <span>*</span></label>
+                        <div class="toggle">
+                            <label id="bhk" class="bhK <%=property.basicDetail.bhkOrRk=='bhk'?'active':''%>"
+                                for="bhk">BHK</label>
+                            <label id="rk" class="rk <%=property.basicDetail.bhkOrRk=='rk'?'active':''%>"
+                                for="bhk">RK</label>
+                            <input type="hidden" name="bhkOrRk" id="bhk&rk"
+                                value="<%=property.basicDetail.bhkOrRk=='bhk'?'bhk':'rk'%>">
+                        </div>
+                        <select class="form-input" name="noOfBhkOrRk" id="bhk&rk" required>
+                            <option value="">Select</option>
+                            <option value="<%=property.basicDetail.noOfBhkOrRk%>" selected>
+                                <%=property.basicDetail.noOfBhkOrRk%> (previously)
+                            </option>
+                            <%for(var i=0;i<=30;i++){%>
+                            <option value="<%=i%>"><%=i%></option>
+                            <%}%>
+                    </select>
+                </div>
+                <h3>property price and area</h3>
+                <div class="form-itom">
+                    <label class="form-lable" for="covered-area">Coverd Area <span>*</span></label>
+                    <input type="number" step="0.01" id="covered-area" class="form-input" name="coveredArea" placeholder="in Sq-Ft" value="<%=property.priceArea.coveredArea%>"
+                            required />
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="plot-area">Plot Area <span>*</span></label>
+                        <input type="number" step="0.01" id="plot-area" class="form-input" name="plotArea"
+                            placeholder="in Sq-Ft" value="<%=property.priceArea.plotArea%>" required />
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="price">Property Price <span>*</span></label>
+                        <input type="number" step="0.01" id="price" class="form-input" name="price"
+                            placeholder="in Indian rupee" value="<%=property.priceArea.price%>" required />
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="negotiable">Negotiable <span>*</span></label>
+                        <div class="toggle">
+                            <label id="yes" class="yes <%=property.priceArea.priceNegotiable?'active':''%>"
+                                for="yes">Yes</label>
+                            <label id="no" class="no <%=!property.priceArea.priceNegotiable?'active':''%>"
+                                for="no">No</label>
+                            <input type="hidden" id="negotiable" name="priceNegotiable"
+                                value="<%=property.priceArea.priceNegotiable?'yes':'no'%>">
+                        </div>
+                    </div>
+                    <h3>additional details about property</h3>
+                    <div class="form-itom">
+                        <label class="form-lable" for="furnished">Furnished <span>*</span></label>
+                        <select class="form-input" name="furnished" id="furnished" required>
+                            <option value="<%=property.additionalDetail.furnished%>" selected>
+                                <%=property.additionalDetail.furnished%> (previously)
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="age">Age Of Property <span>*</span></label>
+                        <select class="form-input" name="ageOfProperty" id="age" required>
+                            <option value="<%=property.additionalDetail.ageOfProperty%>" selected>
+                                <%=property.additionalDetail.ageOfProperty%> years (previously)
+                            </option>
+                            <%for(var i=0;i<=30;i++){%>
+                            <option value="<%=i%>"><%=i%> year</option>
+                            <%}%>
+                    </select>
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="facing">Facing <span>*</span></label>
+                    <select class="form-input" name="facing" id="facing" required>
+                        <option value="<%=property.additionalDetail.facing%>"
+                            selected><%=property.additionalDetail.facing%>%> (previously)
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="floor-no">Floor No <span>*</span></label>
+                        <select class="form-input" name="floorNo" id="floor-no" required>
+                            <option value="<%=property.additionalDetail.floorNo%>" selected><%=property.additionalDetail.floorNo%> (previously)
+                            </option>
+                            <option value="-1">Under Ground</option>
+                            <option value="0">Ground</option>
+                            <%for(var i=1;i<=30;i++){%>
+                            <option value="<%=i%>"><%=i%></option>
+                            <%}%>
+                    </select>
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="total-floors">Total Floors <span>*</span></label>
+                    <select class="form-input" name="totalFloors" id="total-floors" required>
+                        <option value="<%=property.additionalDetail.totalFloors%>" selected><%=property.additionalDetail.totalFloors%> (previously)
+                            </option>
+                            <%for(var i=1;i<=30;i++){%>
+                            <option value="<%=i%>"><%=i%></option>
+                            <%}%>
+                    </select>
+                </div>
+                <div class="form-itom">
+                    <label class="form-lable" for="transactional-type">Transactional Type <span>*</span></label>
+                    <select class="form-input" name="transactionalType" id="transactional-type" required>
+                        <option value="<%=property.additionalDetail.transactionalType%>" selected><%=property.additionalDetail.transactionalType%> (previously)
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="property-ownership">Property Ownership <span>*</span></label>
+                        <select class="form-input" name="propertyOwnership" id="property-ownership" required>
+                            <option value="<%=property.additionalDetail.propertyOwnership%>" selected><%=property.additionalDetail.propertyOwnership%> (previously)
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-itom">
+                        <label class="form-lable" for="property-availabity">Property Availabity From
+                            <span>*</span></label>
+                        <input type="date" class="form-input" name="propertyAvailabity" id="property-availabity"/>
+                    </div>
+                    <h3>other details</h3>
+                    <div class="form-itom">
+                        <label class="form-lable" for="brif-description">Brief Description <span>*</span></label>
+                        <textarea class="form-input" name="briefDescription" id="brif-description" cols="30" rows="3"
+                            required>
+                            <%=property.otherDetail.briefDescription%>
+                        </textarea>
+                    </div>
+                    <button class="btn1" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    </main>
+    <script src="/js/admin/edit-property.js"></script>
+    <%- include('../includes/end.ejs') %>

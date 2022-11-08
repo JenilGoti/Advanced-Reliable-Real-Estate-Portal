@@ -33,7 +33,7 @@
 
 .card .header .detail {
     display: flex;
-    width: 100%;
+    width: 90%;
     flex-direction: column;
     margin-bottom: 0.5rem;
     margin-right: 0.3rem;
@@ -80,7 +80,8 @@
     align-items: center;
     display: flex;
 }
-.card .body .action-type{
+
+.card .body .action-type {
     position: absolute;
     padding: 0.3rem 1rem;
     border-radius: 5px 0 0 0;

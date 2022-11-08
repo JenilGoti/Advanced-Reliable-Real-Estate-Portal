@@ -239,6 +239,7 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
         const editBtn = document.createElement('button');
         editBtn.classList.add("ownBtn");
         editBtn.classList.add("btn1");
+        editBtn.type="reset"
         editBtn.appendChild(document.createTextNode("EDIT"))
         const deleteBtn = document.createElement('button');
         deleteBtn.classList.add("ownBtn");
@@ -267,6 +268,12 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
                     alert("property is not deleted")
                     console.log(err)
                 });
+        });
+
+        // edit btn
+        editBtn.addEventListener("click",()=>{
+            console.log(host+"/edit-property/"+property._id);
+            window.location.href=host+"/admin/edit-property/"+property._id;
         })
     }
 

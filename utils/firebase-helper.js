@@ -85,10 +85,26 @@ async function uploadFile(file, path, fileName, height, width) {
     await bucket.file('/NESTSCOUT' + path + fileName).createWriteStream().end(file.buffer)
 
     return fileURL(path + fileName);
+}
+
+async function deleteFile(path) {
+    try {
+        await bucket.deleteFiles({
+            prefix: '/NESTSCOUT/users/' + path
+        })
+        console.log("deleted");
+    } catch (err) {
+        console.log(err);
+    }
 
 }
 
 
 
+
+
+
+
+exports.deleteFile = deleteFile;
 exports.uploadFile = uploadFile;
 exports.fileURL = fileURL;

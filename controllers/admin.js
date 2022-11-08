@@ -4,7 +4,8 @@ const {
 const Property = require("../models/property");
 const {
     multerMultipaleFile,
-    uploadFile
+    uploadFile,
+    deleteFile
 } = require("../utils/firebase-helper")
 
 
@@ -263,9 +264,9 @@ exports.deletProperty = (req, res, next) => {
                 res.locals.user.propertys = res.locals.user.propertys.filter(property => {
                     return (property.property.toString() != propId.toString());
                 })
+                deleteFile(res.locals.user._id.toString() + "/" + propId.toString());
                 return res.locals.user.save();
             }
-
         })
         .then(result => {
             res.status(200).send({

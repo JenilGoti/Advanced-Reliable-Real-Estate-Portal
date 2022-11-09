@@ -152,6 +152,28 @@ quesSubmitBtn.addEventListener("click", () => {
             })
             .then(result => result.json())
             .then(result => {
+
+                const div = document.createElement('div');
+                div.classList.add("q-a-container");
+                div.classList.add("value");
+                div.innerHTML = `<div class="user">
+                                    <a href="/profile/">
+                                        <img src="` + result.user.url + `" alt="">
+                                        <h6>` + result.user.name + `</h6>
+                                    </a>
+                                </div>
+                                <div class="q-a">
+                                    <div class="question">
+                                        <h4><span><strong>Q.</strong> </span>` + result.question + `
+                                        </h4>
+                                    </div>
+                                    <div class="Answer">
+                                        <h5><span><strong>A.</strong>
+                                            </span>waiting for the answer</h5>
+                                    </div>
+                                </div>`;
+                document.getElementById("que").insertAdjacentElement("beforebegin", div);
+                question.value = "";
                 console.log(result.message);
             })
             .catch(err => console.log(err));

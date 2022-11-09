@@ -238,7 +238,6 @@ exports.getProperty = (req, res, next) => {
             select: "user_thumbnail.small firstName lastName"
         })
         .then(property => {
-            // console.log(property);
             res.render("property", {
                 pageTitle: property.basicDetail.propertyType,
                 path: "",
@@ -349,6 +348,12 @@ exports.postAskQuestion = (req, res, next) => {
             return res.status(200).send({
                 statusCode: 200,
                 message: "questioned succesfully",
+                user: {
+                    id: res.locals.user._id,
+                    name: res.locals.user.firstName + res.locals.user.lastName,
+                    url: res.locals.user.user_thumbnail.small
+                },
+                question:question
             })
         })
         .catch(err => {

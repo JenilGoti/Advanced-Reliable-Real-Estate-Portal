@@ -162,7 +162,6 @@
 .q-a-container .user a img {
     width: 1.5rem;
 }
-
 .question-and-answer {
     width: 100%;
     display: flex;
@@ -199,7 +198,7 @@
 }
 
 .question-and-answer .q-a-container span {
-    width: 3.4rem;
+    width: 1rem;
 }
 
 .question-and-answer .ask-question {

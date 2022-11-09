@@ -13,6 +13,7 @@ router.get("/",isAuth,adminController.getAdmin);
 
 router.get("/add-property", isAuth, adminController.getAddNewProperty);
 
+
 router.get("/edit-property/:propId", isAuth, adminController.getEditProperty);
 
 router.delete("/delete-property", isAuth, adminController.deletProperty);

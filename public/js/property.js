@@ -130,7 +130,7 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
     favoritBtn.appendChild(materialSymbolsOutlined3);
 
     const commentBtn = document.createElement('a');
-    commentBtn.href = "/comment/" + property._id;
+    commentBtn.href = "/property/" + property._id+"#q&a";
     commentBtn.classList.add("comment-btn");
 
     const materialSymbolsOutlined4 = document.createElement('span');

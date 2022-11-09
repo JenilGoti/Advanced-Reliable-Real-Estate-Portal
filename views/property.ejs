@@ -125,13 +125,13 @@
                                 <%}%>                
             </table>
                     <%if(property.likes.length>0){%>
-                                <h3 class="sub-heding">liked by</h3>
+                                <h3 id="likes" class="sub-heding">liked by</h3>
                                 <div class="likes">
                                     <%for(var i=0;i<property.likes.length&&i<=5;i++){%>
                                     <%if(i==5){%>
-                                        <a href="#">
-                                            <h4>,  <%=property.likes.length-5%> more...</h4>
-                                        </a>
+                                    <a href="#">
+                                        <h4>, <%=property.likes.length-5%> more...</h4>
+                                    </a>
                                     <%}else{%>
                                     <a href="/profile/<%=property.likes[i]._id%>">
                                         <img src="<%=property.likes[i].user_thumbnail.small%>" alt="">
@@ -140,6 +140,36 @@
 
                                     <%}}}%>
 
+                                </div>
+                                <h3 id="question-and-answer" class="sub-heding">Question And Answer</h3>
+                                <div id="q&a" class="question-and-answer">
+                                    <%for(var i=0;i<property.queAns.length;i++){%>
+                                    <div class="q-a-container value">
+                                        <div class="user">
+                                            <a href="/profile/<%=property.queAns[i].userId._id%>">
+                                                <img src="<%=property.queAns[i].userId.user_thumbnail.small%>" alt="">
+                                                <h6><%=property.queAns[i].userId.firstName%>
+                                                    <%=property.queAns[i].userId.lastName%></h6>
+                                            </a>
+                                        </div>
+                                        <div class="q-a">
+                                            <div class="question">
+                                                <h4><span><strong>Ques.</strong> </span><%=property.queAns[i].question%>
+                                                </h4>
+                                            </div>
+                                            <div class="Answer">
+                                                <h5><span><strong>Ans.</strong>
+                                                    </span><%=property.queAns[i].answer||'waiting for the answer'%></h5>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <%}%>
+                                    <div class="ask-question">
+                                        <input id="question" type="text" name="question" placeholder="Ask question hear"
+                                            required>
+                                        <button id="question-submit-btn" class="btn1">Ask Question</button>
+                                    </div>
                                 </div>
                         </div>
                     </div>

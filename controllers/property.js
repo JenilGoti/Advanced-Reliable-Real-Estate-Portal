@@ -233,6 +233,10 @@ exports.getProperty = (req, res, next) => {
             path: "userId",
             select: "user_thumbnail.small firstName lastName"
         })
+        .populate({
+            path: "queAns.userId",
+            select: "user_thumbnail.small firstName lastName"
+        })
         .then(property => {
             // console.log(property);
             res.render("property", {
@@ -324,6 +328,34 @@ exports.searchProperty = (req, res, next) => {
             return res.status(404).send({
                 statusCode: 404,
                 message: "no search found"
+            })
+        })
+}
+
+exports.postAskQuestion = (req, res, next) => {
+
+    const propId = req.body.propId;
+    const question = req.body.question;
+    Property.findById(propId)
+        .select("queAns")
+        .then(property => {
+            property.queAns.push({
+                userId: res.locals.user,
+                question: question
+            })
+            return property.save()
+        })
+        .then(result => {
+            return res.status(200).send({
+                statusCode: 200,
+                message: "questioned succesfully",
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).send({
+                statusCode: 500,
+                message: "There was an error on the server and the request could not be completed"
             })
         })
 }

@@ -25,12 +25,13 @@
     margin-bottom: 2rem;
 }
 
-.img-footer{
+.img-footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
+
 .img-footer .user {
     display: flex;
     flex-wrap: wrap;
@@ -53,19 +54,21 @@
     border-radius: 100%;
     margin: 0.5rem;
 }
-.img-footer .btns{
+
+.img-footer .btns {
     display: flex;
     align-items: center;
     text-align: center;
 }
-.img-footer .btns .btn{
+
+.img-footer .btns .btn {
     text-decoration: none;
     border: none;
     background-color: #14163d00;
     padding-left: 1rem;
 }
 
-.bookmark{
+.bookmark {
     position: absolute;
     right: 0;
     top: 0;
@@ -76,9 +79,10 @@
     padding: 0.5rem;
 }
 
-.active{
+.active {
     color: var(--bc1);
 }
+
 .body {
     width: inherit;
     display: flex;
@@ -112,7 +116,7 @@
     margin: 0.5rem;
     border-radius: 5px;
     padding: 0.5rem 1rem;
-    background-image: linear-gradient(to right, var(--c1), #14213d00);
+    background-image: linear-gradient(to right, var(--c2), #14213d00);
 }
 
 .body .details .value {
@@ -133,7 +137,8 @@
     text-decoration: none;
 }
 
-.likes a {
+.likes a,
+.q-a-container .user a {
     margin-bottom: 0.5rem;
     height: 2rem;
     display: flex;
@@ -143,12 +148,80 @@
     text-transform: capitalize;
 }
 
-.likes a img {
+.likes a img,
+.q-a-container .user a img {
     width: 2rem;
     border-radius: 100%;
     margin: 0.5rem;
 }
 
+.q-a-container .user a {
+    flex-direction: column;
+    margin-right: 0.5rem;
+}
+.q-a-container .user a img {
+    width: 1.5rem;
+}
+
+.question-and-answer {
+    width: 100%;
+    display: flex;
+    padding: 0.5rem 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: center;
+    align-content: stretch;
+}
+
+.question-and-answer .q-a-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: baseline;
+    flex-wrap: nowrap;
+}
+
+.question-and-answer .q-a-container h4,
+.question-and-answer .q-a-container h5 {
+    display: flex;
+    justify-content: flex-start;
+    align-content: stretch;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.question-and-answer .q-a-container h5 {
+    color: var(--fc3);
+}
+
+.question-and-answer .q-a-container span {
+    width: 3.4rem;
+}
+
+.question-and-answer .ask-question {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: center;
+}
+
+.question-and-answer .ask-question input {
+    width: 70%;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+.question-and-answer .ask-question button {
+    width: 28%;
+}
 
 
 
@@ -360,9 +433,10 @@ img.hover-shadow {
 }
 
 @media (max-width: 700px) {
-    .container{
+    .container {
         padding: 1rem;
     }
+
     .slideshow-container {
         width: 20rem;
     }
@@ -370,9 +444,11 @@ img.hover-shadow {
     .modal img {
         width: 100%;
     }
+
     .body .details {
         margin: 1rem 0;
     }
+
     .body .details .sub-heding {
         padding: 0.5rem 0.5rem;
     }
@@ -391,7 +467,7 @@ img.hover-shadow {
 }
 
 @media (max-width: 1200px) {
-    
+
     .container {
         margin: 1.5rem;
     }

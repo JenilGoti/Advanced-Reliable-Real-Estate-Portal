@@ -35,6 +35,7 @@ exports.getMap=(req,res,next)=>{
     });
 }
 
+
 exports.getReport = (req, res, next) => {
     const invoiceName = 'de-report.pdf';
     const reportPath = path.join('data', invoiceName);

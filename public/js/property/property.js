@@ -8,6 +8,10 @@ const favoritBtn = document.querySelector(".favorite");
 const commentBtn = document.querySelector(".comment");
 const shareBtn = document.querySelector(".send");
 const bookmarkBtn = document.querySelector(".bookmark");
+const question = document.getElementById("question");
+const quesSubmitBtn = document.getElementById("question-submit-btn");
+
+
 console.log(isOwn);
 var bookmark = false;
 var like = false;
@@ -19,13 +23,13 @@ const shareData = {
 console.log(propertyId);
 
 function openModal() {
-    close.style.display="unset";
+    close.style.display = "unset";
     myModel.classList.remove("slideshow-container")
     myModel.classList.add("modal");
 }
 
 function closeModal() {
-    close.style.display="none";
+    close.style.display = "none";
     myModel.classList.remove("modal")
     myModel.classList.add("slideshow-container");
 }
@@ -135,3 +139,22 @@ shareBtn.addEventListener("click", () => {
     console.log("share " + propertyId);
     navigator.share(shareData)
 });
+
+//  question submit
+
+quesSubmitBtn.addEventListener("click", () => {
+    if (question.value) {
+        fetch(host + "/property/ask-question", {
+                method: "POST",
+                body: new URLSearchParams("propId=" +
+                    propertyId +
+                    "&question=" + question.value)
+            })
+            .then(result => result.json())
+            .then(result => {
+                console.log(result.message);
+            })
+            .catch(err => console.log(err));
+    }
+
+})

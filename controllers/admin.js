@@ -291,3 +291,9 @@ exports.getBookMarks = (req, res, next) => {
         bookmarks: bookmarks
     })
 }
+
+exports.postAnsQuestion = (req, res, next) => {
+    const prodId = req.body.prodId;
+    const queId = req.body.questionId;
+
+}

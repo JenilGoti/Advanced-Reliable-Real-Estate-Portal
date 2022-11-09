@@ -14,14 +14,16 @@ router.get('/locations', propertyController.getLocations);
 
 router.get('/:propId', propertyController.getProperty);
 
-router.get('/bookmark/:id',isAuth, propertyController.getBookmark);
+router.get('/bookmark/:id', isAuth, propertyController.getBookmark);
 
-router.get('/like/:id',isAuth, propertyController.getLike);
+router.get('/like/:id', isAuth, propertyController.getLike);
 
 router.get('/search/:search', propertyController.searchProperty);
 
-router.post('/bookmark/:id',isAuth, propertyController.postBookmark);
+router.post('/bookmark/:id', isAuth, propertyController.postBookmark);
 
-router.post('/like/:id',isAuth, propertyController.postLike);
+router.post('/like/:id', isAuth, propertyController.postLike);
+
+router.post("/ask-question", isAuth, propertyController.postAskQuestion)
 
 module.exports = router;

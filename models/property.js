@@ -127,15 +127,18 @@ const propertySchema = new Schema({
         required: true,
         ref: 'User'
     }],
-    Comment: [{
+    queAns: [{
         userId: {
             type: Schema.Types.ObjectId,
             required: true,
             ref: 'User'
         },
-        comment: {
+        question: {
             type: String,
             required: true
+        },
+        answer:{
+            type: String,
         }
     }],
     userId: {

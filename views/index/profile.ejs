@@ -34,7 +34,9 @@
                             <td class="heding">
                                 <strong>Email: </strong>
                             </td>
-                            <td class="detail"> <%=profUser.user_email.email %> </td>
+                            
+                                <td class="detail"> <a href="mailto:<%=profUser.user_email.email %>"><%=profUser.user_email.email %></a> </td>
+                            
                             <td class="status"><a
                                     href="/verification/email"><%=profUser.user_email.verification_status?'Edit':'Verify'%></a>
                             </td>

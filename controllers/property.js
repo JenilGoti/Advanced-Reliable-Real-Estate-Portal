@@ -349,18 +349,28 @@ exports.searchProperty = (req, res, next) => {
 
 exports.postAskQuestion = (req, res, next) => {
 
+    console.log("question");
     const propId = req.body.propId;
     const question = req.body.question;
     Property.findById(propId)
-        .select("queAns")
+        .select("queAns userId")
         .then(property => {
             property.queAns.push({
                 userId: res.locals.user,
                 question: question
             })
+            const userQ = res.locals.user
+            sendNotification([property.userId],
+                userQ.firstName + " " + userQ.lastName + " Asked a question on NESTSCOUT",
+                "Que. "+question,
+                req.protocol + '://' + req.get('host') + "/property/" + property._id+"#q&a",
+                userQ.user_thumbnail.small
+            )
+            console.log(req.protocol + '://' + req.get('host') + "/property/" + property._id+"#q&a");
             return property.save()
         })
         .then(result => {
+            
             return res.status(200).send({
                 statusCode: 200,
                 message: "questioned succesfully",

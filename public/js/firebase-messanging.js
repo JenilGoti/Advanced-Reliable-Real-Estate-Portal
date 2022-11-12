@@ -52,14 +52,13 @@ messaging.onMessage(function (payload) {
     body: payload.notification.body,
     icon: payload.notification.icon
   };
-  console.log(notificationOption);
 
+  console.log(payload.notification.click_action);
   if (Notification.permission === "granted") {
     var notification = new Notification(payload.notification.title, notificationOption);
     notification.onclick = function (ev) {
       ev.preventDefault();
       window.open(payload.notification.click_action, '_blank');
-      console.log(payload.notification.click_action);
       notification.close();
     }
   }

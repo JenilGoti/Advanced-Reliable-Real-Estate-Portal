@@ -9,7 +9,8 @@ const {
     sendMail
 } = require("../utils/mail-helper");
 const {
-    uploadFile
+    uploadFile,
+    sendNotification
 } = require("../utils/firebase-helper");
 
 const user = require('../models/user');

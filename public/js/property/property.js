@@ -142,8 +142,9 @@ shareBtn.addEventListener("click", () => {
 
 //  question submit
 
-if (isAuth && !isOwn) {
+if (isAuth=="true" && isOwn!="true") {
     quesSubmitBtn.addEventListener("click", () => {
+        console.log(question.value);
         if (question.value) {
             fetch(host + "/property/ask-question", {
                     method: "POST",
@@ -182,7 +183,7 @@ if (isAuth && !isOwn) {
     })
 }
 
-if (isOwn) {
+if (isOwn=="true") {
     Answer = (ansId) => {
         answer = document.querySelector("#ans-" + ansId);
         console.log(ansId);

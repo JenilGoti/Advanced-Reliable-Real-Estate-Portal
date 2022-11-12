@@ -111,31 +111,34 @@ function sendNotification(userIds, title, body, click_action, icon, data = {}) {
             var user = await User.findById(userId).select("notificationTokan");
             const token = user.notificationTokan;
             console.log(token);
-            const notification = {
-                "to": token,
-                "collapse_key": "type_c",
-                "notification": {
-                    "body": body,
-                    "title": title,
-                    "click_action": click_action,
-                    "icon": icon
-                },
-                "data": data
-            }
-            request({
-                method: 'POST',
-                uri: 'https://fcm.googleapis.com/fcm/send',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: process.env.FIREBASE_SERVER_API
-                },
-                body: JSON.stringify(notification)
-            }, (error, response, body) => {
-                if (error) {
-                    console.log(error);
-                    console.log("error found");
+            if (token) {
+                const notification = {
+                    "to": token,
+                    "collapse_key": "type_c",
+                    "notification": {
+                        "body": body,
+                        "title": title,
+                        "click_action": click_action,
+                        "icon": icon
+                    },
+                    "data": data
                 }
-            })
+                request({
+                    method: 'POST',
+                    uri: 'https://fcm.googleapis.com/fcm/send',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: process.env.FIREBASE_SERVER_API
+                    },
+                    body: JSON.stringify(notification)
+                }, (error, response, body) => {
+                    if (error) {
+                        console.log(error);
+                        console.log("error found");
+                    }
+                })
+            }
+
         } catch (err) {
             console.log(err);
         }

@@ -5,7 +5,8 @@ const Property = require("../models/property");
 const {
     multerMultipaleFile,
     uploadFile,
-    deleteFile
+    deleteFile,
+    sendNotification
 } = require("../utils/firebase-helper")
 
 
@@ -308,6 +309,13 @@ exports.postAnsQuestion = (req, res, next) => {
             } else {
                 queIndex = property.queAns.findIndex((obj => obj._id.toString() == queId.toString()));
                 property.queAns[queIndex].answer = answer;
+                const userA = res.locals.user
+                sendNotification([property.queAns[queIndex].userId],
+                    userA.firstName + " " + userA.lastName + " Answerd your question on NESTSCOUT",
+                    "Que. " + property.queAns[queIndex].question + "\n Ans." + answer,
+                    req.protocol + '://' + req.get('host') + "/property/" + property._id + "#q&a",
+                    userA.user_thumbnail.small
+                )
                 return property.save()
             }
 

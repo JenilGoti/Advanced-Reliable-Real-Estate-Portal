@@ -29,11 +29,22 @@ function getProperty() {
                 } else {
                     element.remove();
                 }
-
                 main.appendChild(pC);
                 pC.style.animation = "scale-display .3s";
+            } else if (result.totalPage) {
+                if (result.totalPage > pageNo) {
+                    pageNo++;
+                    if ((pageNo + 1) % lodPageAtTime == 0) {
+                        element.style.display = "unset";
+                        window.addEventListener('scroll', sevl);
+                    } else {
+                        getProperty();
+                    }
+                } else {
+                    element.remove();
+                }
             } else {
-                h1=document.createElement("h1");
+                h1 = document.createElement("h1");
                 h1.appendChild(document.createTextNode("no bookmarks found"))
                 main.appendChild(h1);
             }

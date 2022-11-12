@@ -65,7 +65,13 @@ exports.getPropertys = async (req, res, next) => {
                 hasNext: page < totalProperty
             });
         } else {
-            throw new Error("data not found")
+            return res.status(404).send({
+                statusCode: 404,
+                message: "property not found",
+                totalPage: totalProperty,
+                isAuth: res.locals.isAuthenticated,
+                hasNext:page < totalProperty
+            })
         }
 
     } catch (err) {
@@ -73,7 +79,6 @@ exports.getPropertys = async (req, res, next) => {
         return res.status(404).send({
             statusCode: 404,
             message: "property not found",
-
         })
     }
 }

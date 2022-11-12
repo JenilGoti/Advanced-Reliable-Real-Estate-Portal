@@ -376,7 +376,7 @@ exports.postAskQuestion = (req, res, next) => {
                 message: "questioned succesfully",
                 user: {
                     id: res.locals.user._id,
-                    name: res.locals.user.firstName + res.locals.user.lastName,
+                    name: res.locals.user.firstName,
                     url: res.locals.user.user_thumbnail.small
                 },
                 question: question

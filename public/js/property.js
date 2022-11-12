@@ -271,7 +271,6 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
                         console.log(err)
                     });
             }
-
         });
 
         // edit btn

@@ -128,18 +128,12 @@
                     <%if(property.likes.length>0){%>
                                 <h3 id="likes" class="sub-heding">liked by</h3>
                                 <div class="likes">
-                                    <%for(var i=0;i<property.likes.length&&i<=5;i++){%>
-                                    <%if(i==5){%>
-                                    <a href="#">
-                                        <h4>, <%=property.likes.length-5%> more...</h4>
-                                    </a>
-                                    <%}else{%>
+                                    <%for(var i=0;i<property.likes.length;i++){%>
                                     <a href="/profile/<%=property.likes[i]._id%>">
                                         <img src="<%=property.likes[i].user_thumbnail.small%>" alt="">
                                         <h4><%=property.likes[i].firstName%> <%=property.likes[i].lastName%></h4>
                                     </a>
-
-                                    <%}}}%>
+                                    <%}}%>
 
                                 </div>
                                 <%if(property.queAns.length>0){%>

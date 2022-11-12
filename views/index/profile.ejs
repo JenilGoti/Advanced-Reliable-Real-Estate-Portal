@@ -34,9 +34,11 @@
                             <td class="heding">
                                 <strong>Email: </strong>
                             </td>
-                            
-                                <td class="detail"> <a href="mailto:<%=profUser.user_email.email %>"><%=profUser.user_email.email %></a> </td>
-                            
+
+                            <td class="detail"> <a
+                                    href="mailto:<%=profUser.user_email.email %>"><%=profUser.user_email.email %></a>
+                            </td>
+
                             <td class="status"><a
                                     href="/verification/email"><%=profUser.user_email.verification_status?'Edit':'Verify'%></a>
                             </td>
@@ -47,7 +49,8 @@
                             <td class="heding">
                                 <strong>Phon No: </strong>
                             </td>
-                            <td class="detail"> <%=profUser.user_phone_no.number %> </td>
+                            <td class="detail"><a href="tel:<%=profUser.user_phone_no.number %>">
+                                    <%=profUser.user_phone_no.number %> </a></td>
 
                             <td class="status"><a
                                     href="/edit-phone-no"><%=profUser.user_phone_no.number==null?'Add':'Edit'%></a>

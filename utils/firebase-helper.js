@@ -1,7 +1,12 @@
 const firebaseAdmin = require('firebase-admin');
 const resizeImg = require('resize-image-buffer');
+
+const User = require("../models/user");
+
 const multer = require('multer');
+const request = require('request');
 const path = require("path");
+
 
 const {
     url
@@ -100,7 +105,44 @@ async function deleteFile(path) {
 }
 
 
+function sendNotification(userIds, title, body, click_action, icon, data = {}) {
+    userIds.forEach(async (userId) => {
+        try {
+            var user = await User.findById(userId).select("notificationTokan");
+            const token = user.notificationTokan;
+            console.log(token);
+            const notification = {
+                "to": token,
+                "collapse_key": "type_c",
+                "notification": {
+                    "body": body,
+                    "title": title,
+                    "click_action": click_action,
+                    "icon": icon
+                },
+                "data": data
+            }
+            request({
+                method: 'POST',
+                uri: 'https://fcm.googleapis.com/fcm/send',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: process.env.FIREBASE_SERVER_API
+                },
+                body: JSON.stringify(notification)
+            }, (error, response, body) => {
+                if (error) {
+                    console.log(error);
+                    console.log("error found");
+                }
+            })
+        } catch (err) {
+            console.log(err);
+        }
 
+    });
+
+}
 
 
 
@@ -108,3 +150,4 @@ async function deleteFile(path) {
 exports.deleteFile = deleteFile;
 exports.uploadFile = uploadFile;
 exports.fileURL = fileURL;
+exports.sendNotification = sendNotification;

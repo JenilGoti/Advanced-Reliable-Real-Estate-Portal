@@ -142,21 +142,22 @@ shareBtn.addEventListener("click", () => {
 
 //  question submit
 
-quesSubmitBtn.addEventListener("click", () => {
-    if (question.value) {
-        fetch(host + "/property/ask-question", {
-                method: "POST",
-                body: new URLSearchParams("propId=" +
-                    propertyId +
-                    "&question=" + question.value)
-            })
-            .then(result => result.json())
-            .then(result => {
+if (isAuth && !isOwn) {
+    quesSubmitBtn.addEventListener("click", () => {
+        if (question.value) {
+            fetch(host + "/property/ask-question", {
+                    method: "POST",
+                    body: new URLSearchParams("propId=" +
+                        propertyId +
+                        "&question=" + question.value)
+                })
+                .then(result => result.json())
+                .then(result => {
 
-                const div = document.createElement('div');
-                div.classList.add("q-a-container");
-                div.classList.add("value");
-                div.innerHTML = `<div class="user">
+                    const div = document.createElement('div');
+                    div.classList.add("q-a-container");
+                    div.classList.add("value");
+                    div.innerHTML = `<div class="user">
                                     <a href="/profile/">
                                         <img src="` + result.user.url + `" alt="">
                                         <h6>` + result.user.name + `</h6>
@@ -172,11 +173,37 @@ quesSubmitBtn.addEventListener("click", () => {
                                             </span>waiting for the answer</h5>
                                     </div>
                                 </div>`;
-                document.getElementById("que").insertAdjacentElement("beforebegin", div);
-                question.value = "";
-                console.log(result.message);
-            })
-            .catch(err => console.log(err));
-    }
+                    document.getElementById("que").insertAdjacentElement("beforebegin", div);
+                    question.value = "";
+                    console.log(result.message);
+                })
+                .catch(err => console.log(err));
+        }
+    })
+}
 
-})
+if (isOwn) {
+    Answer = (ansId) => {
+        answer = document.querySelector("#ans-" + ansId);
+        console.log(ansId);
+        if (answer.value) {
+            fetch(host + "/admin/post-answer", {
+                    method: "POST",
+                    body: new URLSearchParams("propId=" +
+                        propertyId +
+                        "&ansId=" + ansId + "&answer=" + answer.value)
+                })
+                .then(result => result.json())
+                .then(result => {
+                    if (result.statusCode == 200) {
+                        alert("your answer has been submitted")
+                        location.reload();
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    alert("your answer has been not submitted yet")
+                });
+        }
+    }
+}

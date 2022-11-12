@@ -1,6 +1,10 @@
 const Property = require("../models/property");
 var mongoose = require('mongoose');
 
+const {
+    sendNotification
+} = require("../utils/firebase-helper");
+
 
 exports.getPropertys = async (req, res, next) => {
     try {
@@ -157,7 +161,7 @@ exports.postLike = (req, res, next) => {
     res.locals.user.save()
         .then(result => {
             return Property.findById(propId)
-                .select("likes");
+                .select("likes userId");
         })
         .then(property => {
             if (liked == "true") {
@@ -166,6 +170,13 @@ exports.postLike = (req, res, next) => {
                 });
             } else {
                 property.likes.push(res.locals.user._id);
+                const userLiked = res.locals.user
+                sendNotification([property.userId],
+                    "NESTSCOUT",
+                    userLiked.firstName + " " + userLiked.lastName + " liked your property",
+                    req.protocol + '://' + req.get('host') + "/property/" + property._id,
+                    userLiked.user_thumbnail.small
+                )
             }
 
             return property.save()
@@ -353,7 +364,7 @@ exports.postAskQuestion = (req, res, next) => {
                     name: res.locals.user.firstName + res.locals.user.lastName,
                     url: res.locals.user.user_thumbnail.small
                 },
-                question:question
+                question: question
             })
         })
         .catch(err => {

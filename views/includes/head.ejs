@@ -22,3 +22,6 @@
     <link rel="stylesheet" href="/css/user-info.css">
 
     <title><%= pageTitle %></title>
+    <% if(isAuthenticated) {%>
+    <input id="notification-tokan" type="hidden" value="<%=user.notificationTokan%>">
+    <%}%>

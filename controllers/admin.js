@@ -293,7 +293,37 @@ exports.getBookMarks = (req, res, next) => {
 }
 
 exports.postAnsQuestion = (req, res, next) => {
-    const prodId = req.body.prodId;
-    const queId = req.body.questionId;
+    const propId = req.body.propId;
+    const queId = req.body.ansId;
+    const answer = req.body.answer;
+    console.log(req.body);
+    Property.findById(propId)
+        .select("queAns userId")
+        .then(property => {
+            if (property.userId.toString() != res.locals.user._id.toString()) {
+                return res.status(401).send({
+                    statusCode: 401,
+                    message: "you are not authenticated"
+                })
+            } else {
+                queIndex = property.queAns.findIndex((obj => obj._id.toString() == queId.toString()));
+                property.queAns[queIndex].answer = answer;
+                return property.save()
+            }
+
+        })
+        .then(result => {
+            return res.status(200).send({
+                statusCode: 200,
+                message: "question answered succesfully",
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).send({
+                statusCode: 500,
+                message: "There was an error on the server and the request could not be completed"
+            })
+        })
 
 }

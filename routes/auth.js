@@ -155,6 +155,8 @@ router.post("/editAddress", isAuth, authController.postAddress);
 
 router.post("/upload-user-image", multerSingleFile, authController.postUserImage);
 
+router.post("/set-notification-tokan", isAuth, authController.postNotificationTokan);
+
 router.post("/logout", isAuth, authController.postLogout)
 
 

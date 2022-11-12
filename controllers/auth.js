@@ -710,7 +710,28 @@ exports.postUserImage = async (req, res, next) => {
     }
 }
 
+exports.postNotificationTokan = (req, res, next) => {
+    const tokan = req.body.tokan;
+    res.locals.user.notificationTokan = tokan;
+    res.locals.user.save()
+        .then(result => {
+            return res.status(200).send({
+                statusCode: 200,
+                message: "tokan saved successfully"
+            });
+        })
+        .catch(err => {
+            return res.status(500).send({
+                statusCode: 500,
+                message: "tokan can not be saved",
+
+            })
+        });
+}
+
 exports.postLogout = (req, res, next) => {
+    res.locals.user.notificationTokan = null;
+    res.locals.user.save()
     req.session.destroy((err) => {
         if (err) {
             console.log(err);
@@ -718,8 +739,6 @@ exports.postLogout = (req, res, next) => {
         res.redirect('/')
     })
 }
-
-
 
 verificationMail = (url) => {
     console.log(url);
@@ -806,7 +825,7 @@ loginEmail = (url) => {
         width: 100%;
         margin-bottom: 0.25rem;
         padding: 1rem 3rem;
-        border-radius: 4px;">GO TO NESTSCOUT</a>
+        border-radius: 4px;">NESTSCOUT</a>
     </div>
 `
 
@@ -856,7 +875,5 @@ resetPassword = (username, url) => {
         border-radius: 4px;">Reset Password</a>
     </div>
 `
-
-
     return body;
 }

@@ -78,6 +78,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    notificationTokan: String,
     propertys: [{
         property: {
             type: Object,

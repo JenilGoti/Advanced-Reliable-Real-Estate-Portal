@@ -155,15 +155,22 @@
     margin: 0.5rem;
 }
 
+
+
 .q-a-container .user a {
     flex-direction: column;
     margin-right: 0.5rem;
 }
+
 .q-a-container .user a img {
     width: 1.5rem;
 }
+
 .question-and-answer {
     width: 100%;
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     padding: 0.5rem 0;
     flex-direction: column;
@@ -171,6 +178,10 @@
     align-items: stretch;
     justify-content: center;
     align-content: stretch;
+}
+
+.question-and-answer .q-a {
+    width: 90%;
 }
 
 .question-and-answer .q-a-container {

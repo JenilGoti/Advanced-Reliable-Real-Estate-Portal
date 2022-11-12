@@ -68,9 +68,10 @@
                             <button class="btn favorite">
                                 <span class="material-symbols-outlined">favorite</span>
                             </button>
+                            <a href="#q&a">
                             <button class="btn comment">
                                 <span class="material-symbols-outlined">comment</span>
-                            </button>
+                            </button></a>
                             <%}%>
                             <button class="btn send">
                                 <span class="material-symbols-outlined">send</span>
@@ -159,20 +160,31 @@
                                             <h4><span><strong>Q.</strong> </span><%=property.queAns[i].question%>
                                             </h4>
                                         </div>
-                                        <div class="Answer">
+                                        <div class="answer">
+                                            <%if(isOwner&&!property.queAns[i].answer){%>
+                                            <div class="ask-question">
+                                                <input id="ans-<%=property.queAns[i]._id%>" type="text" name="answer"
+                                                    placeholder="Answer to the question" required>
+                                                <button class="btn1"
+                                                    onclick="Answer('<%=property.queAns[i]._id%>')">Answer</button>
+                                            </div>
+                                            <%}else{%>
                                             <h5><span><strong>A.</strong>
+
                                                 </span><%=property.queAns[i].answer||'waiting for the answer'%></h5>
+                                            <%}%>
+                                                
                                         </div>
                                     </div>
 
                                 </div>
                                 <%}if(!isOwner&&isAuthenticated){%>
-                                <div id="que" class="ask-question">
-                                    <input id="question" type="text" name="question" placeholder="Ask question hear"
-                                        required>
-                                    <button id="question-submit-btn" class="btn1">Ask Question</button>
-                                </div>
-                                <%}%>
+                                            <div id="que" class="ask-question">
+                                                <input id="question" type="text" name="question"
+                                                    placeholder="Ask question hear" required>
+                                                <button id="question-submit-btn" class="btn1">Ask Question</button>
+                                            </div>
+                                            <%}%>
                                 </div>
                         </div>
                     </div>

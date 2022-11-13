@@ -8,9 +8,24 @@ const {
 } = require("../utils/firebase-helper");
 
 exports.getConversation = (req, res, next) => {
+
+    console.log(res.locals.user._id);
+    Message.find({
+            users: {
+                "$in": [res.locals.user._id]
+            }
+        })
+        .distinct('users')
+        .then(result => {
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
     res.render("conversation/conversation", {
         pageTitle: "conversation",
-        path: '/conversations'
+        path: '/conversations',
     });
 }
 
@@ -60,6 +75,13 @@ exports.getConversationForProp = (req, res, next) => {
                     ],
                     sender: res.locals.user._id
                 });
+                const userS = res.locals.user
+                sendNotification([currentProperty.userId._id],
+                    userS.firstName + " " + userS.lastName + " is intrested in your property on NESTSCOUT",
+                    message.message.text,
+                    req.protocol + '://' + req.get('host') + "/conversations/chat-box/" + userS._id,
+                    userS.user_thumbnail.small
+                )
                 return message.save();
             } else {
                 console.log("message found");

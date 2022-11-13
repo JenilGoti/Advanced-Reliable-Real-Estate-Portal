@@ -28,6 +28,11 @@ exports.getPropertys = async (req, res, next) => {
                 userId: mongoose.Types.ObjectId(req.query.userId)
             }
         }
+        if (req.query.propId) {
+            mQurery = {
+                _id: mongoose.Types.ObjectId(req.query.propId)
+            }
+        }
         if (req.query.bookmark == "true") {
             if (res.locals.user.bookMarks.length < 1) {
                 throw new Error("data not found")
@@ -70,7 +75,7 @@ exports.getPropertys = async (req, res, next) => {
                 message: "property not found",
                 totalPage: totalProperty,
                 isAuth: res.locals.isAuthenticated,
-                hasNext:page < totalProperty
+                hasNext: page < totalProperty
             })
         }
 
@@ -362,15 +367,15 @@ exports.postAskQuestion = (req, res, next) => {
             const userQ = res.locals.user
             sendNotification([property.userId],
                 userQ.firstName + " " + userQ.lastName + " Asked a question on NESTSCOUT",
-                "Que. "+question,
-                req.protocol + '://' + req.get('host') + "/property/" + property._id+"#q&a",
+                "Que. " + question,
+                req.protocol + '://' + req.get('host') + "/property/" + property._id + "#q&a",
                 userQ.user_thumbnail.small
             )
-            console.log(req.protocol + '://' + req.get('host') + "/property/" + property._id+"#q&a");
+            console.log(req.protocol + '://' + req.get('host') + "/property/" + property._id + "#q&a");
             return property.save()
         })
         .then(result => {
-            
+
             return res.status(200).send({
                 statusCode: 200,
                 message: "questioned succesfully",

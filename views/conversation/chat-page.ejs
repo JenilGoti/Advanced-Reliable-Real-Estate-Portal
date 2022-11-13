@@ -1,0 +1,44 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/conversation/chat.css">
+<link rel="stylesheet" href="/css/index/card.css">
+<script src="/js/conversation/chat-card.js"></script>
+<script src="/js/property.js"></script>
+</head>
+
+<body>
+    <%- include('../includes/nevbar.ejs') %>
+    <%- include('../includes/appbar.ejs') %>
+    <main>
+        <input id="user1" type="hidden" value="<%=user._id%>">
+        <input id="user2" type="hidden" value="<%=owner._id%>">
+        <div class="chat-room">
+            <div class="chat-header">
+                <img src="<%=owner.user_thumbnail.small%>" alt="no image found">
+                <h3><%=owner.firstName%> <%=owner.lastName%></h3>
+            </div>
+            <div class="chats">
+                <div id="chats"></div>
+                <div style="display: flex; justify-content: center; margin-bottom: 5rem;">
+                    <div class="loader"></div>
+                </div>
+            </div>
+            <div class=" chat-bar">
+                <input type="text" name="sendChat" id="send-chat" placeholder="Message" onsubmit="sendMessage()">
+                <button class="btn1" onclick="sendMessage()"><span class="material-symbols-outlined">
+                        send
+                    </span></button>
+            </div>
+        </div>
+
+    </main>
+    <script>
+        if ('<%=isAuthenticated%>') {
+            socket.emit('join', {
+                id: '<%=user._id%>'
+            })
+        }
+    </script>
+
+    <script src="/js/conversation/chat.js"></script>
+
+    <%- include('../includes/end.ejs') %>

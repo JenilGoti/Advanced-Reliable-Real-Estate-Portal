@@ -19,6 +19,7 @@ const MONGODB_URI = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MON
 
 const app = express();
 
+
 const store = MongoDBStore({
     uri: MONGODB_URI,
     collection: 'sessions',
@@ -28,7 +29,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 const adminRoute = require("./routes/admin");
-const agentRoute = require("./routes/agent");
+const conversationRoute = require("./routes/conversations");
 const authRoute = require("./routes/auth");
 const buyRoute = require("./routes/buy");
 const indexRoute = require("./routes/index");
@@ -65,7 +66,7 @@ app.use(indexRoute);
 
 app.use("/admin", adminRoute);
 
-app.use("/agent", agentRoute);
+app.use("/conversations", conversationRoute);
 
 app.use("/buy", buyRoute);
 
@@ -90,9 +91,21 @@ const port = process.env.PORT || 3000;
 
 mongoose.connect(MONGODB_URI)
     .then(result => {
-        app.listen(port, () => {
+        const server = app.listen(port, () => {
             console.log("server started succesfully on " + port);
         });
+        const io = require('./socket').init(server)
+        io.on('connection', socket => {
+            console.log('Client connected');
+            socket.on('join', function (data) {
+                socket.join(data.id);
+                console.log(data);
+              });
+            socket.on('disconnect', () => {
+                console.log('user disconnected');
+            });
+        });
+
     })
     .catch(err => {
         console.log(err);

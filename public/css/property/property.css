@@ -112,6 +112,17 @@
     margin: 1rem;
 }
 
+.body .details .inquiry-btn{
+    width: 100%;
+    text-align: end;
+}
+
+.body .details .inquiry-btn a{
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+}
+
+
 .body .details .sub-heding {
     margin: 0.5rem;
     border-radius: 5px;

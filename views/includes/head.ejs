@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="/css/nevigetor.css">
     <link rel="stylesheet" href="/css/appbar.css">
     <link rel="stylesheet" href="/css/user-info.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+    </script>
 
     <title><%= pageTitle %></title>
     <% if(isAuthenticated) {%>

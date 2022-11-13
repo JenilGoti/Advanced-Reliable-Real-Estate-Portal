@@ -13,7 +13,6 @@ exports.setLocals = (req, res, next) => {
                     res.locals.isAuthenticated = false;
                     next();
                 }
-
             })
             .catch(err => {
                 console.log(err);

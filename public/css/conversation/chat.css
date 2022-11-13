@@ -1,0 +1,120 @@
+.chat-room {
+    text-transform: capitalize;
+    position: relative;
+    text-align: center;
+    margin: 1rem auto;
+    align-self: center;
+    justify-self: center;
+    border: 2px solid var(--c1);
+    border-radius: 5px;
+    color: var(--fc1);
+    max-width: 1000px;
+}
+
+.chat-room .chat-header {
+    background-image: linear-gradient(to top, var(--c1), var(--c1op70));
+    border-radius: 5px 5px 0 0;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.chat-room .chat-header img {
+    border-radius: 100%;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0 0.5rem;
+}
+
+
+.chat-room .chats {
+    width: 100%;
+    height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    align-items: stretch;
+}
+.chat-room #chats {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    align-items: stretch;
+}
+.chat-room .chats .chat-box {
+    width: max-content;
+    margin: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    max-width: 60vw;
+    text-align: left;
+}
+
+.chat-room .chats .sended {
+    background-image: linear-gradient(to top, var(--c1op70), var(--c1op50));
+    border-radius: 5px 5px 0 5px;
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+.chat-room .chats .recived {
+
+    background-image: linear-gradient(to top, var(--c2), var(--c2op70));
+    border-radius: 5px 5px 5px 0;
+    margin-right: auto;
+    margin-left: 1rem;
+}
+
+.chat-room .chats .chat-footer {
+    margin-top: 0.3rem;
+    display: flex;
+    font-size: small;
+    color: var(--fc3);
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.chat-room .chats .chat-footer .active{
+    color:var(--bc1)
+}
+
+.chat-room .chat-bar {
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    margin: 0.5rem 0.5rem;
+}
+
+.chat-room .chat-bar input {
+    width: 94%;
+    font-size: medium;
+    padding: 0 0.5rem;
+    border-radius: 5px;
+}
+
+.chat-room .chat-bar button {
+    width: 3rem;
+    height: 3rem;
+    margin: 0 0.9rem 0 0.3rem;
+    border: none;
+    border-radius: 100%;
+}
+
+@media (max-width: 1200px) {
+
+    .chat-room {
+        margin: 1rem;
+    }
+}

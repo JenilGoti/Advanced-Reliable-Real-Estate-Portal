@@ -44,7 +44,7 @@ function getProperty() {
 sevl = () => {
     var position = element.getBoundingClientRect();
     if (position.bottom <= window.innerHeight) {
-        addProperty();
+        getProperty();
         window.removeEventListener('scroll', sevl);
         console.log(pageNo);
     }

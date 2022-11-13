@@ -80,6 +80,11 @@
                         </div>
                     </div>
                     <div class="details">
+                        <%if(isAuthenticated){%>
+                            <div class="inquiry-btn">
+                                <a class="btn1" href="/conversations/property/<%=property._id%>">Inquiry</a>
+                            </div>
+                            <%}%>
                         <h3 class="sub-heding">address</h3>
                         <h4 class="value"><a
                                 href="http://google.com/maps/?q=<%=property.basicDetail.coordinates.latitude%>,<%=property.basicDetail.coordinates.longitude%>">

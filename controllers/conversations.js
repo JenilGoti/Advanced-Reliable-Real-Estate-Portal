@@ -107,7 +107,7 @@ exports.getConversationForProp = (req, res, next) => {
             }
         })
         .then(message => {
-            console.log(message);
+            // console.log(message);
             res.render("conversation/chat-page", {
                 pageTitle: "conversation",
                 path: '/conversations',

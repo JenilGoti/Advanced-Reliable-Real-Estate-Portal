@@ -148,6 +148,40 @@ const message = (message, top) => {
                 }
 
             })
+    } else if (message.message.camVisit) {
+        fetch(host + '/property/?page=1&propId=' + message.message.camVisit.property, {
+                method: 'GET',
+            })
+            .then(response => {
+                return response.json();
+            })
+            .then(result => {
+                if (result.statusCode == 200) {
+                    console.log(result);
+                    const mC = visitCard(message.message.camVisit,result.propertys[0], result.isAuth, (message.sender.toString() != user1.toString()));
+                    mC.classList.add(message.sender.toString() == user1.toString() ? 'sended' : 'recived');
+                    if (top) {
+                        main.appendChild(mC);
+                        mC.style.animation = "scale-display .3s";
+                    } else {
+                        main.prepend(mC);
+                        mC.style.animation = "scale-display .3s";
+                    }
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                const mC = chatCard(message.message.text, message.createdAt, message.sender.toString() == user1.toString(), message.read);
+                if (top) {
+                    main.appendChild(mC);
+                    mC.style.animation = "scale-display .3s";
+                } else {
+                    main.prepend(mC);
+                    mC.style.animation = "scale-display .3s";
+                }
+
+            })
+        console.log(message.message.camVisit);
     } else {
         const mC = chatCard(message.message.text, message.createdAt, message.sender.toString() == user1.toString(), message.read);
         if (top) {

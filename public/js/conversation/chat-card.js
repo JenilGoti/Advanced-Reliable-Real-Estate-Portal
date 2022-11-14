@@ -131,6 +131,7 @@ function visitCard(camVisitMessage, property, isAuth, isOwner) {
         shedualPicker.type = "datetime-local";
         var currentDate = new Date();
         shedualPicker.value = currentDate.toISOString().slice(0, 16);
+        shedualPicker.min = currentDate.toISOString().slice(0, 16);
         shedualPicker.style.width = '150%';
         shedualPicker.classList.add("ownBtn");
         shedualPicker.classList.add("btn1");

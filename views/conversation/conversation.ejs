@@ -7,15 +7,16 @@
     <%- include('../includes/nevbar.ejs') %>
     <%- include('../includes/appbar.ejs') %>
     <main>
-        <%for(var i=0;i<connectedUsers.length;i++){%>
+        <%if(connectedUsers.length>0){for(var i=0;i<connectedUsers.length;i++){%>
         <div class="con-user">
             <a href="/conversations/chat-box/<%=connectedUsers[i]._id%>">
                 <img src="<%=connectedUsers[i].user_thumbnail.small%>" alt="">
                 <h3><%=connectedUsers[i].firstName%> <%=connectedUsers[i].lastName%></h3>
             </a>
         </div>
-
-        <%}%>
+        <%}}else{%>
+        <h2>No Any Conversations Found</h2>
+        <%=}%>
 
     </main>
     <script src="/js/conversation/conversation.js"></script>

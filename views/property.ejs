@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="details">
-                        <%if(isAuthenticated){%>
+                        <%if(isAuthenticated&&!isOwner){%>
                             <div class="inquiry-btn">
                                 <a class="btn1" href="/conversations/property/<%=property._id%>">Inquiry</a>
                             </div>

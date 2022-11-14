@@ -115,6 +115,25 @@
     border-radius: 100%;
 }
 
+.ownBtns {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.ownBtns .ownBtn {
+    height: 2.5rem;
+    margin-top: 0.1rem;
+    width: 100%;
+    margin: 0.5rem;
+    background-color: var(--bc1);
+    font-weight: bolder;
+    color: var(--c1);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 @media (max-width: 1200px) {
 
     .chat-room {

@@ -1,4 +1,4 @@
-function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
+function propertyCard(property, isAuth, imageEventListner, isOwn = false, isChat = false) {
     var bookmark = false;
     var like = false;
     const shareData = {
@@ -279,6 +279,34 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false) {
             window.location.href = host + "/admin/edit-property/" + property._id;
         })
     }
-
+    if (isChat) {
+        const ownBtns = document.createElement('div');
+        ownBtns.classList.add("ownBtns");
+        const canVBtn = document.createElement('button');
+        canVBtn.classList.add("ownBtn");
+        canVBtn.classList.add("btn1");
+        canVBtn.appendChild(document.createTextNode("Request Cam-Visit"));
+        ownBtns.appendChild(canVBtn);
+        div.appendChild(ownBtns);
+        canVBtn.addEventListener("click", () => {
+            console.log("request for cam visit");
+            fetch(host + '/conversations/reqCamVisit/', {
+                    method: 'POST',
+                    body: new URLSearchParams("propId=" + property._id + "&userId=" + user2)
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(result => {
+                    if (result.statusCode == 200) {
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    alert(err);
+                })
+        })
+    }
     return div;
 }

@@ -16,4 +16,6 @@ router.get("/chat-box/:userId", isAuth, conversationController.getChatBox);
 
 router.post("/message", isAuth, conversationController.postMessage);
 
+router.post("/reqCamVisit", isAuth, conversationController.postCamVisitRequest);
+
 module.exports = router;

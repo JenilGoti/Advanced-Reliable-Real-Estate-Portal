@@ -18,8 +18,16 @@ const messageSchema = new Schema({
             ref: 'Property',
         },
         camVisit: {
-            type: mongoose.Schema.Types.ObjectId,
-            // ref: 'Property',
+            property: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Property'
+            },
+            reqDate: Date,
+            shaduleDate: Date,
+            status: {
+                type: String,
+                enum: ['requested', 'scheduled', 'success', 'rejected']
+            }
         }
     },
     users: [{

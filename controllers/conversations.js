@@ -199,6 +199,9 @@ exports.postMessage = (req, res, next) => {
             io.getIO().in(reciver.toString()).emit('new_msg', {
                 msg: result
             });
+            io.getIO().in(sender.toString()).emit('new_msg', {
+                msg: result
+            });
             const userS = res.locals.user
             sendNotification([reciver],
                 userS.firstName + " " + userS.lastName + "'s message on NESTSCOUT",
@@ -239,4 +242,54 @@ exports.getChatBox = (req, res, next) => {
             next(error);
         })
 
+}
+
+exports.postCamVisitRequest = (req, res, next) => {
+    const propId = req.body.propId;
+    const sender = res.locals.user._id;
+    const reciver = req.body.userId;
+    const message = new Message({
+        message: {
+            mType: 'cam-visit',
+            text: res.locals.user.firstName + ' ' + res.locals.user.lastName + ' requeste for cam-visit',
+            camVisit: {
+                property: propId,
+                reqDate: new Date(),
+                status: 'requested'
+            }
+        },
+        users: [{
+            user: sender
+        }, {
+            user: reciver
+        }],
+        sender: sender
+    });
+    message.save()
+        .then(result => {
+            io.getIO().in(reciver.toString()).emit('new_msg', {
+                msg: result
+            });
+            io.getIO().in(sender.toString()).emit('new_msg', {
+                msg: result
+            });
+            const userS = res.locals.user
+            sendNotification([reciver],
+                userS.firstName + " " + userS.lastName + "'s message on NESTSCOUT",
+                result.message.text,
+                req.protocol + '://' + req.get('host') + "/conversations/chat-box/" + userS._id,
+                userS.user_thumbnail.small
+            )
+            return res.status(200).send({
+                statusCode: 200,
+                message: "message sended succesfully"
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(404).send({
+                statusCode: 404,
+                message: "Message not sended",
+            })
+        })
 }

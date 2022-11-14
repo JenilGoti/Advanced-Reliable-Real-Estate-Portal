@@ -23,9 +23,11 @@ const messageSchema = new Schema({
         }
     },
     users: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        }
     }],
     sender: {
         type: mongoose.Schema.Types.ObjectId,

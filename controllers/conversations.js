@@ -8,25 +8,40 @@ const {
 } = require("../utils/firebase-helper");
 
 exports.getConversation = (req, res, next) => {
-
-    console.log(res.locals.user._id);
     Message.find({
-            users: {
+            'users.user': {
                 "$in": [res.locals.user._id]
             }
         })
-        .distinct('users')
+        .sort({
+            createdAt: -1
+        })
+        .distinct('users.user')
         .then(result => {
-            console.log(result);
+            result = result.filter((_id) => {
+                return res.locals.user._id.toString() !== _id.toString()
+            })
+            return User.find({
+                    _id: {
+                        "$in": result
+                    }
+                })
+                .select("user_thumbnail.small firstName lastName")
+        })
+        .then(result => {
+            res.render("conversation/conversation", {
+                pageTitle: "conversation",
+                path: '/conversations',
+                connectedUsers: result
+            });
         })
         .catch(err => {
             console.log(err);
+            const error = new Error("Data not found");
+            error.statusCode = 404;
+            error.discription = "Data not found"
+            next(error);
         })
-
-    res.render("conversation/conversation", {
-        pageTitle: "conversation",
-        path: '/conversations',
-    });
 }
 
 exports.getConversationForProp = (req, res, next) => {
@@ -42,12 +57,12 @@ exports.getConversationForProp = (req, res, next) => {
             currentProperty = property
             return Message.find({
                     $and: [{
-                            users: {
+                            'users.user': {
                                 "$in": [res.locals.user._id]
                             }
                         },
                         {
-                            users: {
+                            'users.user': {
                                 "$in": [property.userId]
                             }
                         },
@@ -69,9 +84,12 @@ exports.getConversationForProp = (req, res, next) => {
                         text: 'inquiry about property',
                         property: currentProperty._id
                     },
-                    users: [
-                        res.locals.user._id,
-                        currentProperty.userId._id
+                    users: [{
+                            user: res.locals.user._id
+                        },
+                        {
+                            user: currentProperty.userId._id
+                        }
                     ],
                     sender: res.locals.user._id
                 });
@@ -113,12 +131,12 @@ exports.getMessages = async (req, res, next) => {
         // console.log(mNum, user1, user2);
         totalMessage = await Message.find({
             $and: [{
-                    users: {
+                    'users.user': {
                         "$in": [user1]
                     }
                 },
                 {
-                    users: {
+                    'users.user': {
                         "$in": [user2]
                     }
                 }
@@ -126,12 +144,12 @@ exports.getMessages = async (req, res, next) => {
         }).countDocuments();
         const message = await Message.find({
                 $and: [{
-                        users: {
+                        'users.user': {
                             "$in": [user1]
                         }
                     },
                     {
-                        users: {
+                        'users.user': {
                             "$in": [user2]
                         }
                     }
@@ -169,9 +187,11 @@ exports.postMessage = (req, res, next) => {
             mType: 'text',
             text: text
         },
-        users: [
-            sender, reciver
-        ],
+        users: [{
+            user: sender
+        }, {
+            user: reciver
+        }],
         sender: sender
     });
     message.save()

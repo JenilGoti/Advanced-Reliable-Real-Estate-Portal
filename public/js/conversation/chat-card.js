@@ -4,10 +4,8 @@ const chatCard = (text, timeStamp, sender, marker) => {
                     </div>
                     <div class="chat-footer">
                         <span class="time-stamp">` + formatAMPM(timeStamp) + `</span>
-                        &emsp;` + (sender ? `
-                        <span style="font-size: inherit;" class="material-symbols-outlined ` + (marker ? 'active' : '') + `">
-                            done_all
-                        </span>` : ``) + `
+                        &emsp;
+                        <span></span>
                     </div>
     `;
     const div = document.createElement('div');

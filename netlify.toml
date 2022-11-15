@@ -1,3 +1,1 @@
-[build]
-  command = "node app.js"
-  publish = "site/dist"
+CI=node app,js

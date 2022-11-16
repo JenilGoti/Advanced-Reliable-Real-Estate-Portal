@@ -101,10 +101,10 @@ mongoose.connect(MONGODB_URI)
                 socket.join(data.id);
                 console.log(data);
             });
-            socket.on('newVisit', (data) => {
-                socket.join('/');
-                socket.to('/').broadcast.emit("userJoined", id);
-            });
+            // socket.on('newVisit', (data) => {
+            //     socket.join('/');
+            //     socket.to('/').broadcast.emit("userJoined", id);
+            // });
             socket.on('disconnect', () => {
                 console.log('user disconnected');
             });

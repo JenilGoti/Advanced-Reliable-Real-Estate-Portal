@@ -246,7 +246,7 @@ exports.postCamVisitRequest = (req, res, next) => {
     const sender = res.locals.user._id;
     const reciver = req.body.userId;
     Message.find({
-            'message.camVisit.property': propId
+            'message.camVisit.property': mongoose.types.ObjectId(propId)
         })
         .then(result => {
             if (result > 0) {

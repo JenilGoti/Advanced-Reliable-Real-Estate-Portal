@@ -107,13 +107,14 @@ sendMessage = () => {
 
 socket.on("new_msg", function (data) {
     console.log(data);
-    if (data.msg.sender.toString() == user2 || data.msg.sender.toString() == user1) {
+    if ((data.msg.users[0].user.toString() == user1 || data.msg.users[0].user.toString() == user2) && (data.msg.users[0].user.toString() == user1 || data.msg.users[0].user.toString() == user2)) {
         mNo++;
         message(data.msg, false)
     }
 })
 
 const message = (message, top) => {
+
     if (message.message.property) {
         fetch(host + '/property/?page=1&propId=' + message.message.property, {
                 method: 'GET',
@@ -127,9 +128,11 @@ const message = (message, top) => {
                     const mC = propertyCard(result.propertys[0], result.isAuth, () => {}, false, (message.sender.toString() == user1.toString()));
                     mC.classList.add(message.sender.toString() == user1.toString() ? 'sended' : 'recived');
                     if (top) {
+                        mC.id = message._id;
                         main.appendChild(mC);
                         mC.style.animation = "scale-display .3s";
                     } else {
+                        mC.id = message._id;
                         main.prepend(mC);
                         mC.style.animation = "scale-display .3s";
                     }
@@ -140,9 +143,11 @@ const message = (message, top) => {
                 console.log(err);
                 const mC = chatCard(message.message.text, message.createdAt, message.sender.toString() == user1.toString(), message.read);
                 if (top) {
+                    mC.id = message._id;
                     main.appendChild(mC);
                     mC.style.animation = "scale-display .3s";
                 } else {
+                    mC.id = message._id;
                     main.prepend(mC);
                     mC.style.animation = "scale-display .3s";
                 }
@@ -158,12 +163,14 @@ const message = (message, top) => {
             .then(result => {
                 if (result.statusCode == 200) {
                     console.log(result);
-                    const mC = visitCard(message.message.camVisit,result.propertys[0], result.isAuth, (message.sender.toString() != user1.toString()));
+                    const mC = visitCard(message, result.propertys[0], result.isAuth, (message.message.camVisit.visiter.toString() == user1.toString()));
                     mC.classList.add(message.sender.toString() == user1.toString() ? 'sended' : 'recived');
                     if (top) {
+                        mC.id = message._id;
                         main.appendChild(mC);
                         mC.style.animation = "scale-display .3s";
                     } else {
+                        mC.id = message._id;
                         main.prepend(mC);
                         mC.style.animation = "scale-display .3s";
                     }
@@ -173,9 +180,11 @@ const message = (message, top) => {
                 console.log(err);
                 const mC = chatCard(message.message.text, message.createdAt, message.sender.toString() == user1.toString(), message.read);
                 if (top) {
+                    mC.id = message._id;
                     main.appendChild(mC);
                     mC.style.animation = "scale-display .3s";
                 } else {
+                    mC.id = message._id;
                     main.prepend(mC);
                     mC.style.animation = "scale-display .3s";
                 }
@@ -185,9 +194,11 @@ const message = (message, top) => {
     } else {
         const mC = chatCard(message.message.text, message.createdAt, message.sender.toString() == user1.toString(), message.read);
         if (top) {
+            mC.id = message._id;
             main.appendChild(mC);
             mC.style.animation = "scale-display .3s";
         } else {
+            mC.id = message._id;
             main.prepend(mC);
             mC.style.animation = "scale-display .3s";
         }

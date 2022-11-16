@@ -18,4 +18,6 @@ router.post("/message", isAuth, conversationController.postMessage);
 
 router.post("/reqCamVisit", isAuth, conversationController.postCamVisitRequest);
 
+router.post("/shedual-cam-visit", isAuth, conversationController.postShedualCamVisit);
+
 module.exports = router;

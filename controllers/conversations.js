@@ -103,16 +103,13 @@ exports.getConversationForProp = (req, res, next) => {
                 return message.save();
             } else {
                 console.log("message found");
-                return mes[0];
+                mes[0].upTime = new Date();
+                return mes[0].save();
             }
         })
         .then(message => {
             // console.log(message);
-            res.render("conversation/chat-page", {
-                pageTitle: "conversation",
-                path: '/conversations',
-                owner: currentProperty.userId
-            })
+            res.redirect('/conversations/chat-box/' + currentProperty.userId._id.toString());
         })
         .catch(err => {
             console.log(err);
@@ -156,7 +153,7 @@ exports.getMessages = async (req, res, next) => {
                 ]
             })
             .sort({
-                updatedAt: -1
+                upTime: -1
             })
             .skip(mNum - 1)
             .limit(1);
@@ -234,7 +231,7 @@ exports.getChatBox = (req, res, next) => {
                 owner: user
             })
         })
-        .then(err => {
+        .catch(err => {
             console.log(err);
             const error = new Error("server side error");
             error.statusCode = 500;
@@ -248,24 +245,45 @@ exports.postCamVisitRequest = (req, res, next) => {
     const propId = req.body.propId;
     const sender = res.locals.user._id;
     const reciver = req.body.userId;
-    const message = new Message({
-        message: {
-            mType: 'cam-visit',
-            text: res.locals.user.firstName + ' ' + res.locals.user.lastName + ' requeste for cam-visit',
-            camVisit: {
-                property: propId,
-                reqDate: new Date(),
-                status: 'requested'
+    Message.find({
+            'message.camVisit.property': propId
+        })
+        .then(result => {
+            if (result > 0) {
+                result.message = {
+                    mType: 'cam-visit',
+                    text: res.locals.user.firstName + ' ' + res.locals.user.lastName + ' requeste for cam-visit',
+                    camVisit: {
+                        property: propId,
+                        reqDate: new Date(),
+                        status: 'requested',
+                        visiter: sender
+                    }
+                }
+                result.sender = sender;
+                return result.save();
+            } else {
+                const message = new Message({
+                    message: {
+                        mType: 'cam-visit',
+                        text: res.locals.user.firstName + ' ' + res.locals.user.lastName + ' requeste for cam-visit',
+                        camVisit: {
+                            property: propId,
+                            reqDate: new Date(),
+                            status: 'requested',
+                            visiter: sender
+                        }
+                    },
+                    users: [{
+                        user: sender
+                    }, {
+                        user: reciver
+                    }],
+                    sender: sender
+                });
+                return message.save()
             }
-        },
-        users: [{
-            user: sender
-        }, {
-            user: reciver
-        }],
-        sender: sender
-    });
-    message.save()
+        })
         .then(result => {
             io.getIO().in(reciver.toString()).emit('new_msg', {
                 msg: result
@@ -280,6 +298,7 @@ exports.postCamVisitRequest = (req, res, next) => {
                 req.protocol + '://' + req.get('host') + "/conversations/chat-box/" + userS._id,
                 userS.user_thumbnail.small
             )
+
             return res.status(200).send({
                 statusCode: 200,
                 message: "message sended succesfully"
@@ -292,4 +311,121 @@ exports.postCamVisitRequest = (req, res, next) => {
                 message: "Message not sended",
             })
         })
+}
+
+exports.postShedualCamVisit = (req, res, next) => {
+    const owner = res.locals.user;
+    const visiter = req.body.visiter;
+    const messageId = req.body.messId;
+    const shaduleDate = req.body.shaduleDate;
+    // console.log(messageId);
+    Message.findById(mongoose.Types.ObjectId(messageId))
+        .then(message => {
+            // console.log(shaduleDate);
+            message.message.camVisit.shaduleDate = new Date(shaduleDate + ':00.000Z');
+            // console.log(message.message.camVisit.shaduleDate);
+            message.message.camVisit.status = 'scheduled';
+            message.upTime = new Date();
+            message.sender = owner._id;
+            if (message.message.camVisit.shaduleDate > (new Date())) {
+                return message.save()
+                    .then(result => {
+                        io.getIO().in(visiter.toString()).emit('new_msg', {
+                            msg: result
+                        });
+                        io.getIO().in(owner._id.toString()).emit('new_msg', {
+                            msg: result
+                        });
+                        sendNotification([visiter],
+                            owner.firstName + " " + owner.lastName + " is scheduled your visit on NESTSCOUT",
+                            result.message.text,
+                            req.protocol + '://' + req.get('host') + "/conversations/chat-box/" + owner._id,
+                            owner.user_thumbnail.small
+                        )
+                        const timeToVisitStart = (new Date(result.message.camVisit.shaduleDate)) - (new Date());
+                        setTimeout(() => {
+                            startVisit(result, req);
+                        }, timeToVisitStart + 300);
+                        return res.status(200).send({
+                            statusCode: 200,
+                            message: "message sended succesfully"
+                        });
+                    });
+            } else {
+                return res.status(404).send({
+                    statusCode: 404,
+                    message: "visit not scheduled, add future date, invalide sheduled date",
+                })
+            }
+
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(404).send({
+                statusCode: 404,
+                message: "visit not scheduled",
+            })
+        })
+
+}
+
+
+const startVisit = (message, req) => {
+    console.log(message._id);
+    Message.findById(mongoose.Types.ObjectId(message._id))
+        .then(message => {
+            if (message.message.camVisit.shaduleDate <= (new Date())) {
+                message.message.camVisit.status = 'started';
+                message.upTime = new Date();
+                return message.save();
+            }
+            return message;
+        })
+        .then(result => {
+            io.getIO().in(result.users[0].user.toString()).emit('new_msg', {
+                msg: result
+            });
+            io.getIO().in(result.users[1].user.toString()).emit('new_msg', {
+                msg: result
+            });
+            sendNotification([result.users[0].user, result.users[1].user],
+                " your visit has been started on NESTSCOUT",
+                result.message.text,
+                req.protocol + '://' + req.get('host') + "/conversations/join-visit/" + result._id,
+                req.protocol + '://' + req.get('host') + "/logo.png"
+            );
+            setTimeout(() => {
+                endVisit(message, req)
+            }, 3600000);
+
+        })
+        .catch(err => console.log(err))
+}
+
+const endVisit = (message, req) => {
+    console.log(message._id);
+    Message.findById(mongoose.Types.ObjectId(message._id))
+        .then(message => {
+            if (message.message.camVisit.shaduleDate <= (new Date())) {
+                message.message.camVisit.status = 'ended';
+                message.upTime = new Date();
+                return message.save();
+            }
+            return message;
+        })
+        .then(result => {
+            io.getIO().in(result.users[0].user.toString()).emit('new_msg', {
+                msg: result
+            });
+            io.getIO().in(result.users[1].user.toString()).emit('new_msg', {
+                msg: result
+            });
+            sendNotification([result.users[0].user, result.users[1].user],
+                " your visit has been ended on NESTSCOUT",
+                result.message.text,
+                req.protocol + '://' + req.get('host') + "/",
+                req.protocol + '://' + req.get('host') + "/logo.png"
+            )
+        })
+        .catch(err => console.log(err))
 }

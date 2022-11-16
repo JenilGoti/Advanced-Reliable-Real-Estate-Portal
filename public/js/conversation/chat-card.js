@@ -30,7 +30,7 @@ function formatAMPM(date) {
     return strTime;
 }
 
-function visitCard(camVisitMessage, property, isAuth, isOwner) {
+function visitCard(message, property, isAuth, isVisiter) {
 
     const div = document.createElement('div');
     div.id = property._id;
@@ -110,26 +110,36 @@ function visitCard(camVisitMessage, property, isAuth, isOwner) {
 
     div.appendChild(header);
     div.appendChild(body);
+    const status = message.message.camVisit.status;
 
-    if (!isOwner) {
+    if (isVisiter && (status == 'requested' || status == 'scheduled' || status == 'started' || status == 'ended')) {
         const ownBtns = document.createElement('div');
         ownBtns.classList.add("ownBtns");
         const canVBtn = document.createElement('button');
         canVBtn.classList.add("ownBtn");
         canVBtn.classList.add("btn1");
-        canVBtn.appendChild(document.createTextNode(camVisitMessage.status));
+        canVBtn.appendChild(document.createTextNode(status != 'scheduled' ? (status == 'started' ? "join visit" : status) : 'scheduled on ' + (new Date(message.message.camVisit.shaduleDate)).toLocaleDateString('en-GB', {
+            timeZone: 'UTC'
+        }) + ", " + (new Date(message.message.camVisit.shaduleDate)).toLocaleTimeString('en-GB', {
+            timeZone: 'UTC'
+        })));
+
+        if (status == 'started') {
+            canVBtn.addEventListener("click", () => {
+                console.log('joined cam visit');
+            })
+
+        }
         ownBtns.appendChild(canVBtn);
         div.appendChild(ownBtns);
-        canVBtn.addEventListener("click", () => {
-            console.log("request for cam visit");
-        })
-    } else {
+    } else if (status == 'requested' || status == 'scheduled') {
+
         const ownBtns = document.createElement('div');
         ownBtns.classList.add("ownBtns");
 
         const shedualPicker = document.createElement('input');
         shedualPicker.type = "datetime-local";
-        var currentDate = new Date();
+        var currentDate = message.message.camVisit.shaduleDate ? new Date(message.message.camVisit.shaduleDate) : new Date();
         shedualPicker.value = currentDate.toISOString().slice(0, 16);
         shedualPicker.min = currentDate.toISOString().slice(0, 16);
         shedualPicker.style.width = '150%';
@@ -140,12 +150,42 @@ function visitCard(camVisitMessage, property, isAuth, isOwner) {
         const shedualBtn = document.createElement('button');
         shedualBtn.classList.add("ownBtn");
         shedualBtn.classList.add("btn2");
-        shedualBtn.appendChild(document.createTextNode('schedule'));
+        shedualBtn.appendChild(document.createTextNode(status == 'requested' ? 'schedule' : 'reschedule'));
         ownBtns.appendChild(shedualBtn);
         div.appendChild(ownBtns);
         shedualBtn.addEventListener("click", () => {
-            console.log("request for cam visit");
+            fetch(host + '/conversations/shedual-cam-visit/', {
+                    method: 'POST',
+                    body: new URLSearchParams("visiter=" + message.message.camVisit.visiter + "&messId=" + message._id + "&shaduleDate=" + shedualPicker.value)
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(result => {
+                    console.log(result);
+                    if (result.statusCode == 404) {
+                        alert(result.message)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
         })
+    } else if (status == 'started' || status == 'ended') {
+        const ownBtns = document.createElement('div');
+        ownBtns.classList.add("ownBtns");
+        const canVBtn = document.createElement('button');
+        canVBtn.classList.add("ownBtn");
+        canVBtn.classList.add("btn1");
+        canVBtn.appendChild(document.createTextNode(status == 'started' ? "join visit" : status));
+        if (status == 'started') {
+            canVBtn.addEventListener("click", () => {
+                console.log('joined cam visit');
+            })
+
+        }
+        ownBtns.appendChild(canVBtn);
+        div.appendChild(ownBtns);
     }
 
     return div;

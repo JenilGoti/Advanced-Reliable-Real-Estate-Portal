@@ -26,7 +26,11 @@ const messageSchema = new Schema({
             shaduleDate: Date,
             status: {
                 type: String,
-                enum: ['requested', 'scheduled', 'success', 'rejected']
+                enum: ['requested', 'scheduled','started','ended','success', 'rejected']
+            },
+            visiter: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User',
             }
         }
     },
@@ -47,9 +51,12 @@ const messageSchema = new Schema({
     },
     recived: {
         type: Date
+    },
+    upTime: {
+        type: Date,
+        default: Date.now
     }
 }, {
     timestamps: true
 });
-
 module.exports = mongoose.model('message', messageSchema);

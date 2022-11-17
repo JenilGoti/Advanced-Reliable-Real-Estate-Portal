@@ -13,7 +13,7 @@ const peers = {};
 const peer = new Peer(undefined, {
     host: PORT == "3000" ? '/' : '0.peerjs.com',
     port: PORT == "3000" ? PORT : '433',
-    path: '/peerjs',
+    path: PORT == "3000" ? '/peerjs' : '',
     secure: PORT != "3000" ? true : false,
 });
 

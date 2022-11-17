@@ -11,9 +11,9 @@ const peers = {};
 // option
 
 const peer = new Peer(undefined, {
-    host: PORT == "3000" ? '/' : '0.peerjs.com',
+    host: '/',
     port: PORT == "3000" ? PORT : '433',
-    path: PORT == "3000" ? '/peerjs' : '',
+    path: '/peerjs',
     secure: PORT != "3000" ? true : false,
 });
 

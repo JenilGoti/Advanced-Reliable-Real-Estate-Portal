@@ -10,7 +10,7 @@ const peer = new Peer({
     host: PORT == "3000" ?'/':'https://0.peerjs.com',
     port: PORT == "3000" ?PORT:'433',
     path: '/peerjs',
-    secure: PORT == "3000" ? true : false,
+    secure: PORT != "3000" ? true : false,
 });
 
 navigator.mediaDevices.getUserMedia({

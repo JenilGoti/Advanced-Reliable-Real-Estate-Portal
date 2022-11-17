@@ -244,22 +244,22 @@ exports.getChatBox = (req, res, next) => {
 
 exports.getCamVisitBox = (req, res, next) => {
     const messId = req.params["messId"];
-    // message.findById(messId)
-    //     .then(message => {
+    message.findById(messId)
+        .then(message => {
             res.render("conversation/visit-page", {
-                // pageTitle: "Live-Visit",
-                // path: '/conversations',
-                // message: message,
+                pageTitle: "Live-Visit",
+                path: '/conversations',
+                message: message,
                 RoomId: messId
             })
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        //     const error = new Error("Visit not found");
-        //     error.statusCode = 404;
-        //     error.discription = "visit not found"
-        //     next(error);
-        // })
+        })
+        .catch(err => {
+            console.log(err);
+            const error = new Error("Visit not found");
+            error.statusCode = 404;
+            error.discription = "visit not found"
+            next(error);
+        })
 }
 
 

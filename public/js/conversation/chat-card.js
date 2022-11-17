@@ -181,6 +181,7 @@ function visitCard(message, property, isAuth, isVisiter) {
         if (status == 'started') {
             canVBtn.addEventListener("click", () => {
                 console.log('joined cam visit');
+                window.location.href = host + "/conversations/visit-box/" + message._id;
             })
 
         }

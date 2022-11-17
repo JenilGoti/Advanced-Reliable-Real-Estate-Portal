@@ -1,4 +1,4 @@
-const socket = io('/');
+const socket = io('/',{transports: ['websocket']});
 let myVideoStream;
 const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");

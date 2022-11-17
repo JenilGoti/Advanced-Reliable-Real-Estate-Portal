@@ -7,8 +7,8 @@ myVideo.muted = true;
 const peers = {};
 
 const peer = new Peer({
-    host: '/',
-    port: PORT,
+    host: PORT === "3000" ?'/':'0.peerjs.com',
+    port: PORT === "3000" ?PORT:'433',
     path: '/peerjs',
     secure: PORT === "3000" ? true : false,
 });

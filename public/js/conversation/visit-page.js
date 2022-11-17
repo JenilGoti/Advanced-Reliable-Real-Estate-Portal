@@ -6,12 +6,20 @@ const video = document.createElement('video');
 myVideo.muted = true;
 const peers = {};
 
-const peer = new Peer({
-    host: PORT == "3000" ?'/':'0.peerjs.com',
-    port: PORT == "3000" ?PORT:'433',
-    path: PORT == "3000" ?'/peerjs':'',
-    secure: PORT != "3000" ? true : false,
-});
+// option
+
+// const peer = new Peer(undefined,{
+//     host: PORT == "3000" ?'/':'0.peerjs.com',
+//     port: PORT == "3000" ?PORT:'433',
+//     path: PORT == "3000" ?'/peerjs':'',
+//     secure: PORT != "3000" ? true : false,
+// });
+
+const peer = new Peer(undefined, {
+    secure: true,
+    host: '0.peerjs.com',
+    port: '443'
+})
 
 navigator.mediaDevices.getUserMedia({
     video: true,

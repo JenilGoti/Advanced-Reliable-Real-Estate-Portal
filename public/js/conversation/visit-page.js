@@ -1,4 +1,6 @@
-const socket = io();
+const socket = io('/', {
+    transports: ['websocket']
+});
 let myVideoStream;
 const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
@@ -8,18 +10,18 @@ const peers = {};
 
 // option
 
-// const peer = new Peer(undefined,{
-//     host: PORT == "3000" ?'/':'0.peerjs.com',
-//     port: PORT == "3000" ?PORT:'433',
-//     path: PORT == "3000" ?'/peerjs':'',
-//     secure: PORT != "3000" ? true : false,
-// });
-
 const peer = new Peer(undefined, {
-    secure: true,
-    host: '0.peerjs.com',
-    port: '443'
-})
+    host: PORT == "3000" ? '/' : '0.peerjs.com',
+    port: PORT == "3000" ? PORT : '433',
+    path: PORT == "3000" ? '/peerjs' : '',
+    secure: PORT != "3000" ? true : false,
+});
+
+// const peer = new Peer(undefined, {
+//     secure: true,
+//     host: '0.peerjs.com',
+//     port: '443'
+// })
 
 navigator.mediaDevices.getUserMedia({
     video: true,

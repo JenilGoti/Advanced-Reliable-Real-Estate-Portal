@@ -112,13 +112,13 @@ function visitCard(message, property, isAuth, isVisiter) {
     div.appendChild(body);
     const status = message.message.camVisit.status;
 
-    if (isVisiter && (status == 'requested' || status == 'scheduled' || status == 'started' || status == 'ended')) {
+    if (isVisiter && (status == 'requested' || status == 'scheduled')) {
         const ownBtns = document.createElement('div');
         ownBtns.classList.add("ownBtns");
         const canVBtn = document.createElement('button');
         canVBtn.classList.add("ownBtn");
         canVBtn.classList.add("btn1");
-        canVBtn.appendChild(document.createTextNode(status != 'scheduled' ? (status == 'started' ? "join visit" : status) : 'scheduled on ' + (new Date(message.message.camVisit.shaduleDate)).toLocaleDateString('en-GB', {
+        canVBtn.appendChild(document.createTextNode(status != 'scheduled' ? status : 'scheduled on ' + (new Date(message.message.camVisit.shaduleDate)).toLocaleDateString('en-GB', {
             timeZone: 'UTC'
         }) + ", " + (new Date(message.message.camVisit.shaduleDate)).toLocaleTimeString('en-GB', {
             timeZone: 'UTC'

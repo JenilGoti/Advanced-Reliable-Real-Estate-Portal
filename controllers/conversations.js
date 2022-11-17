@@ -244,7 +244,7 @@ exports.getChatBox = (req, res, next) => {
 
 exports.getCamVisitBox = (req, res, next) => {
     const messId = req.params["messId"];
-    message.findById(messId)
+    Message.findById(messId)
         .then(message => {
             res.render("conversation/visit-page", {
                 pageTitle: "Live-Visit",

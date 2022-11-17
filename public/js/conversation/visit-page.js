@@ -9,7 +9,8 @@ const peers = {};
 const peer = new Peer({
     host: '/',
     port: PORT,
-    path: '/peerjs'
+    path: '/peerjs',
+    secure: PORT === "3000" ? true : false,
 });
 
 navigator.mediaDevices.getUserMedia({

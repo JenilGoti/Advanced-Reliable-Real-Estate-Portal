@@ -243,6 +243,7 @@ exports.getChatBox = (req, res, next) => {
 
 
 exports.getCamVisitBox = (req, res, next) => {
+    const port = process.env.PORT || 3000;
     const messId = req.params["messId"];
     Message.findById(messId)
         .then(message => {
@@ -250,6 +251,7 @@ exports.getCamVisitBox = (req, res, next) => {
                 pageTitle: "Live-Visit",
                 path: '/conversations',
                 message: message,
+                port:port,
                 RoomId: messId
             })
         })

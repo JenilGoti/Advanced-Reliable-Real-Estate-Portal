@@ -8,7 +8,7 @@ const peers = {};
 
 const peer = new Peer({
     host: '/',
-    port: 3000,
+    port: PORT,
     path: '/peerjs'
 });
 

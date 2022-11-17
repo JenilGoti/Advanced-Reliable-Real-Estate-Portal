@@ -14,6 +14,8 @@ router.get("/messages/", isAuth, conversationController.getMessages);
 
 router.get("/chat-box/:userId", isAuth, conversationController.getChatBox);
 
+router.get("/visit-box/:messId", isAuth, conversationController.getCamVisitBox);
+
 router.post("/message", isAuth, conversationController.postMessage);
 
 router.post("/reqCamVisit", isAuth, conversationController.postCamVisitRequest);

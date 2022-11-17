@@ -14,11 +14,15 @@ const mongoose = require('mongoose');
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const flash = require('connect-flash');
+const {
+    ExpressPeerServer
+} = require('peer');
+
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.cieakpt.mongodb.net/${process.env.MONGODB_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
 
 const app = express();
-
+var server = require('http').createServer(app);
 
 const store = MongoDBStore({
     uri: MONGODB_URI,
@@ -41,7 +45,11 @@ const errorController = require("./controllers/error");
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+const peerServer = ExpressPeerServer(server, {
+    debug: true
+});
 
+app.use('/peerjs', peerServer);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
@@ -91,22 +99,23 @@ const port = process.env.PORT || 3000;
 
 mongoose.connect(MONGODB_URI)
     .then(result => {
-        const server = app.listen(port, () => {
-            console.log("server started succesfully on " + port);
+        server.listen(port, () => {
+            console.log("server started")
         });
+
         const io = require('./socket').init(server)
         io.on('connection', socket => {
             console.log('Client connected');
             socket.on('join', function (data) {
                 socket.join(data.id);
-                console.log(data);
             });
-            // socket.on('newVisit', (data) => {
-            //     socket.join('/');
-            //     socket.to('/').broadcast.emit("userJoined", id);
-            // });
-            socket.on('disconnect', () => {
-                console.log('user disconnected');
+            socket.on('join-room', (roomId, userId) => {
+                console.log(roomId, userId);
+                socket.join(roomId);
+                socket.to(roomId).emit('user-connected', userId);
+            });
+            socket.on('disconnect', (roomId, userId) => {
+                socket.to(roomId).emit('user-disconnected', userId)
             });
         });
 

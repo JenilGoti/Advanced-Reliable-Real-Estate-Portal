@@ -241,6 +241,28 @@ exports.getChatBox = (req, res, next) => {
 
 }
 
+
+exports.getCamVisitBox = (req, res, next) => {
+    const messId = req.params["messId"];
+    // message.findById(messId)
+    //     .then(message => {
+            res.render("conversation/visit-page", {
+                // pageTitle: "Live-Visit",
+                // path: '/conversations',
+                // message: message,
+                RoomId: messId
+            })
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        //     const error = new Error("Visit not found");
+        //     error.statusCode = 404;
+        //     error.discription = "visit not found"
+        //     next(error);
+        // })
+}
+
+
 exports.postCamVisitRequest = (req, res, next) => {
     const propId = req.body.propId;
     const sender = res.locals.user._id;

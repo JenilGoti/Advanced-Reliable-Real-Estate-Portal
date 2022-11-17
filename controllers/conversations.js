@@ -413,7 +413,7 @@ const startVisit = (message, req) => {
             sendNotification([result.users[0].user, result.users[1].user],
                 " your visit has been started on NESTSCOUT",
                 result.message.text,
-                req.protocol + '://' + req.get('host') + "/conversations/join-visit/" + result._id,
+                req.protocol + '://' + req.get('host') + "/conversations/visit-box/" + result._id,
                 req.protocol + '://' + req.get('host') + "/logo.png"
             );
             setTimeout(() => {

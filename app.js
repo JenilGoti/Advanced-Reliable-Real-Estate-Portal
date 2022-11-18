@@ -119,12 +119,15 @@ mongoose.connect(MONGODB_URI)
                     socket.join(roomId);
                     socket.to(roomId).emit('user-connected', userId);
                 }
+                socket.on('disconnect', () => {
+                    console.log("disconnected:");
+                    socket.to(roomId).emit('user-disconnected', userId)
+                });
             });
-            socket.on('disconnect', (roomId, userId) => {
-                socket.to(roomId).emit('user-disconnected', userId)
+            socket.on('disconnect', () => {
+                console.log("disconnected:");
             });
         });
-
     })
     .catch(err => {
         console.log(err);

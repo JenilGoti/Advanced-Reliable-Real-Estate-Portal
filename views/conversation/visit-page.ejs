@@ -1,25 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script src="/socket.io/socket.io.js" defer></script>
-    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js" defer></script>
-    <script>
-        const PORT='<%=port%>';
-        const ROOM_ID = "<%= RoomId %>";
-    </script>
-    <title>vidiochat</title>
+<%- include('../includes/head.ejs') %>
+<script src="/socket.io/socket.io.js" defer></script>
+<script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js" defer></script>
+<link rel="stylesheet" href="/css/conversation/visit-page.css">
+<script>
+    const PORT = '<%=port%>';
+    const ROOM_ID = "<%= RoomId %>";
+</script>
 </head>
 
 <body>
-    <div id="video-grid">
-
-    </div>
-</body>
-<script src="/js/conversation/visit-page.js" defer></script>
-
-</html>
+    <%- include('../includes/nevbar.ejs') %>
+    <%- include('../includes/appbar.ejs') %>
+    <main>
+        <div id="video-grid">
+            <div class="hendal-btn">
+                <button id="video-ctr">
+                    <span class="material-symbols-outlined">
+                        videocam
+                    </span>
+                </button>
+                <button id="audio-ctr">
+                    <span class="material-symbols-outlined">
+                        mic
+                    </span>
+                </button>
+                <button id="leav-call">
+                    <span class="material-symbols-outlined">
+                        call_end
+                    </span>
+                </button>
+                <button class="switch-cam">
+                    <span class="material-symbols-outlined">
+                        cameraswitch
+                    </span>
+                </button>
+            </div>
+        </div>
+    </main>
+    <script src="/js/conversation/visit-page.js" defer></script>
+    <%- include('../includes/end.ejs') %>

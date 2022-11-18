@@ -1,0 +1,23 @@
+#video-grid {
+    width: 100%;
+    height: calc(100vh - 4.2rem);
+    position: relative;
+    background-color: black;
+}
+
+.mobile-header .floating-action-button {
+    display: none;
+}
+
+#my-video {
+    position: absolute;
+    z-index: 2;
+    width: 10%;
+}
+
+#others-video {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}

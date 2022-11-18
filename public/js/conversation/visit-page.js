@@ -1,8 +1,9 @@
-const socket = io('/');
 let myVideoStream;
 const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
+myVideo.id = "my-video";
 const video = document.createElement('video');
+video.id = "others-video";
 myVideo.muted = true;
 const peers = {};
 
@@ -40,7 +41,7 @@ navigator.mediaDevices.getUserMedia({
 
 socket.on('user-disconnected', (userId) => {
     console.log("disconnected =" + userId);
-    peers.userId.close();
+    peers[userId].close();
 })
 
 

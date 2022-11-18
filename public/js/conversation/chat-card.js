@@ -153,7 +153,8 @@ function visitCard(message, property, isAuth, isVisiter) {
         shedualBtn.appendChild(document.createTextNode(status == 'requested' ? 'schedule' : 'reschedule'));
         ownBtns.appendChild(shedualBtn);
         div.appendChild(ownBtns);
-        shedualBtn.addEventListener("click", () => {
+        const scheduleCall = () => {
+            shedualBtn.removeEventListener("click", scheduleCall);
             fetch(host + '/conversations/shedual-cam-visit/', {
                     method: 'POST',
                     body: new URLSearchParams("visiter=" + message.message.camVisit.visiter + "&messId=" + message._id + "&shaduleDate=" + shedualPicker.value)
@@ -170,7 +171,8 @@ function visitCard(message, property, isAuth, isVisiter) {
                 .catch((err) => {
                     console.log(err);
                 })
-        })
+        }
+        shedualBtn.addEventListener("click", scheduleCall);
     } else if (status == 'started' || status == 'ended') {
         const ownBtns = document.createElement('div');
         ownBtns.classList.add("ownBtns");

@@ -7,6 +7,9 @@ const {
     multerSingleFile,
     fileURL
 } = require("./utils/firebase-helper");
+const {
+    isUuid
+} = require('uuidv4');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -111,8 +114,11 @@ mongoose.connect(MONGODB_URI)
             });
             socket.on('join-room', (roomId, userId) => {
                 console.log(roomId, userId);
-                socket.join(roomId);
-                socket.to(roomId).emit('user-connected', userId);
+                console.log(isUuid(roomId))
+                if (isUuid(roomId)) {
+                    socket.join(roomId);
+                    socket.to(roomId).emit('user-connected', userId);
+                }
             });
             socket.on('disconnect', (roomId, userId) => {
                 socket.to(roomId).emit('user-disconnected', userId)

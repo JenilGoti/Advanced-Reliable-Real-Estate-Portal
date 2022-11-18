@@ -154,6 +154,9 @@ const message = (message, top) => {
 
             })
     } else if (message.message.camVisit) {
+        const prevMess = document.getElementById(message._id);
+
+
         fetch(host + '/property/?page=1&propId=' + message.message.camVisit.property, {
                 method: 'GET',
             })
@@ -162,6 +165,9 @@ const message = (message, top) => {
             })
             .then(result => {
                 if (result.statusCode == 200) {
+                    if (prevMess) {
+                        prevMess.remove()
+                    }
                     console.log(result);
                     const mC = visitCard(message, result.propertys[0], result.isAuth, (message.message.camVisit.visiter.toString() == user1.toString()));
                     mC.classList.add(message.sender.toString() == user1.toString() ? 'sended' : 'recived');

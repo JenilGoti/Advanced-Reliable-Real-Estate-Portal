@@ -4,6 +4,9 @@ const User = require("../models/user");
 const io = require('../socket');
 const mongoose = require('mongoose');
 const {
+    uuid
+} = require('uuidv4');
+const {
     sendNotification
 } = require("../utils/firebase-helper");
 
@@ -251,8 +254,8 @@ exports.getCamVisitBox = (req, res, next) => {
                 pageTitle: "Live-Visit",
                 path: '/conversations',
                 message: message,
-                port:port,
-                RoomId: messId
+                port: port,
+                RoomId: message.message.roomId
             })
         })
         .catch(err => {
@@ -269,23 +272,24 @@ exports.postCamVisitRequest = (req, res, next) => {
     const propId = req.body.propId;
     const sender = res.locals.user._id;
     const reciver = req.body.userId;
+    console.log(propId);
     Message.find({
             'message.camVisit.property': mongoose.Types.ObjectId(propId)
         })
         .then(result => {
-            if (result > 0) {
-                result.message = {
+            if (result.length > 0) {
+                result[0].message = {
                     mType: 'cam-visit',
                     text: res.locals.user.firstName + ' ' + res.locals.user.lastName + ' requeste for cam-visit',
                     camVisit: {
-                        property: propId,
+                        property: mongoose.Types.ObjectId(propId),
                         reqDate: new Date(),
                         status: 'requested',
                         visiter: sender
                     }
                 }
-                result.sender = sender;
-                return result.save();
+                result[0].sender = sender;
+                return result[0].save();
             } else {
                 const message = new Message({
                     message: {
@@ -401,6 +405,7 @@ const startVisit = (message, req) => {
             if (message.message.camVisit.shaduleDate <= (new Date())) {
                 message.message.camVisit.status = 'started';
                 message.upTime = new Date();
+                message.message.roomId = uuid();
                 return message.save();
             }
             return message;
@@ -433,6 +438,7 @@ const endVisit = (message, req) => {
             if (message.message.camVisit.shaduleDate <= (new Date())) {
                 message.message.camVisit.status = 'ended';
                 message.upTime = new Date();
+                message.message.roomId = null;
                 return message.save();
             }
             return message;

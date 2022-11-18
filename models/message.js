@@ -26,13 +26,14 @@ const messageSchema = new Schema({
             shaduleDate: Date,
             status: {
                 type: String,
-                enum: ['requested', 'scheduled','started','ended','success', 'rejected']
+                enum: ['requested', 'scheduled', 'started', 'ended', 'success', 'rejected']
             },
             visiter: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'User',
             }
-        }
+        },
+        roomId: String
     },
     users: [{
         user: {

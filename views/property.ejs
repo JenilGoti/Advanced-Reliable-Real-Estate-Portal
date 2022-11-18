@@ -115,74 +115,70 @@
                                     <td><%=property.additionalDetail.ageOfProperty%> year old</td>
                                 </tr>
                                 <tr>
-                                    <td><%=property.additionalDetail.furnished%></td>
                                     <td><%=property.additionalDetail.facing%> facing</td>
+                                    <td><%=property.additionalDetail.totalFloors%> total Floors</td>
                                 </tr>
                                 <tr>
                                     <td><%=property.additionalDetail.floorNo%> floor</td>
-                                    <td><%=property.additionalDetail.totalFloors%> total Floors</td>
-                                </tr>
-                                <%if(property.priceArea.priceNegotiable){%>
-                                <tr>
+                                    <%if(property.priceArea.priceNegotiable){%>
                                     <td>price Negotiable</td>
-                                    <td></td>
+                                    <%}%>    
                                 </tr>
-
-                                <%}%>                
+                                            
             </table>
                     <%if(property.likes.length>0){%>
-                                <h3 id="likes" class="sub-heding">liked by</h3>
-                                <div class="likes">
-                                    <%for(var i=0;i<property.likes.length;i++){%>
-                                    <a href="/profile/<%=property.likes[i]._id%>">
-                                        <img src="<%=property.likes[i].user_thumbnail.small%>" alt="">
-                                        <h4><%=property.likes[i].firstName%> <%=property.likes[i].lastName%></h4>
-                                    </a>
-                                    <%}}%>
+                                    <h3 id="likes" class="sub-heding">liked by</h3>
+                                    <div class="likes">
+                                        <%for(var i=0;i<property.likes.length;i++){%>
+                                        <a href="/profile/<%=property.likes[i]._id%>">
+                                            <img src="<%=property.likes[i].user_thumbnail.small%>" alt="">
+                                            <h4><%=property.likes[i].firstName%> <%=property.likes[i].lastName%></h4>
+                                        </a>
+                                        <%}}%>
 
-                                </div>
-                                <%if(property.queAns.length>0){%>
-                                <h3 id="question-and-answer" class="sub-heding">Question And Answer</h3>
-                                <%}%>
+                                    </div>
+                                    <%if(property.queAns.length>0){%>
+                                    <h3 id="question-and-answer" class="sub-heding">Question And Answer</h3>
+                                    <%}%>
                                 <div id="q&a" class="question-and-answer">
                                     <%for(var i=0;i<property.queAns.length;i++){%>
-                                <div id="<%=property.queAns[i]._id%>" class="q-a-container value">
-                                    <div class="user">
-                                        <a href="/profile/<%=property.queAns[i].userId._id%>">
-                                            <img src="<%=property.queAns[i].userId.user_thumbnail.small%>" alt="">
-                                            <h6><%=property.queAns[i].userId.firstName%></h6>
-                                        </a>
-                                    </div>
-                                    <div class="q-a">
-                                        <div class="question">
-                                            <h4><span><strong>Q.</strong> </span><%=property.queAns[i].question%>
-                                            </h4>
+                                    <div id="<%=property.queAns[i]._id%>" class="q-a-container value">
+                                        <div class="user">
+                                            <a href="/profile/<%=property.queAns[i].userId._id%>">
+                                                <img src="<%=property.queAns[i].userId.user_thumbnail.small%>" alt="">
+                                                <h6><%=property.queAns[i].userId.firstName%></h6>
+                                            </a>
                                         </div>
-                                        <div class="answer">
-                                            <%if(isOwner&&!property.queAns[i].answer){%>
-                                            <div class="ask-question">
-                                                <input id="ans-<%=property.queAns[i]._id%>" type="text" name="answer"
-                                                    placeholder="Answer to the question" required>
-                                                <button class="btn1"
-                                                    onclick="Answer('<%=property.queAns[i]._id%>')">Answer</button>
+                                        <div class="q-a">
+                                            <div class="question">
+                                                <h4><span><strong>Q.</strong> </span><%=property.queAns[i].question%>
+                                                </h4>
                                             </div>
-                                            <%}else{%>
-                                            <h5><span><strong>A.</strong>
+                                            <div class="answer">
+                                                <%if(isOwner&&!property.queAns[i].answer){%>
+                                                <div class="ask-question">
+                                                    <input id="ans-<%=property.queAns[i]._id%>" type="text"
+                                                        name="answer" placeholder="Answer to the question" required>
+                                                    <button class="btn1"
+                                                        onclick="Answer('<%=property.queAns[i]._id%>')">Answer</button>
+                                                </div>
+                                                <%}else{%>
+                                                <h5><span><strong>A.</strong>
 
-                                                </span><%=property.queAns[i].answer||'waiting for the answer'%></h5>
-                                            <%}%>
+                                                    </span><%=property.queAns[i].answer||'waiting for the answer'%></h5>
+                                                <%}%>
                                                 
                                         </div>
                                     </div>
 
                                 </div>
                                 <%}if(!isOwner&&isAuthenticated){%>
-                                            <div id="que" class="ask-question">
-                                                <input id="question" type="text" name="question"
-                                                    placeholder="Ask question hear" required>
-                                                <button id="question-submit-btn" class="btn1">Ask Question</button>
-                                            </div>
-                                            <%}%>
+                                                <div id="que" class="ask-question">
+                                                    <input id="question" type="text" name="question"
+                                                        placeholder="Ask question hear" required>
+                                                    <button id="question-submit-btn" class="btn1">Ask Question</button>
+                                                </div>
+                                                <%}%>
                                 </div>
                         </div>
                     </div>

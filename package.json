@@ -36,7 +36,8 @@
     "request": "^2.88.2",
     "resize-image-buffer": "^1.0.0",
     "salted-md5": "^4.0.3",
-    "socket.io": "^4.5.3"
+    "socket.io": "^4.5.3",
+    "uuidv4": "^6.2.13"
   },
   "author": "jenil goti",
   "license": "ISC"

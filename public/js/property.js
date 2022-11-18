@@ -288,8 +288,9 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false, isChat
         canVBtn.appendChild(document.createTextNode("Request Cam-Visit"));
         ownBtns.appendChild(canVBtn);
         div.appendChild(ownBtns);
-        canVBtn.addEventListener("click", () => {
+        const sendRequest = () => {
             console.log("request for cam visit");
+            canVBtn.removeEventListener("click", sendRequest)
             fetch(host + '/conversations/reqCamVisit/', {
                     method: 'POST',
                     body: new URLSearchParams("propId=" + property._id + "&userId=" + user2)
@@ -301,12 +302,19 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false, isChat
                     if (result.statusCode == 200) {
                         console.log(result);
                     }
+                    setTimeout(() => {
+                        canVBtn.addEventListener("click", sendRequest)
+                    }, 3000);
                 })
                 .catch(err => {
                     console.log(err);
                     alert(err);
+                    setTimeout(() => {
+                        canVBtn.addEventListener("click", sendRequest)
+                    }, 3000);
                 })
-        })
+        }
+        canVBtn.addEventListener("click", sendRequest)
     }
     return div;
 }

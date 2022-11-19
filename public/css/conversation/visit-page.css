@@ -49,3 +49,6 @@
 #video-grid .hendal-btn button#leav-call{
     background-color: red;
 }
+@media (max-width: 600px) {
+    height: calc(100vh - 12.6rem);
+}

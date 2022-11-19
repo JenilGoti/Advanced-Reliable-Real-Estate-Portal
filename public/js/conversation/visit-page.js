@@ -92,7 +92,7 @@ function addVideoStream(video, stream) {
 
 const switchCemera = () => {
     if (_stream != null) {
-        shouldFaceUser = shouldFaceUser == true ? true : false;
+        shouldFaceUser = shouldFaceUser == true ? false : true;
         defaultsOpts.video = {
             facingMode: shouldFaceUser ? 'user' : 'environment'
         }

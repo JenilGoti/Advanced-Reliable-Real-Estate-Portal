@@ -28,7 +28,7 @@ let defaultsOpts = {
     audio: true,
     video: true
 }
-let shouldFaceUser = true; //Default is the front cam
+let shouldFaceUser = false; //Default is the front cam
 
 defaultsOpts.video = {
     facingMode: shouldFaceUser ? 'user' : 'environment'

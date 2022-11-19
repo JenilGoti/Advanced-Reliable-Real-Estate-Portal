@@ -24,45 +24,38 @@ let supports = navigator.mediaDevices.getSupportedConstraints();
 if (supports['facingMode'] === true) {
     flipBtn.disabled = false;
 }
-let defaultsOpts = {
-    audio: false,
-    video: true
-}
-let shouldFaceUser = false; //Default is the front cam
+let defaultsOpts = { audio: false, video: true }
+let shouldFaceUser = true; //Default is the front cam
 let opts = {
     audio: true,
-    video: true
+    video: true,
 }
-defaultsOpts.video = {
-    facingMode: shouldFaceUser ? 'user' : 'environment'
-}
-
+// defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
+ 
 let stream = null;
 
 function capture() {
-    defaultsOpts.video = {
-        facingMode: shouldFaceUser ? 'user' : 'environment'
-    }
-    navigator.mediaDevices.getUserMedia(defaultsOpts)
-        .then(function (_stream) {
-            stream = _stream;
-            videoElm.srcObject = stream;
-            videoElm.play();
-        })
-        .catch(function (err) {
-            console.log(err)
-        });
+  defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
+  navigator.mediaDevices.getUserMedia(defaultsOpts)
+    .then(function(_stream) {
+      stream  = _stream;
+      videoElm.srcObject = stream;
+      videoElm.play();
+    })
+    .catch(function(err) {
+      console.log(err)
+    });
 }
 
-flipBtn.addEventListener('click', function () {
-    if (stream == null) return
-    // we need to flip, stop everything
-    stream.getTracks().forEach(t => {
-        t.stop();
-    });
-    // toggle / flip
-    shouldFaceUser = !shouldFaceUser;
-    capture();
+flipBtn.addEventListener('click', function(){
+  if( stream == null ) return
+  // we need to flip, stop everything
+  stream.getTracks().forEach(t => {
+    t.stop();
+  });
+  // toggle / flip
+  shouldFaceUser = !shouldFaceUser;
+  capture();
 })
 
 capture();

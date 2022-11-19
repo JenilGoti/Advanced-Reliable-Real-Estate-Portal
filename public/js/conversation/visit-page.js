@@ -42,10 +42,14 @@ socket.on('user-disconnected', (userId) => {
 })
 
 socket.on('user-update', (userId) => {
-    peers[userId].on('stream', userVideoStream => {
-        addVideoStream(video, userVideoStream);
-    }, err => {
-        console.log(err);
+    peer.on('call', call => {
+        call.answer(_stream);
+        call.on('stream', userVideoStream => {
+            addVideoStream(video, userVideoStream);
+
+        }, err => {
+            console.log(err);
+        })
     })
 })
 

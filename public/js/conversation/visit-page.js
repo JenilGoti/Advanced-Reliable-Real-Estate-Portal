@@ -30,11 +30,11 @@ let defaultsOpts = {
 }
 let shouldFaceUser = true; //Default is the front cam
 
-// defaultsOpts.video = {
-//     facingMode: shouldFaceUser ? 'user' : 'environment'
-// }
+defaultsOpts.video = {
+    facingMode: shouldFaceUser ? 'user' : 'environment'
+}
 
-// let stream = null;
+let stream = null;
 
 // function capture() {
 //   defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
@@ -63,7 +63,6 @@ let shouldFaceUser = true; //Default is the front cam
 // capture();
 
 navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
-    alert()
     addVideoStream(myVideo, stream);
     peer.on('call', call => {
         call.answer(stream);

@@ -24,7 +24,7 @@ option = PORT == '3000' ? {
 const peer = new Peer(undefined, option);
 
 let supports = navigator.mediaDevices.getSupportedConstraints();
-if (supports['facingMode'] === true) {
+if (supports['facingMode'] != true) {
     // flipBtn.disabled = false;
     alert('not a facing mode')
 }
@@ -93,11 +93,9 @@ function addVideoStream(video, stream) {
 const switchCemera = () => {
     if (_stream != null) {
         shouldFaceUser = !shouldFaceUser;
-        _stream.getVideoTracks().forEach(function (track) {
-            track.stop();
-        });
         navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
-            _stream.replaceTrack(stream.getVideoTracks())
+            _stream=stream;
+            log
         });
 
     }

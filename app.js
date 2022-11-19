@@ -123,7 +123,7 @@ mongoose.connect(MONGODB_URI)
                                 console.log("disconnected:");
                                 socket.to(roomId).emit('user-disconnected', userId)
                             });
-                            socket.on('user-update', () => {
+                            socket.on('update', () => {
                                 socket.to(roomId).emit('user-updated', userId)
                             })
                     });

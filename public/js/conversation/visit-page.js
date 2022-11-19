@@ -42,6 +42,7 @@ socket.on('user-disconnected', (userId) => {
 })
 
 socket.on('user-update', (userId) => {
+    console.log('update');
     peer.on('call', call => {
         call.answer(_stream);
         call.on('stream', userVideoStream => {

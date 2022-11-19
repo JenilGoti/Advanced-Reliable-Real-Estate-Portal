@@ -44,12 +44,12 @@ socket.on('user-disconnected', (userId) => {
 
 socket.on('user-updated', (userId) => {
     console.log('update');
-    peers[userId].on('stream', userVideoStream => {
-        addVideoStream(video, userVideoStream);
+        peers[userId].on('stream', userVideoStream => {
+            addVideoStream(video, userVideoStream);
 
-    }, err => {
-        console.log(err);
-    })
+        }, err => {
+            console.log(err);
+        })
 })
 
 
@@ -63,7 +63,7 @@ navigator.mediaDevices.getUserMedia({
     _stream = stream;
     addVideoStream(myVideo, _stream);
     peer.on('call', call => {
-
+        
         call.answer(_stream);
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream);
@@ -79,7 +79,7 @@ navigator.mediaDevices.getUserMedia({
 
 function connectToNewUser(userId, stream) {
     const call = peer.call(userId, stream);
-    peerConnection = call.getSenders()
+    peerConnection=call.getSenders()
     call.on('stream', userVideoStream => {
         addVideoStream(video, userVideoStream);
     }, err => {
@@ -119,7 +119,12 @@ const switchCemera = () => {
                 call.answer(_stream);
                 call.on('stream', userVideoStream => {
                     addVideoStream(video, userVideoStream);
-                    peerConnection[1].replaceTrack(_stream.getTracks()[1])
+                    const [videoTrack] = _stream.getVideoTracks();
+                    peerConnection.forEach((pc) => {
+                      const sender = pc.getSenders().find((s) => s.track.kind === videoTrack.kind);
+                      console.log('Found sender:', sender);
+                      sender.replaceTrack(videoTrack);
+                    });
                 }, err => {
                     console.log(err);
                 })

@@ -50,5 +50,7 @@
     background-color: red;
 }
 @media (max-width: 600px) {
-    height: calc(100vh - 12.6rem);
+    #video-grid {
+    height: calc(100vh - 12.6rem);\
+    }
 }

@@ -13,6 +13,10 @@
     <%- include('../includes/appbar.ejs') %>
     <main>
         <div id="video-grid">
+            <div class="comment">
+                <h3>Waiting for connecting user</h3>
+                <button id="notify" class="btn1" style="padding: 0 1rem;">Notify User</button>
+            </div>
             <div class="hendal-btn">
                 <button id="video-ctr">
                     <span class="material-symbols-outlined">
@@ -24,7 +28,7 @@
                         mic
                     </span>
                 </button>
-                <button id="leav-call">
+                <button id="leav-call" onclick="history.back()">
                     <span class="material-symbols-outlined">
                         call_end
                     </span>

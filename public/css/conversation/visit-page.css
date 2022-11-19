@@ -6,11 +6,20 @@
     overflow: hidden;
 }
 
+#video-grid .comment {
+    position: absolute;
+    color: var(--fc1);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 45vh;
+}
+
 .mobile-header .floating-action-button {
     display: none;
 }
 
-#my-video {
+.my-video {
     margin: 1.2rem;
     align-items: flex-start;
     position: absolute;
@@ -21,7 +30,7 @@
     border-radius: 5px;
 }
 
-#others-video {
+.others-video {
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -39,23 +48,35 @@
     justify-content: center;
 }
 
-#video-grid .hendal-btn button{
+#video-grid .hendal-btn button {
     margin: 0 0.4rem;
-    padding: 0.8rem 0.9rem;
+    padding: 0.9rem 0.9rem 0.75rem 0.9rem;
     border-radius: 100%;
     border: none;
+    background-color: var(--bc1);
+    color: var(--fc1);
 }
 
-#video-grid .hendal-btn button#leav-call{
+#video-grid .hendal-btn button .material-symbols-outlined {
+    font-weight: 600;
+}
+
+#video-grid .hendal-btn button#leav-call {
     background-color: red;
 }
 
-/* #video-grid .hendal-btn button#switch-cam{
+#video-grid .hendal-btn button#switch-cam {
     display: none;
-} */
+}
 
-/* @media (max-width: 600px) {
-    #video-grid .hendal-btn button#switch-cam{
+#video-grid.fullScreen {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+@media (max-width: 600px) {
+    #video-grid .hendal-btn button#switch-cam {
         display: unset;
     }
-} */
+}

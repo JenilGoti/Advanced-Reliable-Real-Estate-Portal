@@ -20,16 +20,13 @@ option = PORT == '3000' ? {
 const peer = new Peer(undefined, option);
 
 
-let supports = navigator.mediaDevices.getSupportedConstraints();
-if (supports['facingMode'] === true) {
-    flipBtn.disabled = false;
-}
+// let supports = navigator.mediaDevices.getSupportedConstraints();
+// if (supports['facingMode'] === true) {
+//     flipBtn.disabled = false;
+// }
 let defaultsOpts = { audio: false, video: true }
 let shouldFaceUser = true; //Default is the front cam
-let opts = {
-    audio: true,
-    video: true,
-}
+
 // defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
  
 let stream = null;

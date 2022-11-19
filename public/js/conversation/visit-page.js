@@ -1,5 +1,7 @@
 let myVideoStream;
 const videoGrid = document.getElementById("video-grid");
+const onOffVidBtn = document.getElementById("video-ctr");
+const onOffAudBtn = document.getElementById("audio-ctr");
 const switchCamBtn = document.getElementById("switch-cam");
 
 
@@ -21,20 +23,25 @@ option = PORT == '3000' ? {
     port: '443'
 };
 
+var isVidOn = true;
+var isAudOn = true;
+
+
 const peer = new Peer(undefined, option);
 
 let supports = navigator.mediaDevices.getSupportedConstraints();
 if (supports['facingMode'] != true) {
-    // flipBtn.disabled = false;
     alert('not a facing mode')
 }
 let shouldFaceUser = true;
-//open peer
 
+//open peer
 peer.on("open", (id) => {
     console.log(id);
     socket.emit("join-room", ROOM_ID, id);
 });
+
+// soket listning
 
 socket.on('user-disconnected', (userId) => {
     console.log("disconnected =" + userId);
@@ -47,7 +54,7 @@ socket.on('user-updated', (userId) => {
     peer.reconnect();
 })
 
-
+// streaming start
 
 navigator.mediaDevices.getUserMedia({
     audio: true,
@@ -70,6 +77,7 @@ navigator.mediaDevices.getUserMedia({
         setTimeout(connectToNewUser, 1000, userId, stream)
     })
 })
+
 
 function connectToNewUser(userId, stream) {
     const call = peer.call(userId, stream);
@@ -116,5 +124,15 @@ const switchCemera = () => {
     }
 }
 
+switchAudio = () => {
+    _stream.getAudioTracks().forEach(track => track.enabled = !track.enabled);
+}
+
+
+switchVideo = () => {
+    _stream.getVideoTracks().forEach(track => track.enabled = !track.enabled);
+}
 
 switchCamBtn.addEventListener('click', switchCemera);
+onOffAudBtn.addEventListener('click', switchAudio);
+onOffVidBtn.addEventListener('click', switchVideo);

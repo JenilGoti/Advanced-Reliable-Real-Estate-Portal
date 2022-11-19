@@ -46,6 +46,7 @@ navigator.mediaDevices.getUserMedia({
         setTimeout(connectToNewUser, 1000, userId, stream)
     })
 })
+.catch(err=>alert(err));
 
 socket.on('user-disconnected', (userId) => {
     console.log("disconnected =" + userId);

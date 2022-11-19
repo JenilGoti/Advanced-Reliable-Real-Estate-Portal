@@ -10,6 +10,7 @@ video.id = "others-video";
 myVideo.muted = true;
 var _stream = null;
 const peers = {};
+var peerConnection;
 
 option = PORT == '3000' ? {
     host: '/',
@@ -41,16 +42,13 @@ socket.on('user-disconnected', (userId) => {
     peers[userId].close();
 })
 
-socket.on('user-update', (userId) => {
+socket.on('user-updated', (userId) => {
     console.log('update');
-    peer.on('call', call => {
-        call.answer(_stream);
-        call.on('stream', userVideoStream => {
-            addVideoStream(video, userVideoStream);
+    peers[userId].on('stream', userVideoStream => {
+        addVideoStream(video, userVideoStream);
 
-        }, err => {
-            console.log(err);
-        })
+    }, err => {
+        console.log(err);
     })
 })
 
@@ -65,6 +63,7 @@ navigator.mediaDevices.getUserMedia({
     _stream = stream;
     addVideoStream(myVideo, _stream);
     peer.on('call', call => {
+
         call.answer(_stream);
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream);
@@ -80,6 +79,7 @@ navigator.mediaDevices.getUserMedia({
 
 function connectToNewUser(userId, stream) {
     const call = peer.call(userId, stream);
+    peerConnection = call.getSenders()
     call.on('stream', userVideoStream => {
         addVideoStream(video, userVideoStream);
     }, err => {
@@ -119,7 +119,7 @@ const switchCemera = () => {
                 call.answer(_stream);
                 call.on('stream', userVideoStream => {
                     addVideoStream(video, userVideoStream);
-
+                    peerConnection[1].replaceTrack(_stream.getTracks()[1])
                 }, err => {
                     console.log(err);
                 })

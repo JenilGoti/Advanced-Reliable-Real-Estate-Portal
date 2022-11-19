@@ -89,6 +89,10 @@ function addVideoStream(video, stream) {
 
 const switchCemera = () => {
     if (_stream != null) {
+        if (_stream) {
+            const tracks = _stream.getTracks();
+            tracks.forEach(track => track.stop());
+          }
         shouldFaceUser = shouldFaceUser == true ? false : true;
         navigator.mediaDevices.getUserMedia({
             audio: true,

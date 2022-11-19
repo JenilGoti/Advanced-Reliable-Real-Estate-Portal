@@ -24,11 +24,16 @@ const peer = new Peer(undefined, option);
 // if (supports['facingMode'] === true) {
 //     flipBtn.disabled = false;
 // }
-let defaultsOpts = { audio: false, video: true }
+let defaultsOpts = {
+    audio: false,
+    video: true
+}
 let shouldFaceUser = true; //Default is the front cam
 
-defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
- 
+// defaultsOpts.video = {
+//     facingMode: shouldFaceUser ? 'user' : 'environment'
+// }
+
 let stream = null;
 
 // function capture() {

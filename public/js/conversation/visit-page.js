@@ -28,15 +28,7 @@ if (supports['facingMode'] != true) {
     // flipBtn.disabled = false;
     alert('not a facing mode')
 }
-let defaultsOpts = {
-    audio: true,
-    video: true
-}
 let shouldFaceUser = true;
-defaultsOpts.video = {
-    facingMode: shouldFaceUser ? 'user' : 'environment'
-}
-
 //open peer
 
 peer.on("open", (id) => {
@@ -46,7 +38,12 @@ peer.on("open", (id) => {
 
 
 
-navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
+navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: {
+        facingMode: shouldFaceUser ? 'user' : 'environment'
+    }
+}).then(stream => {
     _stream = stream;
     addVideoStream(myVideo, _stream);
     peer.on('call', call => {
@@ -93,8 +90,12 @@ function addVideoStream(video, stream) {
 const switchCemera = () => {
     if (_stream != null) {
         shouldFaceUser = shouldFaceUser == true ? false : true;
-        defaultsOpts.video.facingMode = shouldFaceUser ? 'user' : 'environment';
-        navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
+        navigator.mediaDevices.getUserMedia({
+            audio: true,
+            video: {
+                facingMode: shouldFaceUser ? 'user' : 'environment'
+            }
+        }).then(stream => {
             _stream = stream;
             console.log('stream chenged', shouldFaceUser, defaultsOpts);
         });

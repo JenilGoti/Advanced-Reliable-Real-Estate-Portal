@@ -7,10 +7,9 @@ const {
     multerSingleFile,
     fileURL
 } = require("./utils/firebase-helper");
-
 const {
-    cuntrollVisit
-} = require("./utils/visit-helper")
+    isUuid
+} = require('uuidv4');
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -113,7 +112,21 @@ mongoose.connect(MONGODB_URI)
             socket.on('join', function (data) {
                 socket.join(data.id);
             });
-            cuntrollVisit(socket);
+            socket.on('join-room', (roomId, userId) => {
+                console.log(roomId, userId);
+                console.log(isUuid(roomId))
+                if (isUuid(roomId)) {
+                    socket.join(roomId);
+                    socket.to(roomId).emit('user-connected', userId);
+                }
+                socket.on('disconnect', () => {
+                    console.log("disconnected:");
+                    socket.to(roomId).emit('user-disconnected', userId)
+                });
+            });
+            socket.on('disconnect', () => {
+                console.log("disconnected:");
+            });
         });
     })
     .catch(err => {

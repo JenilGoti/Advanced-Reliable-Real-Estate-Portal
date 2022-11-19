@@ -50,7 +50,7 @@ navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
     _stream = stream;
     addVideoStream(myVideo, _stream);
     peer.on('call', call => {
-        call.answer(stream);
+        call.answer(_stream);
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream);
 
@@ -93,24 +93,9 @@ function addVideoStream(video, stream) {
 const switchCemera = () => {
     if (_stream != null) {
         shouldFaceUser = shouldFaceUser == true ? false : true;
-        defaultsOpts.video = {
-            facingMode: shouldFaceUser ? 'user' : 'environment'
-        }
+        defaultsOpts.video.facingMode = shouldFaceUser ? 'user' : 'environment';
         navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
             _stream = stream;
-            addVideoStream(myVideo, _stream);
-            peer.on('call', call => {
-                call.answer(stream);
-                call.on('stream', userVideoStream => {
-                    addVideoStream(video, userVideoStream);
-
-                }, err => {
-                    console.log(err);
-                })
-            })
-            socket.on('user-connected', (userId) => {
-                setTimeout(connectToNewUser, 1000, userId, stream)
-            })
             console.log('stream chenged', shouldFaceUser, defaultsOpts);
         });
 

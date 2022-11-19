@@ -26,9 +26,7 @@ if (!supports['facingMode']) {
 }
 console.log(supports)
 navigator.mediaDevices.getUserMedia({
-    video: {
-        facingMode: 'environment'// Or 'user' 
-    },
+    video: true,
     audio: true
 }).then(stream => {
     addVideoStream(myVideo, stream);

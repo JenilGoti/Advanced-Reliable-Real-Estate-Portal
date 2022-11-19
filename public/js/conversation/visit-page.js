@@ -22,23 +22,53 @@ const peer = new Peer(undefined, option);
 
 let supports = navigator.mediaDevices.getSupportedConstraints();
 if (supports['facingMode'] === true) {
-    alert('facing true')
+    flipBtn.disabled = false;
 }
-else{
-    alert('false');
+let defaultsOpts = {
+    audio: false,
+    video: true
 }
-
-let shouldFaceUser = false;
+let shouldFaceUser = false; //Default is the front cam
 let opts = {
     audio: true,
-    video: {
+    video: true
+}
+defaultsOpts.video = {
+    facingMode: shouldFaceUser ? 'user' : 'environment'
+}
+
+let stream = null;
+
+function capture() {
+    defaultsOpts.video = {
         facingMode: shouldFaceUser ? 'user' : 'environment'
     }
-};
+    navigator.mediaDevices.getUserMedia(defaultsOpts)
+        .then(function (_stream) {
+            stream = _stream;
+            videoElm.srcObject = stream;
+            videoElm.play();
+        })
+        .catch(function (err) {
+            console.log(err)
+        });
+}
+
+flipBtn.addEventListener('click', function () {
+    if (stream == null) return
+    // we need to flip, stop everything
+    stream.getTracks().forEach(t => {
+        t.stop();
+    });
+    // toggle / flip
+    shouldFaceUser = !shouldFaceUser;
+    capture();
+})
+
+capture();
 
 navigator.mediaDevices.getUserMedia(opts).then(stream => {
     addVideoStream(myVideo, stream);
-
     peer.on('call', call => {
         call.answer(stream);
         call.on('stream', userVideoStream => {

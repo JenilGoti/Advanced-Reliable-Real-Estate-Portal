@@ -19,8 +19,16 @@ option = PORT == '3000' ? {
 
 const peer = new Peer(undefined, option);
 
+
+// const supports = navigator.mediaDevices.getSupportedConstraints();
+// if (!supports['facingMode']) {
+//     alert('This browser does not support facingMode!');
+// }
+// console.log(supports)
 navigator.mediaDevices.getUserMedia({
-    video: true,
+    video: {
+        facingMode: 'environment'// Or 'user' 
+    },
     audio: true
 }).then(stream => {
     addVideoStream(myVideo, stream);

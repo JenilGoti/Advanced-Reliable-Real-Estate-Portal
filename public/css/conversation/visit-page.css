@@ -46,4 +46,6 @@
     border: none;
 }
 
-
+#video-grid .hendal-btn button#leav-call{
+    background-color: red;
+}

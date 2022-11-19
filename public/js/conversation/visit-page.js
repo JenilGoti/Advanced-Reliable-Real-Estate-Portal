@@ -20,17 +20,20 @@ option = PORT == '3000' ? {
 const peer = new Peer(undefined, option);
 
 
-const supports = navigator.mediaDevices.getSupportedConstraints();
-if (!supports['facingMode']) {
-    alert('This browser does not support facingMode!');
+let supports = navigator.mediaDevices.getSupportedConstraints();
+if (supports['facingMode'] === true) {
+    alert('facing true')
 }
-console.log(supports)
-navigator.mediaDevices.getUserMedia({
+
+let shouldFaceUser = false;
+let opts = {
+    audio: true,
     video: {
-        facingMode: {exact : 'environment'}
-    },
-    audio: true
-}).then(stream => {
+        facingMode: shouldFaceUser ? 'user' : 'environment'
+    }
+};
+
+navigator.mediaDevices.getUserMedia(opts).then(stream => {
     addVideoStream(myVideo, stream);
 
     peer.on('call', call => {
@@ -46,7 +49,6 @@ navigator.mediaDevices.getUserMedia({
         setTimeout(connectToNewUser, 1000, userId, stream)
     })
 })
-.catch(err=>alert(err));
 
 socket.on('user-disconnected', (userId) => {
     console.log("disconnected =" + userId);

@@ -51,6 +51,6 @@
 }
 @media (max-width: 600px) {
     #video-grid {
-    height: calc(100vh - 8.2rem);\
+    height: calc(100vh - 8.2rem);
     }
 }

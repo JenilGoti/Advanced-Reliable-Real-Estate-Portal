@@ -97,6 +97,7 @@ const switchCemera = () => {
             }
         }).then(stream => {
             _stream = stream;
+            addVideoStream(myVideo, _stream);
             peer.on('call', call => {
                 call.answer(_stream);
                 call.on('stream', userVideoStream => {

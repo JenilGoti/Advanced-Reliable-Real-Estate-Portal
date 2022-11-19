@@ -24,6 +24,9 @@ let supports = navigator.mediaDevices.getSupportedConstraints();
 if (supports['facingMode'] === true) {
     alert('facing true')
 }
+else{
+    alert('false');
+}
 
 let shouldFaceUser = false;
 let opts = {

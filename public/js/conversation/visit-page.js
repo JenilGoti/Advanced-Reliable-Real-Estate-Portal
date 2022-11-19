@@ -1,10 +1,14 @@
 let myVideoStream;
 const videoGrid = document.getElementById("video-grid");
+const switchCamBtn = document.getElementById("switch-cam");
+
+
 const myVideo = document.createElement("video");
 myVideo.id = "my-video";
 const video = document.createElement('video');
 video.id = "others-video";
 myVideo.muted = true;
+var _stream = null;
 const peers = {};
 
 option = PORT == '3000' ? {
@@ -19,51 +23,32 @@ option = PORT == '3000' ? {
 
 const peer = new Peer(undefined, option);
 
-
-// let supports = navigator.mediaDevices.getSupportedConstraints();
-// if (supports['facingMode'] === true) {
-//     flipBtn.disabled = false;
-// }
+let supports = navigator.mediaDevices.getSupportedConstraints();
+if (supports['facingMode'] === true) {
+    // flipBtn.disabled = false;
+    alert('not a facing mode')
+}
 let defaultsOpts = {
     audio: true,
     video: true
 }
-let shouldFaceUser = false; //Default is the front cam
-
+let shouldFaceUser = false;
 defaultsOpts.video = {
     facingMode: shouldFaceUser ? 'user' : 'environment'
 }
 
-let stream = null;
+//open peer
 
-// function capture() {
-//   defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
-//   navigator.mediaDevices.getUserMedia(defaultsOpts)
-//     .then(function(_stream) {
-//       stream  = _stream;
-//       videoElm.srcObject = stream;
-//       videoElm.play();
-//     })
-//     .catch(function(err) {
-//       console.log(err)
-//     });
-// }
+peer.on("open", (id) => {
+    console.log(id);
+    socket.emit("join-room", ROOM_ID, id);
+});
 
-// flipBtn.addEventListener('click', function(){
-//   if( stream == null ) return
-//   // we need to flip, stop everything
-//   stream.getTracks().forEach(t => {
-//     t.stop();
-//   });
-//   // toggle / flip
-//   shouldFaceUser = !shouldFaceUser;
-//   capture();
-// })
 
-// capture();
 
 navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
-    addVideoStream(myVideo, stream);
+    _stream = stream;
+    addVideoStream(myVideo, _stream);
     peer.on('call', call => {
         call.answer(stream);
         call.on('stream', userVideoStream => {
@@ -82,12 +67,6 @@ socket.on('user-disconnected', (userId) => {
     console.log("disconnected =" + userId);
     peers[userId].close();
 })
-
-
-peer.on("open", (id) => {
-    console.log(id);
-    socket.emit("join-room", ROOM_ID, id);
-});
 
 function connectToNewUser(userId, stream) {
     const call = peer.call(userId, stream);
@@ -110,3 +89,19 @@ function addVideoStream(video, stream) {
     })
     videoGrid.append(video)
 }
+
+const switchCemera = () => {
+    if (_stream != null) {
+        shouldFaceUser = !shouldFaceUser;
+        _stream.getVideoTracks().forEach(function (track) {
+            track.stop();
+        });
+        navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
+            _stream.replaceTrack(stream.getVideoTracks())
+        });
+
+    }
+}
+
+
+switchCamBtn.addEventListener('click', switchCemera);

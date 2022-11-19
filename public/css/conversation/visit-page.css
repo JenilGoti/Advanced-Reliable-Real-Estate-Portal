@@ -49,3 +49,13 @@
 #video-grid .hendal-btn button#leav-call{
     background-color: red;
 }
+
+/* #video-grid .hendal-btn button#switch-cam{
+    display: none;
+} */
+
+/* @media (max-width: 600px) {
+    #video-grid .hendal-btn button#switch-cam{
+        display: unset;
+    }
+} */

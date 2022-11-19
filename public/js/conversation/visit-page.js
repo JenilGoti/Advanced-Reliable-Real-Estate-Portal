@@ -31,31 +31,31 @@ let shouldFaceUser = true; //Default is the front cam
  
 let stream = null;
 
-function capture() {
-  defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
-  navigator.mediaDevices.getUserMedia(defaultsOpts)
-    .then(function(_stream) {
-      stream  = _stream;
-      videoElm.srcObject = stream;
-      videoElm.play();
-    })
-    .catch(function(err) {
-      console.log(err)
-    });
-}
+// function capture() {
+//   defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
+//   navigator.mediaDevices.getUserMedia(defaultsOpts)
+//     .then(function(_stream) {
+//       stream  = _stream;
+//       videoElm.srcObject = stream;
+//       videoElm.play();
+//     })
+//     .catch(function(err) {
+//       console.log(err)
+//     });
+// }
 
-flipBtn.addEventListener('click', function(){
-  if( stream == null ) return
-  // we need to flip, stop everything
-  stream.getTracks().forEach(t => {
-    t.stop();
-  });
-  // toggle / flip
-  shouldFaceUser = !shouldFaceUser;
-  capture();
-})
+// flipBtn.addEventListener('click', function(){
+//   if( stream == null ) return
+//   // we need to flip, stop everything
+//   stream.getTracks().forEach(t => {
+//     t.stop();
+//   });
+//   // toggle / flip
+//   shouldFaceUser = !shouldFaceUser;
+//   capture();
+// })
 
-capture();
+// capture();
 
 navigator.mediaDevices.getUserMedia(opts).then(stream => {
     addVideoStream(myVideo, stream);

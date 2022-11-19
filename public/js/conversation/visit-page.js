@@ -27,7 +27,7 @@ const peer = new Peer(undefined, option);
 let defaultsOpts = { audio: false, video: true }
 let shouldFaceUser = true; //Default is the front cam
 
-// defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
+defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
  
 let stream = null;
 
@@ -57,7 +57,7 @@ let stream = null;
 
 // capture();
 
-navigator.mediaDevices.getUserMedia(opts).then(stream => {
+navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
     addVideoStream(myVideo, stream);
     peer.on('call', call => {
         call.answer(stream);

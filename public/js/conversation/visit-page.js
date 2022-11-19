@@ -25,7 +25,7 @@ const peer = new Peer(undefined, option);
 //     flipBtn.disabled = false;
 // }
 let defaultsOpts = {
-    audio: false,
+    audio: true,
     video: true
 }
 let shouldFaceUser = true; //Default is the front cam
@@ -34,7 +34,7 @@ let shouldFaceUser = true; //Default is the front cam
 //     facingMode: shouldFaceUser ? 'user' : 'environment'
 // }
 
-let stream = null;
+// let stream = null;
 
 // function capture() {
 //   defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' }
@@ -63,6 +63,7 @@ let stream = null;
 // capture();
 
 navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
+    alert()
     addVideoStream(myVideo, stream);
     peer.on('call', call => {
         call.answer(stream);

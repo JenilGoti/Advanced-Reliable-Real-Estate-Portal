@@ -32,7 +32,7 @@ let defaultsOpts = {
     audio: true,
     video: true
 }
-let shouldFaceUser = false;
+let shouldFaceUser = true;
 defaultsOpts.video = {
     facingMode: shouldFaceUser ? 'user' : 'environment'
 }
@@ -92,13 +92,13 @@ function addVideoStream(video, stream) {
 
 const switchCemera = () => {
     if (_stream != null) {
-        shouldFaceUser = !shouldFaceUser;
+        shouldFaceUser = shouldFaceUser == true ? true : false;
         defaultsOpts.video = {
             facingMode: shouldFaceUser ? 'user' : 'environment'
         }
         navigator.mediaDevices.getUserMedia(defaultsOpts).then(stream => {
             _stream = stream;
-            console.log('stream chenged', shouldFaceUser,defaultsOpts);
+            console.log('stream chenged', shouldFaceUser, defaultsOpts);
         });
 
     }

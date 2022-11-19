@@ -10,7 +10,6 @@ video.id = "others-video";
 myVideo.muted = true;
 var _stream = null;
 const peers = {};
-var peerConnection;
 
 option = PORT == '3000' ? {
     host: '/',
@@ -44,12 +43,8 @@ socket.on('user-disconnected', (userId) => {
 
 socket.on('user-updated', (userId) => {
     console.log('update');
-        peers[userId].on('stream', userVideoStream => {
-            addVideoStream(video, userVideoStream);
-
-        }, err => {
-            console.log(err);
-        })
+    peer.disconnect();
+    peer.reconnect();
 })
 
 
@@ -63,7 +58,6 @@ navigator.mediaDevices.getUserMedia({
     _stream = stream;
     addVideoStream(myVideo, _stream);
     peer.on('call', call => {
-        
         call.answer(_stream);
         call.on('stream', userVideoStream => {
             addVideoStream(video, userVideoStream);
@@ -79,7 +73,6 @@ navigator.mediaDevices.getUserMedia({
 
 function connectToNewUser(userId, stream) {
     const call = peer.call(userId, stream);
-    peerConnection=call.getSenders()
     call.on('stream', userVideoStream => {
         addVideoStream(video, userVideoStream);
     }, err => {
@@ -115,25 +108,9 @@ const switchCemera = () => {
         }).then(stream => {
             _stream = stream;
             addVideoStream(myVideo, _stream);
-            peer.on('call', call => {
-                call.answer(_stream);
-                call.on('stream', userVideoStream => {
-                    addVideoStream(video, userVideoStream);
-                    const [videoTrack] = _stream.getVideoTracks();
-                    peerConnection.forEach((pc) => {
-                      const sender = pc.getSenders().find((s) => s.track.kind === videoTrack.kind);
-                      console.log('Found sender:', sender);
-                      sender.replaceTrack(videoTrack);
-                    });
-                }, err => {
-                    console.log(err);
-                })
-            })
+            peer.disconnect();
+            peer.reconnect();
             socket.emit('update');
-            socket.on('user-connected', (userId) => {
-                setTimeout(connectToNewUser, 1000, userId, stream)
-            })
-            console.log('stream chenged', shouldFaceUser);
         });
 
     }

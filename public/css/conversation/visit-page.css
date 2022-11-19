@@ -30,8 +30,8 @@
 }
 
 #video-grid .hendal-btn {
-    position: absolute;
-    bottom: 1rem;
+    position: fixed;
+    top: 1rem;
     z-index: 2;
     width: 100%;
     display: flex;
@@ -48,9 +48,4 @@
 
 #video-grid .hendal-btn button#leav-call{
     background-color: red;
-}
-@media (max-width: 600px) {
-    #video-grid {
-    height: calc(100vh - 8rem);
-    }
 }

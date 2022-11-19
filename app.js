@@ -102,33 +102,37 @@ const port = process.env.PORT || 3000;
 
 mongoose.connect(MONGODB_URI)
     .then(result => {
-        server.listen(port, () => {
-            console.log("server started")
-        });
-
-        const io = require('./socket').init(server)
-        io.on('connection', socket => {
-            console.log('Client connected');
-            socket.on('join', function (data) {
-                socket.join(data.id);
+            server.listen(port, () => {
+                console.log("server started")
             });
-            socket.on('join-room', (roomId, userId) => {
-                console.log(roomId, userId);
-                console.log(isUuid(roomId))
-                if (isUuid(roomId)) {
-                    socket.join(roomId);
-                    socket.to(roomId).emit('user-connected', userId);
-                }
+
+            const io = require('./socket').init(server)
+            io.on('connection', socket => {
+                    console.log('Client connected');
+                    socket.on('join', function (data) {
+                        socket.join(data.id);
+                    });
+                    socket.on('join-room', (roomId, userId) => {
+                            console.log(roomId, userId);
+                            console.log(isUuid(roomId))
+                            if (isUuid(roomId)) {
+                                socket.join(roomId);
+                                socket.to(roomId).emit('user-connected', userId);
+                            }
+                            socket.on('disconnect', () => {
+                                console.log("disconnected:");
+                                socket.to(roomId).emit('user-disconnected', userId)
+                            });
+                            socket.on('user-update', () => {
+                                socket.to(roomId).emit('user-updated', userId)
+                            })
+                    });
+
                 socket.on('disconnect', () => {
                     console.log("disconnected:");
-                    socket.to(roomId).emit('user-disconnected', userId)
                 });
             });
-            socket.on('disconnect', () => {
-                console.log("disconnected:");
-            });
-        });
     })
-    .catch(err => {
-        console.log(err);
-    })
+.catch(err => {
+    console.log(err);
+})

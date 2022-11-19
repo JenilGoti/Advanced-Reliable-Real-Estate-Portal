@@ -36,6 +36,19 @@ peer.on("open", (id) => {
     socket.emit("join-room", ROOM_ID, id);
 });
 
+socket.on('user-disconnected', (userId) => {
+    console.log("disconnected =" + userId);
+    peers[userId].close();
+})
+
+socket.on('user-update', (userId) => {
+    peers[userId].on('stream', userVideoStream => {
+        addVideoStream(video, userVideoStream);
+    }, err => {
+        console.log(err);
+    })
+})
+
 
 
 navigator.mediaDevices.getUserMedia({
@@ -58,11 +71,6 @@ navigator.mediaDevices.getUserMedia({
     socket.on('user-connected', (userId) => {
         setTimeout(connectToNewUser, 1000, userId, stream)
     })
-})
-
-socket.on('user-disconnected', (userId) => {
-    console.log("disconnected =" + userId);
-    peers[userId].close();
 })
 
 function connectToNewUser(userId, stream) {
@@ -92,7 +100,7 @@ const switchCemera = () => {
         if (_stream) {
             const tracks = _stream.getTracks();
             tracks.forEach(track => track.stop());
-          }
+        }
         shouldFaceUser = shouldFaceUser == true ? false : true;
         navigator.mediaDevices.getUserMedia({
             audio: true,
@@ -106,11 +114,12 @@ const switchCemera = () => {
                 call.answer(_stream);
                 call.on('stream', userVideoStream => {
                     addVideoStream(video, userVideoStream);
-        
+
                 }, err => {
                     console.log(err);
                 })
             })
+            socket.emit('update');
             socket.on('user-connected', (userId) => {
                 setTimeout(connectToNewUser, 1000, userId, stream)
             })

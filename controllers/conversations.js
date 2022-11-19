@@ -351,12 +351,14 @@ exports.postShedualCamVisit = (req, res, next) => {
     Message.findById(mongoose.Types.ObjectId(messageId))
         .then(message => {
             // console.log(shaduleDate);
-            message.message.camVisit.shaduleDate = new Date(shaduleDate + ':00.000Z');
+            sDate = message.message.camVisit.shaduleDate = new Date(shaduleDate + ':00.000Z');
+            sDate.setHours(sDate.getHours() - 5);
+            sDate.setMinutes(sDate.getMinutes() - 30);
             // console.log(message.message.camVisit.shaduleDate);
             message.message.camVisit.status = 'scheduled';
             message.upTime = new Date();
             message.sender = owner._id;
-            if (message.message.camVisit.shaduleDate > (new Date())) {
+            if (sDate > (new Date())) {
                 return message.save()
                     .then(result => {
                         io.getIO().in(visiter.toString()).emit('new_msg', {
@@ -371,7 +373,7 @@ exports.postShedualCamVisit = (req, res, next) => {
                             req.protocol + '://' + req.get('host') + "/conversations/chat-box/" + owner._id,
                             owner.user_thumbnail.small
                         )
-                        const timeToVisitStart = (new Date(result.message.camVisit.shaduleDate)) - (new Date());
+                        const timeToVisitStart = (new Date(sDate)) - (new Date());
                         setTimeout(() => {
                             startVisit(result, req);
                         }, timeToVisitStart + 300);

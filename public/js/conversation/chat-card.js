@@ -118,11 +118,9 @@ function visitCard(message, property, isAuth, isVisiter) {
         const canVBtn = document.createElement('button');
         canVBtn.classList.add("ownBtn");
         canVBtn.classList.add("btn1");
-        canVBtn.appendChild(document.createTextNode(status != 'scheduled' ? status : 'scheduled on ' + (new Date(message.message.camVisit.shaduleDate)).toLocaleDateString('en-GB', {
+        canVBtn.appendChild(document.createTextNode(status != 'scheduled' ? status : 'Visit scheduled on ' + (new Date(message.message.camVisit.shaduleDate)).toLocaleDateString('en-GB', {
             timeZone: 'UTC'
-        }) + ", " + (new Date(message.message.camVisit.shaduleDate)).toLocaleTimeString('en-GB', {
-            timeZone: 'UTC'
-        })));
+        }) + ", " + (new Date(message.message.camVisit.shaduleDate)).toLocaleTimeString()));
 
         if (status == 'started') {
             canVBtn.addEventListener("click", () => {
@@ -140,6 +138,8 @@ function visitCard(message, property, isAuth, isVisiter) {
         const shedualPicker = document.createElement('input');
         shedualPicker.type = "datetime-local";
         var currentDate = message.message.camVisit.shaduleDate ? new Date(message.message.camVisit.shaduleDate) : new Date();
+        currentDate.setHours(currentDate.getHours() + 5);
+        currentDate.setMinutes(currentDate.getMinutes() + 30);
         shedualPicker.value = currentDate.toISOString().slice(0, 16);
         shedualPicker.min = currentDate.toISOString().slice(0, 16);
         shedualPicker.style.width = '150%';
@@ -166,6 +166,7 @@ function visitCard(message, property, isAuth, isVisiter) {
                     console.log(result);
                     if (result.statusCode == 404) {
                         alert(result.message)
+                        shedualBtn.addEventListener("click", scheduleCall);
                     }
                 })
                 .catch((err) => {

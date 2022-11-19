@@ -97,7 +97,7 @@ const switchCemera = () => {
             }
         }).then(stream => {
             _stream = stream;
-            console.log('stream chenged', shouldFaceUser, defaultsOpts);
+            console.log('stream chenged', shouldFaceUser);
         });
 
     }

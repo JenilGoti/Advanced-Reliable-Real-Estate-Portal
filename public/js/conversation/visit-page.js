@@ -14,7 +14,7 @@ myVideo.muted = true;
 var _stream = null;
 var _anotherStream = null;
 const peers = {};
-var user2call; 
+var user2call;
 
 option = PORT == '3000' ? {
     host: '/',
@@ -74,6 +74,7 @@ navigator.mediaDevices.getUserMedia({
         }, err => {
             console.log(err);
         })
+        user2call = call.peerConnection.getSenders();
     })
     socket.on('user-connected', (userId) => {
         setTimeout(connectToNewUser, 1000, userId, stream)

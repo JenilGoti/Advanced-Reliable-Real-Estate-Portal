@@ -119,14 +119,11 @@ const switchCemera = () => {
             }
         }).then(stream => {
             _stream = stream;
-            stream.getTracks().forEach(function (track) {
-                var sender = user2Id.find(function (s) {
-                    return s.track.kind == track.kind;
-                });
-                sender.replaceTrack(track);
-            });
             addVideoStream(myVideo, _stream);
-            // socket.emit('update');
+            stream.getVideoTracks().forEach(function (track) {
+                user2Id[1].replaceTrack(track);
+            });
+            socket.emit('update');
         });
 
     }

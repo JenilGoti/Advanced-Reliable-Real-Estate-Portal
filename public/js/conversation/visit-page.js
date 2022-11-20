@@ -185,7 +185,7 @@ notifyPartner = () => {
                 setTimeout(() => {
                     notifyBtn.addEventListener('click', notifyPartner);
                     notifyBtn.innerText = ("Notify User");
-                }, 1200000);
+                }, 120000);
             } else {
                 notifyBtn.addEventListener('click', notifyPartner);
             }

@@ -79,4 +79,7 @@
     #video-grid .hendal-btn button#switch-cam {
         display: unset;
     }
+    .my-video {
+        width: 7%;
+    }
 }

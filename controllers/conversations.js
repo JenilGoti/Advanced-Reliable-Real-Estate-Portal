@@ -252,8 +252,9 @@ exports.getCamVisitBox = (req, res, next) => {
     Message.findById(messId)
         .then(message => {
             const endMettingDate = new Date(message.message.camVisit.shaduleDate);
-            endMettingDate.setHours(endMettingDate.getHours() - 1)
-            if (endMettingDate < (new Date()) && message.message.camVisit.status == 'started') {
+            endMettingDate.setHours(endMettingDate.getHours() + 1)
+            console.log(endMettingDate,new Date());
+            if (endMettingDate > (new Date()) && message.message.camVisit.status == 'started') {
                 return res.render("conversation/visit-page", {
                     pageTitle: "Live-Visit",
                     path: '/conversations',

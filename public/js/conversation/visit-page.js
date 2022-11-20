@@ -14,7 +14,7 @@ myVideo.muted = true;
 var _stream = null;
 var _anotherStream = null;
 const peers = {};
-var user2call;
+var user2call; 
 
 option = PORT == '3000' ? {
     host: '/',

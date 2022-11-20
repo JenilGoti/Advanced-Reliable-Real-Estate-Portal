@@ -253,7 +253,7 @@ exports.getCamVisitBox = (req, res, next) => {
         .then(message => {
             const endMettingDate = new Date(message.message.camVisit.shaduleDate);
             endMettingDate.setHours(endMettingDate.getHours() + 1)
-            console.log(endMettingDate,new Date());
+            console.log(endMettingDate, new Date());
             if (endMettingDate > (new Date()) && message.message.camVisit.status == 'started') {
                 return res.render("conversation/visit-page", {
                     pageTitle: "Live-Visit",
@@ -477,4 +477,36 @@ const endVisit = (message, req) => {
             )
         })
         .catch(err => console.log(err))
+}
+
+//  notify partner
+exports.sendVisitNotification = (req, res, next) => {
+    const messageId = req.body.messId;
+    Message.findById(mongoose.Types.ObjectId(messageId))
+        .then(result => {
+            console.log(result.users);
+            const users = result.users.filter(messUser => {
+                return messUser.toString() != res.locals.user._id.toString();
+            })[0];
+            io.getIO().in(users.user.toString()).emit('new_msg', {
+                msg: result
+            });
+            sendNotification([users.user],
+                " visit on NESTSCOUT is in waiting ,please join fast",
+                result.message.text,
+                req.protocol + '://' + req.get('host') + "/conversations/visit-box/" + result._id,
+                req.protocol + '://' + req.get('host') + "/logo.png"
+            )
+            return res.status(200).send({
+                statusCode: 200,
+                message: "message sended succesfully"
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(404).send({
+                statusCode: 404,
+                message: "notification faild",
+            })
+        })
 }

@@ -22,4 +22,6 @@ router.post("/reqCamVisit", isAuth, conversationController.postCamVisitRequest);
 
 router.post("/shedual-cam-visit", isAuth, conversationController.postShedualCamVisit);
 
+router.post("/send-visit-notofication", isAuth, conversationController.sendVisitNotification);
+
 module.exports = router;

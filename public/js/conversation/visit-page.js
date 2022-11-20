@@ -4,7 +4,7 @@ const onOffVidBtn = document.getElementById("video-ctr");
 const onOffAudBtn = document.getElementById("audio-ctr");
 const switchCamBtn = document.getElementById("switch-cam");
 const fullScreenBtn = document.getElementById("fullscreen");
-
+const notifyBtn = document.getElementById("notify");
 
 const myVideo = document.createElement("video");
 myVideo.classList.add("my-video");
@@ -169,7 +169,36 @@ fullScreenTgl = () => {
     }
 }
 
+notifyPartner = () => {
+    notifyBtn.removeEventListener('click', notifyPartner);
+    fetch(host + '/conversations/send-visit-notofication/', {
+            method: 'POST',
+            body: new URLSearchParams("messId=" + MESSAGE_ID)
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then(result => {
+            console.log(result);
+            if (result.statusCode == 200) {
+                notifyBtn.innerText = ("user notified");
+                setTimeout(() => {
+                    notifyBtn.addEventListener('click', notifyPartner);
+                    notifyBtn.innerText = ("Notify User");
+                }, 1200000);
+            } else {
+                notifyBtn.addEventListener('click', notifyPartner);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            notifyBtn.addEventListener('click', notifyPartner);
+            notifyBtn.innerText = ("Notify User");
+        })
+}
+
 switchCamBtn.addEventListener('click', switchCemera);
 onOffAudBtn.addEventListener('click', switchAudio);
 onOffVidBtn.addEventListener('click', switchVideo);
 fullScreenBtn.addEventListener('click', fullScreenTgl);
+notifyBtn.addEventListener('click', notifyPartner);

@@ -251,13 +251,28 @@ exports.getCamVisitBox = (req, res, next) => {
     const messId = req.params["messId"];
     Message.findById(messId)
         .then(message => {
-            res.render("conversation/visit-page", {
-                pageTitle: "Live-Visit",
-                path: '/conversations',
-                message: message,
-                port: port,
-                RoomId: message.message.roomId
-            })
+            const endMettingDate = new Date(message.message.camVisit.shaduleDate);
+            endMettingDate.setHours(endMettingDate.getHours() - 1)
+            if (endMettingDate < (new Date()) && message.message.camVisit.status == 'started') {
+                return res.render("conversation/visit-page", {
+                    pageTitle: "Live-Visit",
+                    path: '/conversations',
+                    message: message,
+                    port: port,
+                    RoomId: message.message.roomId
+                })
+            } else {
+                message.message.camVisit.status = 'ended';
+                message.upTime = new Date();
+                message.message.roomId = null;
+                return message.save()
+                    .then(message => {
+                        const error = new Error("meeting has been ended");
+                        error.statusCode = 440;
+                        error.discription = "for visit request again"
+                        next(error);
+                    })
+            }
         })
         .catch(err => {
             console.log(err);

@@ -14,7 +14,7 @@ myVideo.muted = true;
 var _stream = null;
 var _anotherStream = null;
 const peers = {};
-var user2Id;
+var user2call;
 
 option = PORT == '3000' ? {
     host: '/',
@@ -93,7 +93,7 @@ function connectToNewUser(userId, stream) {
         video.remove()
     })
     peers[userId] = call;
-    user2Id = call.peerConnection.getSenders();
+    user2call = call.peerConnection.getSenders();
 }
 
 
@@ -120,8 +120,11 @@ const switchCemera = () => {
         }).then(stream => {
             _stream = stream;
             addVideoStream(myVideo, _stream);
+            stream.getAudioTracks().forEach(function (track) {
+                user2call[0].replaceTrack(track);
+            });
             stream.getVideoTracks().forEach(function (track) {
-                user2Id[1].replaceTrack(track);
+                user2call[1].replaceTrack(track);
             });
             socket.emit('update');
         });

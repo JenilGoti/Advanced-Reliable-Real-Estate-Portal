@@ -353,7 +353,7 @@ exports.postCamVisitRequest = (req, res, next) => {
             console.log(err);
             return res.status(404).send({
                 statusCode: 404,
-                message: "Message not sended",
+                message: "Message not sended"+err,
             })
         })
 }
@@ -439,7 +439,7 @@ const startVisit = (message, req) => {
             sendNotification([result.users[0].user, result.users[1].user],
                 " your visit has been started on NESTSCOUT",
                 result.message.text,
-                "https" + '://' + req.get('host') + "/conversations/visit-box/" + result._id,
+                req.protocol + '://' + req.get('host') + "/conversations/visit-box/" + result._id,
                 req.protocol + '://' + req.get('host') + "/logo.png"
             );
             setTimeout(() => {
@@ -494,7 +494,7 @@ exports.sendVisitNotification = (req, res, next) => {
             sendNotification([users.user],
                 " visit on NESTSCOUT is in waiting ,please join fast",
                 result.message.text,
-                "https" + '://' + req.get('host') + "/conversations/visit-box/" + result._id,
+                req.protocol + '://' + req.get('host') + "/conversations/visit-box/" + result._id,
                 req.protocol + '://' + req.get('host') + "/logo.png"
             )
             return res.status(200).send({

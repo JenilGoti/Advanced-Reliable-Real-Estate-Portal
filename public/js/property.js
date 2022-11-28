@@ -302,6 +302,9 @@ function propertyCard(property, isAuth, imageEventListner, isOwn = false, isChat
                     if (result.statusCode == 200) {
                         console.log(result);
                     }
+                    else if(result.statusCode == 404){
+                        alert(result.message);
+                    }
                     setTimeout(() => {
                         canVBtn.addEventListener("click", sendRequest)
                     }, 3000);

@@ -87,7 +87,7 @@ async function uploadFile(file, path, fileName, height, width) {
             })
     }
 
-    await bucket.file('/NESTSCOUT' + path + fileName).createWriteStream().end(file.buffer)
+    bucket.file('/NESTSCOUT' + path + fileName).createWriteStream().end(file.buffer)
 
     return fileURL(path + fileName);
 }
@@ -147,7 +147,7 @@ function sendNotification(userIds, title, body, click_action, icon, data = {}) {
 
     });
 
-}
+} 
 
 
 

@@ -291,7 +291,18 @@ exports.postCamVisitRequest = (req, res, next) => {
     const reciver = req.body.userId;
     console.log(propId);
     Message.find({
-            'message.camVisit.property': mongoose.Types.ObjectId(propId)
+            'message.camVisit.property': mongoose.Types.ObjectId(propId),
+            $and: [{
+                    'users.user': {
+                        "$in": [sender]
+                    }
+                },
+                {
+                    'users.user': {
+                        "$in": [reciver]
+                    }
+                }
+            ]
         })
         .then(result => {
             if (result.length > 0) {

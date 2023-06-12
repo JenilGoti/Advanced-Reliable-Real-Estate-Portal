@@ -82,6 +82,11 @@ sevl = () => {
     }
 }
 
+sendMessageOnEnter=(eve)=>{
+    if(event.key === 'Enter') {
+        sendMessage();
+    }
+}
 
 sendMessage = () => {
     const message = document.getElementById("send-chat").value;

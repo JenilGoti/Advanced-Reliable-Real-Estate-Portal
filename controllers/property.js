@@ -7,6 +7,9 @@ const {
 
 
 exports.getPropertys = async (req, res, next) => {
+    // console.log(req.query.upperVal);
+    // console.log(req.query.lowerVal);
+
     try {
         var page = req.query.page || 1;
         var totalProperty;
@@ -41,6 +44,16 @@ exports.getPropertys = async (req, res, next) => {
                 _id: res.locals.user.bookMarks[page - 1].property
             }
         }
+        else if(!req.query.propId)
+        {
+          mQurery={
+            ...mQurery,
+            "priceArea.price":{$gt:parseInt(req.query.lowerVal),$lt:parseInt(req.query.upperVal)},
+        }  
+        }
+        
+        
+        // console.log(mQurery);
 
         const ITEM_PER_PAGE = 1;
 

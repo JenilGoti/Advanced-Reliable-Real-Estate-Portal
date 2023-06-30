@@ -7,6 +7,27 @@
 <body>
     <%- include('../includes/nevbar.ejs') %>
     <%- include('../includes/appbar.ejs') %>
+    <div class="wrapper">
+        <fieldset class="filter-price">
+         
+          <div class="price-field">
+            <input type="range"  min="0" max="10000000000" value="0" id="lower">
+            <input type="range" min="0" max="10000000000" value="10000000000" id="upper">
+          </div>
+           <div class="price-wrap">
+            <span class="price-title" onclick="filter()">FILTER</span>
+            <div class="price-wrap-1">
+              <input id="one">
+              <label for="one">₹</label>
+            </div>
+            <div class="price-wrap_line">-</div>
+            <div class="price-wrap-2">
+              <input id="two">
+              <label for="two">₹</label>
+            </div>
+          </div>
+        </fieldset> 
+      </div>
     <main>
 
     </main>

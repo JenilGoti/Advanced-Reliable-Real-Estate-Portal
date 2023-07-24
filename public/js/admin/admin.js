@@ -16,10 +16,12 @@ var element = document.querySelector('.loader');
 var pageNo = 1;
 var lodPageAtTime = 20;
 
+var upperVal=10000000000;
+var lowerVal=0;
 getProperty()
 
 function getProperty() {
-    fetch(host + '/property/?page=' + pageNo + '&userId=' + Id, {
+    fetch(host + '/property/?page=' + pageNo + '&userId=' + Id+'&upperVal='+upperVal+'&lowerVal='+lowerVal, {
             method: 'GET',
         })
         .then(response => {
